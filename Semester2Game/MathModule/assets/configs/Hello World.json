@@ -1,0 +1,1 @@
+{"Scene":{"0":{"Camera":{"FarPlane":100.0,"Fov":0.0,"NearPlane":-100.0,"OrthoPos":[-22.0,178.0,-116.0,84.0],"OrthoSize":[-100.0,100.0,-100.0,100.0],"Position":[78.0,-16.0,0.0],"ProjectionType":1,"Rotation":[0.0,0.0,0.0]},"Identifier":{"Identifier":1,"MainCamera":true,"MainPlayer":false,"Name":"Main Camera"}},"NumEntities":1,"SceneName":"Hello World"}}
