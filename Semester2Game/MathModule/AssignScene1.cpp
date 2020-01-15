@@ -648,3 +648,54 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 	}
 ECS::GetComponent<HorizontalScroll>(EntityIdentifier::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()));
 }
+void AssignScene1::Update()
+{
+	Routines();
+}
+
+void AssignScene1::Routines()
+{
+}
+
+void AssignScene1::GamepadStroke(XInputController* con)
+{
+}
+
+void AssignScene1::GamepadStick(XInputController* con)
+{
+
+}
+
+void AssignScene1::GamepadTrigger(XInputController* con)
+{
+
+}
+
+void AssignScene1::KeyboardHold()
+{
+
+}
+
+void AssignScene1::KeyboardDown()
+{
+
+}
+
+void AssignScene1::KeyboardUp()
+{
+}
+
+void AssignScene1::MouseMotion(SDL_MouseMotionEvent evnt)
+{
+
+}
+
+void AssignScene1::MouseClick(SDL_MouseButtonEvent evnt)
+{
+
+}
+
+void AssignScene1::MouseWheel(SDL_MouseWheelEvent evnt)
+{
+}
+

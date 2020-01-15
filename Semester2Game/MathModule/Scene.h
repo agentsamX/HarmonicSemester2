@@ -3,28 +3,47 @@
 
 #include "JSON.h"
 #include "ECS.h"
+#include "Xinput.h"
+#include <SDL2/SDL.h>
 
 
 class Scene
 {
 public:
-	Scene() { m_sceneReg = new entt::registry(); m_physicsWorld = new b2World(m_gravity); }
+	Scene() { m_sceneReg = new entt::registry(); }
 	Scene(std::string name);
 	~Scene() { }
 
 	void Unload();
+	//Saves the scene
+	void SaveScene();
 
 	//Each scene will need to have a different
 	//init, as each scene's contents will be different
-	virtual void InitScene(float windowWidth, float windowHeight) { printf("windowwidth: %f, windowHeight: %f", windowWidth, windowHeight); };
+	virtual void InitScene(float windowWidth, float windowHeight) { printf("windowWidth: %f, windowHeight: %f", windowWidth, windowHeight); }
 
-	//Saves the scene
-	void SaveScene();
+	virtual void Update() {}
+
+	virtual void GamepadStroke(XInputController* con) { };
+	virtual void GamepadUp(XInputController* con) { };
+	virtual void GamepadDown(XInputController* con) { };
+	virtual void GamepadStick(XInputController* con) { };
+	virtual void GamepadTrigger(XInputController* con) { };
+	virtual void KeyboardHold() { };
+	virtual void KeyboardDown() { };
+	virtual void KeyboardUp() { };
+
+	//Mouse input
+	virtual void MouseMotion(SDL_MouseMotionEvent evnt) { };
+	virtual void MouseClick(SDL_MouseButtonEvent evnt) { };
+	virtual void MouseWheel(SDL_MouseWheelEvent evnt) { };
 
 	//Get the scene registry
 	entt::registry* GetScene() const;
 	//Set the scene registry
 	void SetScene(entt::registry& scene);
+	vec4 GetClearColor() const;
+	void SetClearColor(vec4 clearColor);
 	std::string GetName() const;
 	void SetName(std::string name);
 	//gravity
@@ -32,10 +51,11 @@ public:
 	void SetGravity(b2Vec2 grav);
 	//phys world
 	b2World& GetPhysicsWorld();
-
+	
 	//Set window size (makes sure the camera aspect is proper)
 	void SetWindowSize(float windowWidth, float windowHeight);
 protected:
+	vec4 m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
 	b2World* m_physicsWorld = nullptr;
 	b2Vec2 m_gravity = b2Vec2(float32(0.f), float32(0.f));
 	entt::registry* m_sceneReg = nullptr;	
@@ -95,10 +115,9 @@ inline void to_json(nlohmann::json& j, const Scene& scene)
 			j[std::to_string(counter)]["Transform"] = scene.GetScene()->get<Transform>(entity);
 		}
 
-
 		if (identity & EntityIdentifier::PhysicsBit())
 		{
-			//Stores the transform
+			//Stores the physics body
 			j[std::to_string(counter)]["PhysicsBody"] = scene.GetScene()->get<PhysicsBody>(entity);
 		}
 
@@ -106,24 +125,15 @@ inline void to_json(nlohmann::json& j, const Scene& scene)
 		//you need to #1 add a static (unique) bit for that class
 		//And then add more if statements after this point
 
-		//if identity includes health bar bit
-			//this means entity contains a health bar
-		if (identity & EntityIdentifier::HealthBarBit())
-		{
-			//stores to health bar
-			j[std::to_string(counter)]["HealthBar"] = scene.GetScene()->get<HealthBar>(entity);
-
-		}
-
 		if (identity & EntityIdentifier::HoriScrollCameraBit())
 		{
-
+			//Stores the horizontal scrolling camera
 			j[std::to_string(counter)]["HoriScrollCam"] = scene.GetScene()->get<HorizontalScroll>(entity);
 		}
 
 		if (identity & EntityIdentifier::VertScrollCameraBit())
 		{
-
+			//Stores the vertical scrolling camera
 			j[std::to_string(counter)]["VertScrollCam"] = scene.GetScene()->get<VerticalScroll>(entity);
 		}
 
@@ -147,8 +157,10 @@ inline void from_json(const nlohmann::json& j, Scene& scene)
 	//Reference to the registry
 	auto &reg = *scene.GetScene();
 
-	//is there a horizontal scroll
+	//Is there a horizontal scroll?
 	bool scrollHori = false;
+
+	//Is there a vertical scroll?
 	bool scrollVert = false;
 	
 	//Allows you to create each entity
@@ -239,51 +251,49 @@ inline void from_json(const nlohmann::json& j, Scene& scene)
 
 		if (identity & EntityIdentifier::PhysicsBit())
 		{
-			//Adds transform to the entity
+			//Adds physics body to entity
 			reg.assign<PhysicsBody>(entity);
-			//Sets the transform to the saved version
+			//Sets the physics body to the saved version
 			reg.get<PhysicsBody>(entity) = j["Scene"][std::to_string(i)]["PhysicsBody"];
-			
-			//Transforms require no further initialization
 		}
 
-		//if identity include the health bar bit
-			//then the entity contains a health bar
-		if (identity & EntityIdentifier::HealthBarBit())
-		{
-			//adds health bar to entity
-			reg.assign<HealthBar>(entity);
-			//sets the health bar to our saved scene
-			reg.get<HealthBar>(entity) = j["Scene"][std::to_string(i)]["HealthBar"];
-
-		}
+		//If Identity includes the vertical scrolling camera bit
+			//This means that the entity contains a vertical scrolling camera
 		if (identity & EntityIdentifier::HoriScrollCameraBit())
 		{
-			//adds horizontal scroll
+			//Adds vertical scrolling camera to the entity
 			reg.assign<HorizontalScroll>(entity);
-
+			//Sets the vertical scrolling camera to our saved version
 			reg.get<HorizontalScroll>(entity) = j["Scene"][std::to_string(i)]["HoriScrollCam"];
 
 			scrollHori = true;
 		}
+
+		//If Identity includes the vertical scrolling camera bit
+			//This means that the entity contains a vertical scrolling camera
 		if (identity & EntityIdentifier::VertScrollCameraBit())
 		{
-			//adds horizontal scroll
+			//Adds vertical scrolling camera to the entity
 			reg.assign<VerticalScroll>(entity);
-
+			//Sets the vertical scrolling camera to our saved version
 			reg.get<VerticalScroll>(entity) = j["Scene"][std::to_string(i)]["VertScrollCam"];
 
 			scrollVert = true;
 		}
 	}
+
 	if (scrollHori)
 	{
+		//attaches the vertical scroll to the camera within the entity it's attached to
 		reg.get<HorizontalScroll>(EntityIdentifier::MainCamera()).SetCam(&reg.get<Camera>(EntityIdentifier::MainCamera()));
+		//Makes the camera focus on the MainPlayer
 		reg.get<HorizontalScroll>(EntityIdentifier::MainCamera()).SetFocus(&reg.get<Transform>(EntityIdentifier::MainPlayer()));
 	}
 	if (scrollVert)
 	{
+		//attaches the vertical scroll to the camera within the entity it's attached to
 		reg.get<VerticalScroll>(EntityIdentifier::MainCamera()).SetCam(&reg.get<Camera>(EntityIdentifier::MainCamera()));
+		//Makes the camera focus on the MainPlayer
 		reg.get<VerticalScroll>(EntityIdentifier::MainCamera()).SetFocus(&reg.get<Transform>(EntityIdentifier::MainPlayer()));
 	}
 }
