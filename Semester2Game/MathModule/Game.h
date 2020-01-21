@@ -5,7 +5,7 @@
 #include "HelloWorld.h"
 #include "MyScene.h"
 #include "Xinput.h"
-#include "AssignScene1.h"
+#include "Stage1.h"
 
 //Our main class for running our game
 class Game

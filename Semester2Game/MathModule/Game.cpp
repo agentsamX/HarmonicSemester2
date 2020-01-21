@@ -41,7 +41,7 @@ void Game::InitGame()
 	m_scenes.push_back(new HelloWorld("Horizontal scrolling scene"));
 	m_scenes.push_back(new MyScene("My Scene"));
 	m_scenes.push_back(new HelloWorld("Second Loaded Scene"));
-	m_scenes.push_back(new AssignScene1("Scene for assignment 1"));
+	m_scenes.push_back(new Stage1("Scene for assignment 1"));
 	//sets active scene reference to our HelloWOrld scene
 	m_activeScene = m_scenes[3];
 
@@ -248,6 +248,18 @@ void Game::KeyboardDown()
 void Game::KeyboardUp()
 {
 	m_activeScene->KeyboardUp();
+	if (Input::GetKeyUp(Key::F1))
+	{
+		if (!UI::m_isInit)
+		{
+			UI::InitImGUI();
+		}
+		m_guiActive = !m_guiActive;
+	}
+	if (Input::GetKeyUp(Key::P))
+	{
+		PhysicsBody::SetDraw(!PhysicsBody::GetDraw());
+	}
 }
 
 void Game::MouseMotion(SDL_MouseMotionEvent evnt)

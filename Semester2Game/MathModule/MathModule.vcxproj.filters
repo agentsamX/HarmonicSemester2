@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\LevelHeaders">
+      <UniqueIdentifier>{76d7755b-717c-4527-86b0-898bace5a122}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LevelSources">
+      <UniqueIdentifier>{ff3e578c-954e-433e-a4f5-4ae160585de3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimationController.cpp">
@@ -144,9 +150,6 @@
     <ClCompile Include="HealthBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AssignScene1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="HorizontalScroll.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -167,6 +170,9 @@
     </ClCompile>
     <ClCompile Include="PhysicsSystem.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage1.cpp">
+      <Filter>Source Files\LevelSources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -308,9 +314,6 @@
     <ClInclude Include="HealthBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AssignScene1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="HorizontalScroll.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -325,6 +328,9 @@
     </ClInclude>
     <ClInclude Include="PhysicsSystem.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage1.h">
+      <Filter>Header Files\LevelHeaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
