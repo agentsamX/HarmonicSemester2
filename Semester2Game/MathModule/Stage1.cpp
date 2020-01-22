@@ -3,7 +3,7 @@
 Stage1::Stage1(std::string name)
 	:Scene(name)
 {
-	m_gravity = b2Vec2(float32(0.f), float32(-0.3f));
+	m_gravity = b2Vec2(float32(0.f), float32(-10.f));
 	m_physicsWorld->SetGravity(m_gravity);
 }
 
@@ -35,7 +35,7 @@ void Stage1::InitScene(float windowWidth, float windowHeight)
 		ECS::GetComponent<HorizontalScroll>(entity).SetCam(&ECS::GetComponent<Camera>(entity));
 		ECS::GetComponent<HorizontalScroll>(entity).SetOffset(15.f);
 		//sets up the identifier
-		unsigned int bitHolder = EntityIdentifier::VertScrollCameraBit() || EntityIdentifier::CameraBit();
+		unsigned int bitHolder = EntityIdentifier::HoriScrollCameraBit() || EntityIdentifier::CameraBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Main Camera");
 		ECS::SetIsMainCamera(entity, true);
 	}
@@ -55,10 +55,17 @@ void Stage1::InitScene(float windowWidth, float windowHeight)
 		auto& tempTrans = ECS::GetComponent<Transform>(entity);
 		b2Body* tempBody;
 		b2BodyDef tempDef;
+		b2PolygonShape dynamicBox;
+		dynamicBox.SetAsBox(1.0f,1.0f);
+		b2FixtureDef fixtureDef;
+		fixtureDef.shape = &dynamicBox;
+		fixtureDef.density = 1.0f;
+		fixtureDef.friction = 0.3f;
 		tempDef.type = b2_dynamicBody;
 		tempDef.fixedRotation = true;
 		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
+		tempBody->CreateFixture(&fixtureDef);
 		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
 			true);
@@ -383,21 +390,22 @@ void Stage1::KeyboardHold()
 	vec3 curVelo = phsBod.GetVelocity();
 	if (Input::GetKey(Key::A))
 	{
-		phsBod.SetVelocity(vec3(-10.f, 0.f, 0.f));
+		phsBod.SetVelocity(vec3(-10.f, curVelo.y, 0.f));
 	}
 	if (Input::GetKey(Key::D))
 	{
-		phsBod.SetVelocity(vec3(10.f, 0.f, 0.f));
-	}
-	if (Input::GetKey(Key::Space))
-	{
-
+		phsBod.SetVelocity(vec3(10.f, curVelo.y, 0.f));
 	}
 }
 
 void Stage1::KeyboardDown()
 {
-
+	auto& phsBod = ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer());
+	vec3 curVelo = phsBod.GetVelocity();
+	if (Input::GetKeyDown(Key::Space))
+	{
+		phsBod.SetVelocity(vec3(curVelo.x, 30.f, 0.f)); 
+	}
 }
 
 void Stage1::KeyboardUp()
