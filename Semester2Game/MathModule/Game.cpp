@@ -38,12 +38,9 @@ void Game::InitGame()
 	m_window = BackEnd::GetWindow();
 
 	//creates a new HelloWorld scene
-	m_scenes.push_back(new HelloWorld("Horizontal scrolling scene"));
-	m_scenes.push_back(new MyScene("My Scene"));
-	m_scenes.push_back(new HelloWorld("Second Loaded Scene"));
-	m_scenes.push_back(new Stage1("Scene for assignment 1"));
+	m_scenes.push_back(new MenuScene("Main Menu"));
 	//sets active scene reference to our HelloWOrld scene
-	m_activeScene = m_scenes[3];
+	m_activeScene = m_scenes[0];
 
 	m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 
@@ -172,46 +169,20 @@ void Game::GamepadStroke(XInputController* con)
 {
 	m_activeScene->GamepadStroke(con);
 	//gamepad button press
-	if (con->IsButtonStroked(Buttons::A))
-	{
-		printf("A stroked\n");
-	}
+	
 }
 
 void Game::GamepadUp(XInputController* con)
 {
 	m_activeScene->GamepadUp(con);
 	//gamepad button up
-	if (con->IsButtonReleased(Buttons::RB))
-	{
-		//printf("RB released\n");
-	}
+
 }
 
 void Game::GamepadDown(XInputController* con)
 {
 	m_activeScene->GamepadDown(con);
-	//gamepad button down
-	if (con->IsButtonPressed(Buttons::THUMB_LEFT))
-	{
-		printf("Left Thumbsticked Clicked In\n");
-	}
-	if (con->IsButtonPressed(Buttons::DPAD_UP))
-	{
-		printf("Up press registered\n");
-	}
-	if (con->IsButtonPressed(Buttons::DPAD_LEFT))
-	{
-		printf("Left press registered\n");
-	}
-	if (con->IsButtonPressed(Buttons::DPAD_RIGHT))
-	{
-		printf("Right press registered\n");
-	}
-	if (con->IsButtonPressed(Buttons::DPAD_DOWN))
-	{
-		printf("Down press registered\n");
-	}
+	
 }
 
 void Game::GamepadStick(XInputController* con)
@@ -232,16 +203,7 @@ void Game::KeyboardHold()
 void Game::KeyboardDown()
 {
 	m_activeScene->KeyboardDown();
-	//Keyboard button down
-	if (Input::GetKeyDown(Key::F4))
-	{
-		printf("F4 key pressed\n");
-	}
-	if (Input::GetKeyDown(Key::Enter))
-	{
-		printf("Enter has been pressed");
-
-	}
+	
 
 }
 
@@ -259,6 +221,22 @@ void Game::KeyboardUp()
 	if (Input::GetKeyUp(Key::P))
 	{
 		PhysicsBody::SetDraw(!PhysicsBody::GetDraw());
+	}
+	if (Input::GetKeyDown(Key::Zero))
+	{
+		m_activeScene->~Scene();
+		m_scenes.push_back(new MenuScene("Main Menu"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
+	}
+	if (Input::GetKeyDown(Key::One))
+	{
+		m_activeScene->~Scene();
+		m_scenes.push_back(new Stage1("First Stage"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
 	}
 }
 

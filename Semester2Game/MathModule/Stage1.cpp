@@ -379,7 +379,6 @@ void Stage1::GamepadTrigger(XInputController* con)
 
 void Stage1::KeyboardHold()
 {
-	printf("func us calling");
 	auto& phsBod = ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer());
 	vec3 curVelo = phsBod.GetVelocity();
 	if (Input::GetKey(Key::A))
