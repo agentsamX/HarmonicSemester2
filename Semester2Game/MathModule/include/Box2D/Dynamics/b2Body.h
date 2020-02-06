@@ -389,6 +389,9 @@ public:
 	/// Dump this body to a log file
 	void Dump();
 
+	void SetEntityNumber(int);
+	const int GetEntityNumber();
+
 private:
 
 	friend class b2World;
@@ -470,6 +473,7 @@ private:
 	float32 m_sleepTime;
 
 	void* m_userData;
+	int entityNumber;
 };
 
 inline b2BodyType b2Body::GetType() const
@@ -735,6 +739,16 @@ inline void b2Body::SetUserData(void* data)
 inline void* b2Body::GetUserData() const
 {
 	return m_userData;
+}
+
+inline void b2Body::SetEntityNumber(int num)
+{
+	entityNumber = num;
+}
+
+const inline int b2Body::GetEntityNumber()
+{
+	return entityNumber;
 }
 
 inline void b2Body::ApplyForce(const b2Vec2& force, const b2Vec2& point, bool wake)

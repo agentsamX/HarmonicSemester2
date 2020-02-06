@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 #include <Box2D/Box2D.h>
+#include <Box2D/Dynamics/b2ContactManager.h>
 #include "JSON.h"
 #include "EntityIdentifier.h"
 #include "Vector.h"
