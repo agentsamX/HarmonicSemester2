@@ -146,7 +146,9 @@
   <ItemGroup>
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="AnimationSystem.h" />
-    <ClInclude Include="AssignScene1.h" />
+    <ClInclude Include="MenuScene.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Stage1.h" />
     <ClInclude Include="BackEnd.h" />
     <ClInclude Include="BloomEffect.h" />
     <ClInclude Include="Camera.h" />
@@ -200,7 +202,9 @@
   <ItemGroup>
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="AnimationSystem.cpp" />
-    <ClCompile Include="AssignScene1.cpp" />
+    <ClCompile Include="MenuScene.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Stage1.cpp" />
     <ClCompile Include="BackEnd.cpp" />
     <ClCompile Include="BloomEffect.cpp" />
     <ClCompile Include="Camera.cpp" />

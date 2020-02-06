@@ -41,7 +41,7 @@ void PhysicsBody::SetMaxVelo(float velo)
 
 void PhysicsBody::SetVelocity(vec3 velo)
 {
-	m_velocity = velo;
+	m_body->SetLinearVelocity(b2Vec2(float32(velo.x), float32(velo.y)));
 }
 
 void PhysicsBody::SetFriction(float fric)
@@ -274,7 +274,7 @@ float PhysicsBody::GetMaxVelo() const
 
 vec3 PhysicsBody::GetVelocity() const
 {
-	return vec3(m_velocity);
+	return vec3(m_body->GetLinearVelocity().x, m_body->GetLinearVelocity().y,0.f);
 }
 
 float PhysicsBody::GetFriction() const
