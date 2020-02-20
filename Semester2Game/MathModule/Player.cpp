@@ -7,7 +7,14 @@ Player::Player()
 
 bool Player::GetGrounded()
 {
-	return grounded;
+	if (contactNum > 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 bool Player::GetLeft()
@@ -18,6 +25,16 @@ bool Player::GetLeft()
 void Player::SetGrounded(bool state)
 {
 	grounded = state;
+}
+
+void Player::Contacted()
+{
+	contactNum++;
+}
+
+void Player::EndContacted()
+{
+	contactNum--;
 }
 
 void Player::ArrowShot(Scene* curScene)
