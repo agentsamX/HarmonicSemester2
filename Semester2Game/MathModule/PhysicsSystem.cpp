@@ -1,9 +1,8 @@
 #include "PhysicsSystem.h"
 
-void PhysicsSystem::Update(entt::registry * reg, b2World& world)
+void PhysicsSystem::Update(entt::registry* reg, b2World& world)
 {
 	auto view = reg->view<PhysicsBody, Transform>();
-
 	for (auto entity : view)
 	{
 		auto& physBod = view.get<PhysicsBody>(entity);
@@ -11,6 +10,20 @@ void PhysicsSystem::Update(entt::registry * reg, b2World& world)
 
 		physBod.Update(&trans);
 	}
+	/*for (b2Contact* contact = world.GetContactList(); contact; contact = contact->GetNext())
+	{
+		b2Fixture* tempA = contact->GetFixtureA();
+		b2Fixture* tempB = contact->GetFixtureB();
+
+		int entA =(tempA->GetBody()->GetEntityNumber());
+		int entB =(tempB->GetBody()->GetEntityNumber());
+		if (entA == EntityIdentifier::MainPlayer()&&ECS::GetComponent<Transform>(entA).GetPositionY()>
+			ECS::GetComponent<Transform>(entB).GetPositionY()+ ECS::GetComponent<Sprite>(entB).GetHeight()/2+ ECS::GetComponent<Sprite>(entA).GetHeight() / 2)
+		{
+			ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetGrounded(true);
+		}
+		
+	}*/
 
 	Run(world);
 

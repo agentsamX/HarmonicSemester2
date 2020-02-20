@@ -129,6 +129,7 @@ void Game::CheckEvents()
 		MouseWheel(BackEnd::GetWheelEvent());
 }
 
+
 void Game::AcceptInput()
 {
 	XInputManager::Update();
@@ -237,6 +238,10 @@ void Game::KeyboardUp()
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
+	}
+	if (Input::GetKeyDown(Key::F))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ArrowShot(m_activeScene);
 	}
 }
 

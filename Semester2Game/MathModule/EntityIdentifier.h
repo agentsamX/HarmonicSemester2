@@ -34,6 +34,7 @@ public:
 	static unsigned int HealthBarBit();
 	static unsigned int HoriScrollCameraBit();
 	static unsigned int VertScrollCameraBit();
+	static unsigned int ArrowBit();
 
 	//Setters
 	//Sets main player entity
@@ -80,6 +81,7 @@ private:
 	static unsigned int m_healthBarBit;
 	static unsigned int m_horiScrollCameraBit;
 	static unsigned int m_vertScrollCameraBit;
+	static unsigned int m_arrowBit;
 };
 
 #ifndef __ENTITYIDENTIFIERJSON_H__

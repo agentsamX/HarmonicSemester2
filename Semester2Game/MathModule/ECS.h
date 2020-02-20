@@ -12,6 +12,7 @@
 #include "EntityIdentifier.h"
 #include "PhysicsBody.h"
 #include "HealthBar.h"
+#include "Player.h"
 
 class ECS abstract
 {
