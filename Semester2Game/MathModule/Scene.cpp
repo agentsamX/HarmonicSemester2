@@ -3,6 +3,7 @@
 Scene::Scene(std::string name)
 {
 	m_physicsWorld = new b2World(m_gravity);
+	m_physicsWorld->SetContactListener(&listen);
 	m_name = name;
 }
 

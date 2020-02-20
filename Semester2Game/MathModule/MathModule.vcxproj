@@ -146,6 +146,7 @@
   <ItemGroup>
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="AnimationSystem.h" />
+    <ClInclude Include="ContactListener.h" />
     <ClInclude Include="MenuScene.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Stage1.h" />
