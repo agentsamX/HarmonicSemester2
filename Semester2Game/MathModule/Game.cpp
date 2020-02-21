@@ -248,10 +248,6 @@ void Game::KeyboardUp()
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
 	}
-	if (Input::GetKeyDown(Key::F))
-	{
-		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ArrowShot(m_activeScene);
-	}
 }
 
 void Game::MouseMotion(SDL_MouseMotionEvent evnt)
