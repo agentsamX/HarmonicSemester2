@@ -6,7 +6,13 @@ void ContactListener::BeginContact(b2Contact* contact)
     int entB = (contact->GetFixtureB()->GetBody()->GetEntityNumber());
     if (entA == EntityIdentifier::MainPlayer())
     {
+        printf("contactoccurred");
         ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).Contacted();
+    }
+    if (contact->GetFixtureB()->GetBody()->GetEntityType() == 5)
+    {
+        //type 5 is block enemy
+        ECS::GetComponent<BlockEnemy>(entB).SetIsLeft(!ECS::GetComponent<BlockEnemy>(entB).GetIsLeft());
     }
 }
 

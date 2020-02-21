@@ -391,6 +391,15 @@ public:
 
 	void SetEntityNumber(int);
 	const int GetEntityNumber();
+	//0 regular wall
+	//1 sticky wall
+	//2 player
+	//3 arrow
+	//4 exit
+	//5 block enemy
+	//6
+	void SetEntityType(int);
+	const int GetEntityType();
 
 private:
 
@@ -474,6 +483,7 @@ private:
 
 	void* m_userData;
 	int entityNumber;
+	int entityType;
 };
 
 inline b2BodyType b2Body::GetType() const
@@ -749,6 +759,15 @@ inline void b2Body::SetEntityNumber(int num)
 const inline int b2Body::GetEntityNumber()
 {
 	return entityNumber;
+}
+inline void b2Body::SetEntityType(int num)
+{
+	entityType = num;
+}
+
+const inline int b2Body::GetEntityType()
+{
+	return entityType;
 }
 
 inline void b2Body::ApplyForce(const b2Vec2& force, const b2Vec2& point, bool wake)

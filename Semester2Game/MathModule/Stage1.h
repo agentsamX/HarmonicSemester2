@@ -9,7 +9,7 @@ public:
 
 	void InitScene(float windowWidth, float windowHeight) override;
 
-	void Update() override;
+	void Update(entt::registry* reg) override;
 
 	void Routines();
 

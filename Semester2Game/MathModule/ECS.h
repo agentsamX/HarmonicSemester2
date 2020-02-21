@@ -13,6 +13,7 @@
 #include "PhysicsBody.h"
 #include "HealthBar.h"
 #include "Player.h"
+#include "BlockEnemy.h"
 
 class ECS abstract
 {

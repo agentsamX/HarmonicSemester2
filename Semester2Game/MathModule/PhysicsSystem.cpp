@@ -10,7 +10,11 @@ void PhysicsSystem::Update(entt::registry* reg, b2World& world)
 
 		physBod.Update(&trans);
 	}
-	/*for (b2Contact* contact = world.GetContactList(); contact; contact = contact->GetNext())
+	/*if (EntityIdentifier::MainPlayer() == 1)
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetGrounded(false);
+	}
+	for (b2Contact* contact = world.GetContactList(); contact; contact = contact->GetNext())
 	{
 		b2Fixture* tempA = contact->GetFixtureA();
 		b2Fixture* tempB = contact->GetFixtureB();
