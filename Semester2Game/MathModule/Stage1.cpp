@@ -371,7 +371,7 @@ void Stage1::InitScene(float windowWidth, float windowHeight)
 		ECS::SetUpIdentifier(entity, bitHolder, "floor");
 	}
 }
-void Stage1::Update()
+void Stage1::Update(entt::registry* reg)
 {
 	Routines();
 }
