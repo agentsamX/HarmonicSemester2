@@ -7,7 +7,14 @@ Player::Player()
 
 bool Player::GetGrounded()
 {
-	return grounded;
+	if (contactNum > 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 bool Player::GetLeft()
@@ -18,6 +25,16 @@ bool Player::GetLeft()
 void Player::SetGrounded(bool state)
 {
 	grounded = state;
+}
+
+void Player::Contacted()
+{
+	contactNum++;
+}
+
+void Player::EndContacted()
+{
+	contactNum--;
 }
 
 void Player::ArrowShot(Scene* curScene)
@@ -59,14 +76,15 @@ void Player::ArrowShot(Scene* curScene)
 		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
 			true);
-		tempPhsBody.SetVelocity(vec3(veloDir, 0, 0));
+		tempPhsBody.SetVelocity(vec3(veloDir, 10, 0));
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "box1-2");
+		
 	}
 	else
 	{
-	
+		
 	}
 }
 

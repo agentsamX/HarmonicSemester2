@@ -91,11 +91,12 @@ void Game::Update()
 	Timer::Update();
 	//Update the backend
 	BackEnd::Update(m_register);
-
+	
 	//updates physics
 	PhysicsSystem::Update(m_register, m_activeScene->GetPhysicsWorld());
 
-	m_activeScene->Update();
+	m_activeScene->Update(m_register);
+
 }
 
 void Game::GUI()
@@ -235,6 +236,14 @@ void Game::KeyboardUp()
 	{
 		m_activeScene->~Scene();
 		m_scenes.push_back(new Stage1("First Stage"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
+	}
+	if (Input::GetKeyDown(Key::Two))
+	{
+		m_activeScene->~Scene();
+		m_scenes.push_back(new Stage2("Second Stage"));
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();

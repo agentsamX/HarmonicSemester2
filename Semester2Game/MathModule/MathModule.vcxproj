@@ -146,6 +146,8 @@
   <ItemGroup>
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="AnimationSystem.h" />
+    <ClInclude Include="BlockEnemy.h" />
+    <ClInclude Include="ContactListener.h" />
     <ClInclude Include="MenuScene.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Stage1.h" />
@@ -202,6 +204,8 @@
   <ItemGroup>
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="AnimationSystem.cpp" />
+    <ClCompile Include="BlockEnemy.cpp" />
+    <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="MenuScene.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Stage1.cpp" />
@@ -242,6 +246,8 @@
     <ClCompile Include="SepiaEffect.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Stage2.cpp" />
+    <ClCompile Include="Stage2.h" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Timer.cpp" />

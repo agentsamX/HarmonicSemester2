@@ -2,16 +2,16 @@
 
 #include "Scene.h"
 
-class MenuScene : public Scene
+class Stage2 : public Scene
 {
 public:
-	MenuScene(std::string name);
+	Stage2(std::string name);
 
 	void InitScene(float windowWidth, float windowHeight) override;
 
 	void Update(entt::registry* reg) override;
 
-	void Routines();
+	void Routines(entt::registry* reg);
 
 	void GamepadStroke(XInputController* con) override;
 	void GamepadStick(XInputController* con) override;
@@ -23,4 +23,4 @@ public:
 	void MouseMotion(SDL_MouseMotionEvent evnt) override;
 	void MouseClick(SDL_MouseButtonEvent evnt) override;
 	void MouseWheel(SDL_MouseWheelEvent evnt) override;
-};
+}; 

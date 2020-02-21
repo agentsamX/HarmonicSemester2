@@ -34,7 +34,7 @@ void MenuScene::InitScene(float windowWidth, float windowHeight)
 	}
 }
 
-void MenuScene::Update()
+void MenuScene::Update(entt::registry* reg)
 {
 }
 
