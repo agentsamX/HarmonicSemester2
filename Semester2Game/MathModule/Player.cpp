@@ -37,18 +37,18 @@ void Player::EndContacted()
 	contactNum--;
 }
 
-void Player::ArrowShot(Scene* curScene)
+void Player::ArrowShot(b2World* curScene)
 {
 	int offset;
 	int veloDir;
 	if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLeft())
 	{
-		offset = -ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).GetWidth() / 2;
+		offset = -ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).GetWidth() + 5;
 		veloDir = -40;
 	}
 	else
 	{
-		offset = ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).GetWidth() / 2;
+		offset = ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).GetWidth() + 5;
 		veloDir = 40;
 	}
 	if (arrNum < 3)
@@ -71,8 +71,8 @@ void Player::ArrowShot(Scene* curScene)
 		b2BodyDef tempDef;
 		tempDef.type = b2_dynamicBody;
 		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
-		tempBody = curScene->GetPhysicsWorld().CreateBody(&tempDef);
-		tempBody->SetEntityNumber(entity);
+		tempBody = curScene->CreateBody(&tempDef);
+		tempBody->SetEntityNumber(3);
 		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
 			true);
@@ -80,11 +80,10 @@ void Player::ArrowShot(Scene* curScene)
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "box1-2");
-		
 	}
 	else
 	{
-		
+
 	}
 }
 

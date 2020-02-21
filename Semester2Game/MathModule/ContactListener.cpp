@@ -14,6 +14,10 @@ void ContactListener::BeginContact(b2Contact* contact)
         //type 5 is block enemy
         ECS::GetComponent<BlockEnemy>(entB).SetIsLeft(!ECS::GetComponent<BlockEnemy>(entB).GetIsLeft());
     }
+    if (entB == 3)
+    {
+        printf("contactoccurred");
+    }
 }
 
 void ContactListener::EndContact(b2Contact* contact)

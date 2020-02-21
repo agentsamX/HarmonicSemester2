@@ -10,7 +10,7 @@ public:
 	void SetGrounded(bool);
 	void Contacted();
 	void EndContacted();
-	void ArrowShot(Scene*);
+	void ArrowShot(b2World*);
 	void SetLeft(bool);
 private:
 	bool grounded=false;

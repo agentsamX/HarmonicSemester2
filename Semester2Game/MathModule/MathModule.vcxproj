@@ -146,6 +146,7 @@
   <ItemGroup>
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="AnimationSystem.h" />
+    <ClInclude Include="Arrow.h" />
     <ClInclude Include="BlockEnemy.h" />
     <ClInclude Include="ContactListener.h" />
     <ClInclude Include="MenuScene.h" />
@@ -204,6 +205,7 @@
   <ItemGroup>
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="AnimationSystem.cpp" />
+    <ClCompile Include="Arrow.cpp" />
     <ClCompile Include="BlockEnemy.cpp" />
     <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="MenuScene.cpp" />
