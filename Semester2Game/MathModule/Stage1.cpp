@@ -421,6 +421,10 @@ void Stage1::KeyboardDown()
 			phsBod.SetVelocity(vec3(curVelo.x, 30.f, 0.f));
 		}
 	}
+	if (Input::GetKeyDown(Key::F))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ArrowShot(m_physicsWorld);
+	}
 }
 
 void Stage1::KeyboardUp()
