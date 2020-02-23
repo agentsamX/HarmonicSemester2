@@ -4,6 +4,7 @@
 #include "JSON.h"
 #include "ECS.h"
 #include "Input.h"
+#include "Timer.h"
 #include "Xinput.h"
 #include <SDL2/SDL.h>
 
