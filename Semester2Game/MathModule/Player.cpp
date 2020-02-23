@@ -58,6 +58,7 @@ void Player::ArrowShot(b2World* curScene)
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<Arrow>(entity);
 		//sets up components
 		std::string fileName = "box.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 10,1 );
@@ -72,19 +73,26 @@ void Player::ArrowShot(b2World* curScene)
 		tempDef.type = b2_dynamicBody;
 		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
 		tempBody = curScene->CreateBody(&tempDef);
-		tempBody->SetEntityNumber(3);
+		tempBody->SetEntityNumber(entity);
+		tempBody->SetEntityType(3);
 		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
 			true);
 		tempPhsBody.SetVelocity(vec3(veloDir, 10, 0));
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "box1-2");
+		ECS::SetUpIdentifier(entity, bitHolder, "arrow");
+		arrNum++;
 	}
 	else
 	{
 
 	}
+}
+
+void Player::ArrowDestroyed()
+{
+	arrNum--;
 }
 
 void Player::SetLeft(bool left)

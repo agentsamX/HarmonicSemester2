@@ -131,6 +131,34 @@ void Stage2::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "floor");
 	}
+	{
+		auto entity = ECS::CreateEntity();
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		//sets up components
+		std::string fileName = "floor.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 30, 256);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(73.f, -82.5f, 10.f));
+		//collision settings
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempTrans = ECS::GetComponent<Transform>(entity);
+		b2Body* tempBody;
+		b2BodyDef tempDef;
+		tempDef.type = b2_staticBody;
+		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
+		tempBody = m_physicsWorld->CreateBody(&tempDef);
+		tempBody->SetEntityNumber(entity);
+		tempBody->SetEntityType(1);
+		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			true);
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "sticky wall test");
+	}
 }
 void Stage2::Update(entt::registry* reg)
 {
@@ -139,17 +167,32 @@ void Stage2::Update(entt::registry* reg)
 
 void Stage2::Routines(entt::registry* reg)
 {
-	auto view = reg->view<BlockEnemy>();
-	for (auto entity : view)
+	auto viewBlockEnemy = reg->view<BlockEnemy>();
+	auto viewArrow = reg->view<Arrow>();
+	for (auto entity : viewBlockEnemy)
 	{
 		if (ECS::GetComponent<BlockEnemy>(entity).GetIsLeft() == true)
 		{
-			ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(-2.f, 0.f, 0.f));
+			ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(-2.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
 		}
 		else
 		{
-			ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(2.f, 0.f, 0.f));
+			ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(2.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
 		}
+	}
+	for (auto entity : viewArrow)
+	{
+		ECS::GetComponent<Arrow>(entity).AddArrTime(Timer::deltaTime);
+		if (ECS::GetComponent<Arrow>(entity).GetFrozen())
+		{
+			ECS::GetComponent<PhysicsBody>(entity).GetBody()->SetType(b2_staticBody);
+		}
+		if (ECS::GetComponent<Arrow>(entity).GetArrTime()>5)
+		{
+			ECS::GetComponent<PhysicsBody>(entity).GetBody()->DestroyFixture(ECS::GetComponent<PhysicsBody>(entity).GetBody()->GetFixtureList());
+			ECS::DestroyEntity(entity);
+			ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ArrowDestroyed();
+		}	
 	}
 }
 

@@ -11,6 +11,7 @@ public:
 	void Contacted();
 	void EndContacted();
 	void ArrowShot(b2World*);
+	void ArrowDestroyed();
 	void SetLeft(bool);
 private:
 	bool grounded=false;
