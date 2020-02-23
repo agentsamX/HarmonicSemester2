@@ -82,11 +82,17 @@ void Player::ArrowShot(b2World* curScene)
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "arrow");
+		arrNum++;
 	}
 	else
 	{
 
 	}
+}
+
+void Player::ArrowDestroyed()
+{
+	arrNum--;
 }
 
 void Player::SetLeft(bool left)

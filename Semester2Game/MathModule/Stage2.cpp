@@ -182,10 +182,17 @@ void Stage2::Routines(entt::registry* reg)
 	}
 	for (auto entity : viewArrow)
 	{
+		ECS::GetComponent<Arrow>(entity).AddArrTime(Timer::deltaTime);
 		if (ECS::GetComponent<Arrow>(entity).GetFrozen())
 		{
 			ECS::GetComponent<PhysicsBody>(entity).GetBody()->SetType(b2_staticBody);
 		}
+		if (ECS::GetComponent<Arrow>(entity).GetArrTime()>5)
+		{
+			ECS::GetComponent<PhysicsBody>(entity).GetBody()->DestroyFixture(ECS::GetComponent<PhysicsBody>(entity).GetBody()->GetFixtureList());
+			ECS::DestroyEntity(entity);
+			ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ArrowDestroyed();
+		}	
 	}
 }
 
