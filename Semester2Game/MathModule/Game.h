@@ -4,6 +4,7 @@
 #include "BackEnd.h"
 #include "Xinput.h"
 #include "Stage1.h"
+#include "Stage2.h"
 #include "MenuScene.h"
 
 //Our main class for running our game

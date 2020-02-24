@@ -371,7 +371,7 @@ void Stage1::InitScene(float windowWidth, float windowHeight)
 		ECS::SetUpIdentifier(entity, bitHolder, "floor");
 	}
 }
-void Stage1::Update()
+void Stage1::Update(entt::registry* reg)
 {
 	Routines();
 }
@@ -420,6 +420,10 @@ void Stage1::KeyboardDown()
 		{
 			phsBod.SetVelocity(vec3(curVelo.x, 30.f, 0.f));
 		}
+	}
+	if (Input::GetKeyDown(Key::F))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ArrowShot(m_physicsWorld);
 	}
 }
 

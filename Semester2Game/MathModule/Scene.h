@@ -4,6 +4,7 @@
 #include "JSON.h"
 #include "ECS.h"
 #include "Input.h"
+#include "Timer.h"
 #include "Xinput.h"
 #include <SDL2/SDL.h>
 
@@ -23,7 +24,7 @@ public:
 	//init, as each scene's contents will be different
 	virtual void InitScene(float windowWidth, float windowHeight) { printf("windowWidth: %f, windowHeight: %f", windowWidth, windowHeight); }
 
-	virtual void Update() {}
+	virtual void Update(entt::registry* reg) {}
 
 	virtual void GamepadStroke(XInputController* con) { };
 	virtual void GamepadUp(XInputController* con) { };
@@ -52,15 +53,17 @@ public:
 	void SetGravity(b2Vec2 grav);
 	//phys world
 	b2World& GetPhysicsWorld();
-	
+
 	//Set window size (makes sure the camera aspect is proper)
 	void SetWindowSize(float windowWidth, float windowHeight);
 protected:
 	vec4 m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
 	b2World* m_physicsWorld = nullptr;
 	b2Vec2 m_gravity = b2Vec2(float32(0.f), float32(0.f));
-	entt::registry* m_sceneReg = nullptr;	
+	entt::registry* m_sceneReg = nullptr;
 	std::string m_name = "Default Name";
+	ContactListener listen;
+
 };
 
 #ifndef __SCENEJSON_H__

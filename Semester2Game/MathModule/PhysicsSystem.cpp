@@ -3,17 +3,16 @@
 void PhysicsSystem::Update(entt::registry* reg, b2World& world)
 {
 	auto view = reg->view<PhysicsBody, Transform>();
-	if (EntityIdentifier::MainPlayer() == 1)
-	{
-		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetGrounded(false);
-	}
-
 	for (auto entity : view)
 	{
 		auto& physBod = view.get<PhysicsBody>(entity);
 		auto& trans = view.get<Transform>(entity);
 
 		physBod.Update(&trans);
+	}
+	/*if (EntityIdentifier::MainPlayer() == 1)
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetGrounded(false);
 	}
 	for (b2Contact* contact = world.GetContactList(); contact; contact = contact->GetNext())
 	{
@@ -28,7 +27,7 @@ void PhysicsSystem::Update(entt::registry* reg, b2World& world)
 			ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetGrounded(true);
 		}
 		
-	}
+	}*/
 
 	Run(world);
 

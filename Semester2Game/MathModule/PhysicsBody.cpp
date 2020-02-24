@@ -242,7 +242,7 @@ void PhysicsBody::DrawBody()
 
 b2Body* PhysicsBody::GetBody() const
 {
-	return nullptr;
+	return m_body;
 }
 
 b2Vec2 PhysicsBody::GetPosition() const
