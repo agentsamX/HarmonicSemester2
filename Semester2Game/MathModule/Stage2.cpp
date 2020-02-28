@@ -58,7 +58,7 @@ void Stage2::InitScene(float windowWidth, float windowHeight)
 		b2FixtureDef fixtureDef;
 		fixtureDef.shape = &dynamicBox;
 		fixtureDef.density = 1.0f;
-		fixtureDef.friction = 0.31;
+		fixtureDef.friction = 1.f;
 		tempDef.type = b2_dynamicBody;
 		tempDef.fixedRotation = true;
 		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
