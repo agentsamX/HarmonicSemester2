@@ -60,6 +60,7 @@ void Stage2::InitScene(float windowWidth, float windowHeight)
 		fixtureDef.shape = &dynamicBox;
 		fixtureDef.density = 1.0f;
 		fixtureDef.friction = 1.f;
+		fixtureDef.restitution = 0.f;
 
 		b2PolygonShape dynamicBoxF;
 		dynamicBoxF.SetAsBox(15.8f,1.f,b2Vec2(0.f,-16.1f),0);
@@ -68,12 +69,28 @@ void Stage2::InitScene(float windowWidth, float windowHeight)
 		footSensor.isSensor = true;
 		footSensor.userData = (void*)1;
 
+		b2PolygonShape dynamicBoxL;
+		dynamicBoxL.SetAsBox(1.f, 15.8f, b2Vec2(-16.1f,0.f), 0);
+		b2FixtureDef leftSensor;
+		leftSensor.shape = &dynamicBoxL;
+		leftSensor.isSensor = true;
+		leftSensor.userData = (void*)2;
+
+		b2PolygonShape dynamicBoxR;
+		dynamicBoxR.SetAsBox(1.f,15.8f, b2Vec2(16.1f,0.f), 0);
+		b2FixtureDef rightSensor;
+		rightSensor.shape = &dynamicBoxR;
+		rightSensor.isSensor = true;
+		rightSensor.userData = (void*)3;
+
 		tempDef.type = b2_dynamicBody;
 		tempDef.fixedRotation = true;
 		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 		tempBody->CreateFixture(&fixtureDef);
 		tempBody->CreateFixture(&footSensor);
+		tempBody->CreateFixture(&rightSensor);
+		tempBody->CreateFixture(&leftSensor);
 		tempBody->SetEntityNumber(entity);
 		tempBody->SetEntityType(2);
 		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
@@ -195,12 +212,15 @@ void Stage2::Routines(entt::registry* reg)
 		ECS::GetComponent<Arrow>(entity).AddArrTime(Timer::deltaTime);
 		if (ECS::GetComponent<Arrow>(entity).GetFrozen())
 		{
+			b2Vec2 curPos = ECS::GetComponent<PhysicsBody>(entity).GetBody()->GetTransform().p;
+			ECS::GetComponent<PhysicsBody>(entity).GetBody()->SetTransform(curPos, 0);
 			ECS::GetComponent<PhysicsBody>(entity).GetBody()->SetType(b2_staticBody);
 		}
 		if (ECS::GetComponent<Arrow>(entity).GetArrTime()>5)
 		{
-			ECS::GetComponent<PhysicsBody>(entity).GetBody()->DestroyFixture(ECS::GetComponent<PhysicsBody>(entity).GetBody()->GetFixtureList());
-			ECS::DestroyEntity(entity);
+			int entNum = ECS::GetComponent<PhysicsBody>(entity).GetBody()->GetEntityNumber();
+			m_physicsWorld->DestroyBody(ECS::GetComponent<PhysicsBody>(entity).GetBody());
+			ECS::DestroyEntity(entNum);
 			ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ArrowDestroyed();
 		}	
 	}
@@ -225,12 +245,18 @@ void Stage2::KeyboardHold()
 	vec3 curVelo = phsBod.GetVelocity();
 	if (Input::GetKey(Key::A))
 	{
-		phsBod.SetVelocity(vec3(-10.f, curVelo.y, 0.f));
+		if (!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLeftContact())
+		{
+			phsBod.SetVelocity(vec3(-10.f, curVelo.y, 0.f));
+		}
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(true);
 	}
 	if (Input::GetKey(Key::D))
 	{
-		phsBod.SetVelocity(vec3(10.f, curVelo.y, 0.f));
+		if (!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetRightContact())
+		{
+			phsBod.SetVelocity(vec3(10.f, curVelo.y, 0.f));
+		}
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(false);
 	}
 
@@ -253,7 +279,7 @@ void Stage2::KeyboardDown()
 	}
 }
 
-void Stage2::KeyboardUp(void)
+void Stage2::KeyboardUp()
 {
 }
 

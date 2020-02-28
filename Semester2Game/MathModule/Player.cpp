@@ -17,6 +17,30 @@ bool Player::GetGrounded()
 	}
 }
 
+bool Player::GetLeftContact()
+{
+	if(contactLeft > 0)
+	{
+		return true;
+	}
+	else
+	{
+	return false;
+	}
+}
+
+bool Player::GetRightContact()
+{
+	if (contactRight > 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 bool Player::GetLeft()
 {
 	return faceLeft;
@@ -30,6 +54,26 @@ void Player::SetGrounded(bool state)
 void Player::Contacted()
 {
 	contactNum++;
+}
+
+void Player::ContactLeft()
+{
+	contactLeft++;
+}
+
+void Player::ContactRight()
+{
+	contactRight++;
+}
+
+void Player::EndLeft()
+{
+	contactLeft--;
+}
+
+void Player::EndRight()
+{
+	contactRight--;
 }
 
 void Player::EndContacted()
@@ -69,10 +113,16 @@ void Player::ArrowShot(b2World* curScene)
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 		auto& tempTrans = ECS::GetComponent<Transform>(entity);
 		b2Body* tempBody;
+		b2PolygonShape tempShape;
+		tempShape.SetAsBox(5.f, 0.5f);
+		b2FixtureDef tempFix;
+		tempFix.shape = &tempShape;
+		tempFix.restitution = 0.5f;
 		b2BodyDef tempDef;
 		tempDef.type = b2_dynamicBody;
 		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
 		tempBody = curScene->CreateBody(&tempDef);
+		tempBody->CreateFixture(&tempFix);
 		tempBody->SetEntityNumber(entity);
 		tempBody->SetEntityType(3);
 		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
