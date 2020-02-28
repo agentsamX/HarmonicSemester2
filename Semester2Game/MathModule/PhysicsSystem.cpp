@@ -45,7 +45,7 @@ void PhysicsSystem::Run(b2World& world)
 	int32 positionIterations = 3;
 
 	//steps through world
-	world.Step(timeStep, velocityIterations, positionIterations);
+	world.Step(Timer::deltaTime*5.f, velocityIterations, positionIterations);
 }
 
 bool PhysicsSystem::BoxBoxCollision(std::pair<PhysicsBody&, Box> group1, std::pair<PhysicsBody&, Box> group2)
