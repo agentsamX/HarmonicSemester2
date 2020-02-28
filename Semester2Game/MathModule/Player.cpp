@@ -61,6 +61,11 @@ bool Player::GetRooted()
 	return rooted;
 }
 
+bool Player::GetDown()
+{
+	return faceDown;
+}
+
 bool Player::GetLastRight()
 {
 	return lastRight;
@@ -112,31 +117,65 @@ void Player::ArrowShot(b2World* curScene)
 		veloDirY = 30;
 		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLeft())
 		{
-			offsetX = -ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).GetWidth() + 5;
+			offsetX = -ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).GetWidth()/2 - 5;
 			veloDirX = -40;
 		}
 		else if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetRight())
 		{
-			offsetX = ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).GetWidth() + 5;
+			offsetX = ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).GetWidth()/2 + 5;
 			veloDirX = 40;
 		}
 		else
 		{
 			veloDirX = 0;
 			offsetX = 0;
-			offsetY = ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).GetHeight() + 5;
+			offsetY = ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).GetHeight()/2 + 5;
+		}
+	}
+	else if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetDown())
+	{
+		veloDirY = -30;
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLeft())
+		{
+			offsetX = -ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).GetWidth() / 2 - 5;
+			veloDirX = -40;
+		}
+		else if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetRight())
+		{
+			offsetX = ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).GetWidth() / 2 + 5;
+			veloDirX = 40;
+		}
+		else if(!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
+		{
+			printf("Air down");
+			veloDirX = 0;
+			offsetX = 0;
+			offsetY = -ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).GetHeight() / 2 - 5;
+		}
+		else
+		{
+			if (!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLastRight())
+			{
+				offsetX = -ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).GetWidth() / 2 - 5;
+				veloDirX = -40;
+			}
+			else if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLastRight())
+			{
+				offsetX = ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).GetWidth() / 2 + 5;
+				veloDirX = 40;
+			}
 		}
 	}
 	else
 	{
 		if (!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLastRight())
 		{
-			offsetX = -ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).GetWidth() + 5;
+			offsetX = -ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).GetWidth()/2 - 5;
 			veloDirX = -40;
 		}
 		else if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLastRight())
 		{
-			offsetX = ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).GetWidth() + 5;
+			offsetX = ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).GetWidth()/2 + 5;
 			veloDirX = 40;
 		}
 	}
@@ -220,6 +259,11 @@ void Player::SetUp(bool inp)
 void Player::SetRoot(bool inp)
 {
 	rooted = inp;
+}
+
+void Player::SetDown(bool inp)
+{
+	faceDown = inp;
 }
 
 void Player::SetLastRight(bool inp)

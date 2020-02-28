@@ -59,7 +59,7 @@ void Stage2::InitScene(float windowWidth, float windowHeight)
 		b2FixtureDef fixtureDef;
 		fixtureDef.shape = &dynamicBox;
 		fixtureDef.density = 1.0f;
-		fixtureDef.friction = 1.f;
+		fixtureDef.friction = .8f;
 		fixtureDef.restitution = 0.f;
 
 		b2PolygonShape dynamicBoxF;
@@ -303,6 +303,11 @@ void Stage2::KeyboardHold()
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetUp(true);
 	}
 	else{ ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetUp(false);}
+	if (Input::GetKey(Key::S))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetDown(true);
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetDown(false); }
 	if (Input::GetKey(Key::Shift))
 	{
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(true);
@@ -333,7 +338,7 @@ void Stage2::KeyboardDown()
 	}
 }
 
-void Stage2::KeyboardUp()
+void Stage2::KeyboardUp(void)
 {
 }
 
