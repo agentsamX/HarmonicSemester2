@@ -186,6 +186,34 @@ void Stage2::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "sticky wall test");
 	}
+	{
+		auto entity = ECS::CreateEntity();
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		//sets up components
+		std::string fileName = "floor.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 30, 256);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-173.f, -82.5f, 10.f));
+		//collision settings
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempTrans = ECS::GetComponent<Transform>(entity);
+		b2Body* tempBody;
+		b2BodyDef tempDef;
+		tempDef.type = b2_staticBody;
+		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
+		tempBody = m_physicsWorld->CreateBody(&tempDef);
+		tempBody->SetEntityNumber(entity);
+		tempBody->SetEntityType(0);
+		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			true);
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "non stick wall test");
+	}
 }
 void Stage2::Update(entt::registry* reg)
 {
@@ -213,8 +241,13 @@ void Stage2::Routines(entt::registry* reg)
 		if (ECS::GetComponent<Arrow>(entity).GetFrozen())
 		{
 			b2Vec2 curPos = ECS::GetComponent<PhysicsBody>(entity).GetBody()->GetTransform().p;
+
 			ECS::GetComponent<PhysicsBody>(entity).GetBody()->SetTransform(curPos, 0);
 			ECS::GetComponent<PhysicsBody>(entity).GetBody()->SetType(b2_staticBody);
+			for (b2Fixture* fixture = ECS::GetComponent<PhysicsBody>(entity).GetBody()->GetFixtureList(); fixture; fixture = fixture->GetNext())
+			{
+				fixture->SetRestitution(0.f);
+			}
 		}
 		if (ECS::GetComponent<Arrow>(entity).GetArrTime()>5)
 		{
@@ -250,15 +283,36 @@ void Stage2::KeyboardHold()
 			phsBod.SetVelocity(vec3(-10.f, curVelo.y, 0.f));
 		}
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(true);
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(false);
+
 	}
+	else{ ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(false); }
 	if (Input::GetKey(Key::D))
 	{
 		if (!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetRightContact())
 		{
 			phsBod.SetVelocity(vec3(10.f, curVelo.y, 0.f));
 		}
-		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(false);
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRight(true);
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(true);
+		
 	}
+	else{ ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRight(false); }
+	if (Input::GetKey(Key::W))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetUp(true);
+	}
+	else{ ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetUp(false);}
+	if (Input::GetKey(Key::Shift))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(true);
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
+		{
+			phsBod.SetVelocity(vec3(0.f,0.f, 0.f));
+		}
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(false); }
+
 
 }
 
