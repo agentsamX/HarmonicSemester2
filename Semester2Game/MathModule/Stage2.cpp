@@ -53,17 +53,27 @@ void Stage2::InitScene(float windowWidth, float windowHeight)
 		auto& tempTrans = ECS::GetComponent<Transform>(entity);
 		b2Body* tempBody;
 		b2BodyDef tempDef;
+
 		b2PolygonShape dynamicBox;
-		dynamicBox.SetAsBox(1.0f, 1.0f);
+		dynamicBox.SetAsBox(16.01f, 16.01f);
 		b2FixtureDef fixtureDef;
 		fixtureDef.shape = &dynamicBox;
 		fixtureDef.density = 1.0f;
 		fixtureDef.friction = 1.f;
+
+		b2PolygonShape dynamicBoxF;
+		dynamicBoxF.SetAsBox(15.8f,1.f,b2Vec2(0.f,-16.1f),0);
+		b2FixtureDef footSensor;
+		footSensor.shape = &dynamicBoxF;
+		footSensor.isSensor = true;
+		footSensor.userData = (void*)1;
+
 		tempDef.type = b2_dynamicBody;
 		tempDef.fixedRotation = true;
 		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 		tempBody->CreateFixture(&fixtureDef);
+		tempBody->CreateFixture(&footSensor);
 		tempBody->SetEntityNumber(entity);
 		tempBody->SetEntityType(2);
 		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),

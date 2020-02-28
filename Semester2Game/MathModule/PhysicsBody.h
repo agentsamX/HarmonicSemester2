@@ -38,7 +38,6 @@ public:
 	PhysicsBody() { };
 	PhysicsBody(b2Body* body, float radius, vec2 centerOffset, bool isDynamic  );
 	PhysicsBody(b2Body* body, float width, float height, vec2 centerOffset, bool isDynamic);
-	
 	//updates physics stuff
 	void Update(Transform* trans);
 

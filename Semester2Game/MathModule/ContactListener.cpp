@@ -2,16 +2,24 @@
 
 void ContactListener::BeginContact(b2Contact* contact)
 {
+    if (contact->GetFixtureA()->IsSensor())
+    {
+        void* fixtureUserData = contact->GetFixtureA()->GetUserData();
+        if ((int)fixtureUserData == 1)
+        {
+            ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).Contacted();
+        }
+    }
+    if (contact->GetFixtureB()->IsSensor())
+    {
+        void* fixtureUserData = contact->GetFixtureB()->GetUserData();
+        if ((int)fixtureUserData == 1)
+        {
+            ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).Contacted();
+        }
+    }
     int entA = (contact->GetFixtureA()->GetBody()->GetEntityNumber());
     int entB = (contact->GetFixtureB()->GetBody()->GetEntityNumber());
-    if (entA == EntityIdentifier::MainPlayer())
-    {
-        ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).Contacted();
-    }
-    else if (entB == EntityIdentifier::MainPlayer())
-    {
-        ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).Contacted();
-    }
     if (contact->GetFixtureB()->GetBody()->GetEntityType() == 5)
     {
         //type 5 is block enemy
@@ -48,12 +56,21 @@ void ContactListener::EndContact(b2Contact* contact)
 
     int entA = (contact->GetFixtureA()->GetBody()->GetEntityNumber());
     int entB = (contact->GetFixtureB()->GetBody()->GetEntityNumber());
-    if (entA == EntityIdentifier::MainPlayer())
+    if (contact->GetFixtureA()->IsSensor())
     {
-        ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).EndContacted();
+        void* fixtureUserData = contact->GetFixtureA()->GetUserData();
+        if ((int)fixtureUserData == 1)
+        {
+            ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).EndContacted();
+        }
     }
-    else if (entB == EntityIdentifier::MainPlayer())
+    if (contact->GetFixtureB()->IsSensor())
     {
-        ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).EndContacted();
+        void* fixtureUserData = contact->GetFixtureB()->GetUserData();
+        if ((int)fixtureUserData == 1)
+        {
+            ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).EndContacted();
+        }
     }
+   
 }
