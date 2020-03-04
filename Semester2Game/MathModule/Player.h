@@ -12,6 +12,7 @@ public:
 	bool GetRight();
 	bool GetUp();
 	bool GetRooted();
+	bool GetDown();
 	bool GetLastRight();
 	void SetGrounded(bool);
 	void Contacted();
@@ -26,6 +27,7 @@ public:
 	void SetRight(bool);
 	void SetUp(bool);
 	void SetRoot(bool);
+	void SetDown(bool);
 	void SetLastRight(bool);
 private:
 	bool grounded=false;
@@ -33,6 +35,7 @@ private:
 	bool faceLeft = false;
 	bool faceRight = false;
 	bool faceUp = false;
+	bool faceDown = false;
 	bool rooted = false;
 	bool lastRight = true;
 	int contactNum = 0;

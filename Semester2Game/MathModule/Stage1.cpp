@@ -427,14 +427,42 @@ void Stage1::KeyboardHold()
 	vec3 curVelo = phsBod.GetVelocity();
 	if (Input::GetKey(Key::A))
 	{
-		phsBod.SetVelocity(vec3(-10.f, curVelo.y, 0.f));
+		if (!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLeftContact())
+		{
+			phsBod.SetVelocity(vec3(-10.f, curVelo.y, 0.f));
+		}
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(true);
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(false);
+
 	}
+	else{ ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(false); }
 	if (Input::GetKey(Key::D))
 	{
-		phsBod.SetVelocity(vec3(10.f, curVelo.y, 0.f));
-		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(false);
+		if (!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetRightContact())
+		{
+			phsBod.SetVelocity(vec3(10.f, curVelo.y, 0.f));
+		}
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRight(true);
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(true);
+		
 	}
+	else{ ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRight(false); }
+	if (Input::GetKey(Key::W))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetUp(true);
+	}
+	else{ ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetUp(false);}
+	if (Input::GetKey(Key::Shift))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(true);
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
+		{
+			phsBod.SetVelocity(vec3(0.f,0.f, 0.f));
+		}
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(false); }
+
+
 
 }
 

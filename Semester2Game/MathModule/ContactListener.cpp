@@ -11,11 +11,17 @@ void ContactListener::BeginContact(b2Contact* contact)
         }
         if ((int)fixtureUserData == 2)
         {
-            ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ContactLeft();
+            if (contact->GetFixtureB()->GetBody()->GetType() == b2_staticBody)
+            {
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ContactLeft();
+            }
         }
         if ((int)fixtureUserData == 3)
-        {
-            ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ContactRight();
+        {   
+            if (contact->GetFixtureB()->GetBody()->GetType() == b2_staticBody)
+            {
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ContactRight();
+            }
         }
     }
     if (contact->GetFixtureB()->IsSensor())
@@ -27,11 +33,17 @@ void ContactListener::BeginContact(b2Contact* contact)
         }
         if ((int)fixtureUserData == 2)
         {
-            ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ContactLeft();
+            if (contact->GetFixtureA()->GetBody()->GetType() == b2_staticBody)
+            {
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ContactLeft();
+            }
         }
         if ((int)fixtureUserData == 3)
         {
-            ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ContactRight();
+            if (contact->GetFixtureA()->GetBody()->GetType() == b2_staticBody)
+            {
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ContactRight();
+            }
         }
     }
     int entA = (contact->GetFixtureA()->GetBody()->GetEntityNumber());
@@ -51,7 +63,6 @@ void ContactListener::BeginContact(b2Contact* contact)
         //type 1 is sticky wall
         if (contact->GetFixtureA()->GetBody()->GetEntityType() == 3)
         {
-            printf("arrow hit sticky wall");
             ECS::GetComponent<Arrow>(entA).SetFrozen(true);
         }
     }
@@ -60,7 +71,6 @@ void ContactListener::BeginContact(b2Contact* contact)
         //type 1 is sticky wall
         if (contact->GetFixtureB()->GetBody()->GetEntityType() == 3)
         {
-            printf("arrow hit sticky wall");
             ECS::GetComponent<Arrow>(entB).SetFrozen(true);
         }
     }
@@ -81,11 +91,17 @@ void ContactListener::EndContact(b2Contact* contact)
         }
         if ((int)fixtureUserData == 2)
         {
-            ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).EndLeft();
+            if (contact->GetFixtureB()->GetBody()->GetType() == b2_staticBody)
+            {
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).EndLeft();
+            }
         }
         if ((int)fixtureUserData == 3)
         {
-            ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).EndRight();
+            if (contact->GetFixtureB()->GetBody()->GetType() == b2_staticBody)
+            {
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).EndRight();
+            }
         }
     }
     if (contact->GetFixtureB()->IsSensor())
@@ -97,11 +113,17 @@ void ContactListener::EndContact(b2Contact* contact)
         }
         if ((int)fixtureUserData == 2)
         {
-            ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).EndLeft();
+            if (contact->GetFixtureA()->GetBody()->GetType() == b2_staticBody)
+            {
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).EndLeft();
+            }
         }
         if ((int)fixtureUserData == 3)
         {
-            ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).EndRight();
+            if (contact->GetFixtureA()->GetBody()->GetType() == b2_staticBody)
+            {
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).EndRight();
+            }
         }
     }
    
