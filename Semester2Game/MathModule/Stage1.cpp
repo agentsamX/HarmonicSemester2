@@ -46,30 +46,58 @@ void Stage1::InitScene(float windowWidth, float windowHeight)
 		//sets up components
 		std::string fileName = "box.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 32, 32);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-80.f,-60.f, 10.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-80.f, -60.f, 10.f));
 		//collision settings
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 		auto& tempTrans = ECS::GetComponent<Transform>(entity);
 		b2Body* tempBody;
 		b2BodyDef tempDef;
+
 		b2PolygonShape dynamicBox;
-		dynamicBox.SetAsBox(1.0f,1.0f);
+		dynamicBox.SetAsBox(16.01f, 16.01f);
 		b2FixtureDef fixtureDef;
 		fixtureDef.shape = &dynamicBox;
 		fixtureDef.density = 1.0f;
-		fixtureDef.friction = 0.31 ;
+		fixtureDef.friction = 1.f;
+		fixtureDef.restitution = 0.f;
+
+		b2PolygonShape dynamicBoxF;
+		dynamicBoxF.SetAsBox(15.8f, 1.f, b2Vec2(0.f, -16.1f), 0);
+		b2FixtureDef footSensor;
+		footSensor.shape = &dynamicBoxF;
+		footSensor.isSensor = true;
+		footSensor.userData = (void*)1;
+
+		b2PolygonShape dynamicBoxL;
+		dynamicBoxL.SetAsBox(1.f, 15.8f, b2Vec2(-16.1f, 0.f), 0);
+		b2FixtureDef leftSensor;
+		leftSensor.shape = &dynamicBoxL;
+		leftSensor.isSensor = true;
+		leftSensor.userData = (void*)2;
+
+		b2PolygonShape dynamicBoxR;
+		dynamicBoxR.SetAsBox(1.f, 15.8f, b2Vec2(16.1f, 0.f), 0);
+		b2FixtureDef rightSensor;
+		rightSensor.shape = &dynamicBoxR;
+		rightSensor.isSensor = true;
+		rightSensor.userData = (void*)3;
+
 		tempDef.type = b2_dynamicBody;
 		tempDef.fixedRotation = true;
 		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 		tempBody->CreateFixture(&fixtureDef);
+		tempBody->CreateFixture(&footSensor);
+		tempBody->CreateFixture(&rightSensor);
+		tempBody->CreateFixture(&leftSensor);
 		tempBody->SetEntityNumber(entity);
+		tempBody->SetEntityType(2);
 		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
 			true);
 		//sets up the identifier
-		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit()| EntityIdentifier::PhysicsBit();
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "boxMain");
 		ECS::SetIsMainPlayer(entity, true);
 	}
@@ -399,14 +427,42 @@ void Stage1::KeyboardHold()
 	vec3 curVelo = phsBod.GetVelocity();
 	if (Input::GetKey(Key::A))
 	{
-		phsBod.SetVelocity(vec3(-10.f, curVelo.y, 0.f));
+		if (!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLeftContact())
+		{
+			phsBod.SetVelocity(vec3(-10.f, curVelo.y, 0.f));
+		}
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(true);
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(false);
+
 	}
+	else{ ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(false); }
 	if (Input::GetKey(Key::D))
 	{
-		phsBod.SetVelocity(vec3(10.f, curVelo.y, 0.f));
-		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(false);
+		if (!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetRightContact())
+		{
+			phsBod.SetVelocity(vec3(10.f, curVelo.y, 0.f));
+		}
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRight(true);
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(true);
+		
 	}
+	else{ ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRight(false); }
+	if (Input::GetKey(Key::W))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetUp(true);
+	}
+	else{ ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetUp(false);}
+	if (Input::GetKey(Key::Shift))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(true);
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
+		{
+			phsBod.SetVelocity(vec3(0.f,0.f, 0.f));
+		}
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(false); }
+
+
 
 }
 
