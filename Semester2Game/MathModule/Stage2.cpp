@@ -59,7 +59,7 @@ void Stage2::InitScene(float windowWidth, float windowHeight)
 		b2FixtureDef fixtureDef;
 		fixtureDef.shape = &dynamicBox;
 		fixtureDef.density = 1.0f;
-		fixtureDef.friction = .8f;
+		fixtureDef.friction = .6f;
 		fixtureDef.restitution = 0.f;
 
 		b2PolygonShape dynamicBoxF;
@@ -233,11 +233,11 @@ void Stage2::Routines(entt::registry* reg)
 		auto viewArrow = reg->view<Arrow>();
 		for (auto entity : viewBlockEnemy)
 		{
-			if (ECS::GetComponent<BlockEnemy>(entity).GetIsLeft() == true)
+			if (ECS::GetComponent<BlockEnemy>(entity).GetIsLeft()&& ECS::GetComponent<BlockEnemy>(entity).GetActive())
 			{
 				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(-2.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
 			}
-			else
+			else if(ECS::GetComponent<BlockEnemy>(entity).GetActive())
 			{
 				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(2.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
 			}

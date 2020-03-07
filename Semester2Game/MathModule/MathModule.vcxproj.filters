@@ -186,14 +186,14 @@
     <ClCompile Include="Stage2.h">
       <Filter>Header Files\LevelHeaders</Filter>
     </ClCompile>
-    <ClCompile Include="Stage2.cpp">
-      <Filter>Source Files\LevelSources</Filter>
-    </ClCompile>
     <ClCompile Include="BlockEnemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Arrow.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage2.cpp">
+      <Filter>Source Files\LevelSources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -73,6 +73,10 @@ bool Game::Run()
 		//Polls events and then checks them
 		BackEnd::PollEvents(m_register, &m_close, &m_motion, &m_click, &m_wheel);
 		CheckEvents();
+		if (m_activeScene->GetDone())
+		{
+			
+		}
 		
 		//does the window have keyboard focus?
 		if (Input::m_windowFocus)
