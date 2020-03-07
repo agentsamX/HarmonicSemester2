@@ -13,3 +13,13 @@ void BlockEnemy::SetIsLeft(bool dire)
 {
 	isLeft = dire;
 }
+
+void BlockEnemy::SetInactive()
+{
+	isActive = false;
+}
+
+bool BlockEnemy::GetActive()
+{
+	return isActive;
+}

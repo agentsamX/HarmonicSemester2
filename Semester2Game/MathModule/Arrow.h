@@ -10,6 +10,7 @@ public:
 	bool GetFrozen();
 	void AddArrTime(float);
 	float GetArrTime();
+	void SetArrTime(float);
 
 private:
 	bool frozen=false;

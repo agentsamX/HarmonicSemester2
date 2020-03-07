@@ -74,3 +74,13 @@ void Scene::SetWindowSize(float windowWidth, float windowHeight)
 															tempCam.GetOrthoSize().z, tempCam.GetOrthoSize().w,
 															tempCam.GetNear(), tempCam.GetFar());
 }
+
+bool Scene::GetDone()
+{
+	return sceneDone;
+}
+
+void Scene::SetDone()
+{
+	sceneDone = true;
+}
