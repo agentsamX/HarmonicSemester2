@@ -270,3 +270,23 @@ void Player::SetLastRight(bool inp)
 {
 	lastRight = inp;
 }
+
+bool Player::GetKill()
+{
+	return dead;
+}
+
+void Player::SetKill()
+{
+	dead = true;
+}
+
+float Player::GetKillTime()
+{
+	return killTime;
+}
+
+void Player::AddKillTime(float addAm)
+{
+	killTime += addAm;
+}

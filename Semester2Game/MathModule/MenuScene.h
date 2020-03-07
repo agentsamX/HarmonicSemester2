@@ -23,4 +23,6 @@ public:
 	void MouseMotion(SDL_MouseMotionEvent evnt) override;
 	void MouseClick(SDL_MouseButtonEvent evnt) override;
 	void MouseWheel(SDL_MouseWheelEvent evnt) override;
+	
+	
 };
