@@ -32,6 +32,15 @@ void MenuScene::InitScene(float windowWidth, float windowHeight)
 		ECS::SetUpIdentifier(entity, bitHolder, "Main Camera");
 		ECS::SetIsMainCamera(entity, true);
 	}
+	{
+		auto entity = ECS::CreateEntity();
+
+		ECS::AttachComponent<Player>(entity);
+		
+		unsigned int bitHolder = 0x0;
+		ECS::SetUpIdentifier(entity, bitHolder, "DummyPlayer");
+		ECS::SetIsMainPlayer(entity, true);
+	}
 }
 
 void MenuScene::Update(entt::registry* reg)
@@ -77,3 +86,4 @@ void MenuScene::MouseClick(SDL_MouseButtonEvent evnt)
 void MenuScene::MouseWheel(SDL_MouseWheelEvent evnt)
 {
 }
+

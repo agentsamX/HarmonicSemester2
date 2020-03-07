@@ -68,6 +68,9 @@ public:
 	void MouseMotion(SDL_MouseMotionEvent evnt);
 	void MouseClick(SDL_MouseButtonEvent evnt);
 	void MouseWheel(SDL_MouseWheelEvent evnt);
+
+	void AdvanceScene();
+	void ResetScene();
 private:
 	//The window
 	Window *m_window = nullptr;
@@ -95,6 +98,7 @@ private:
 
 	vec2 m_velocityEn1 = vec2(0.f, -10.f);
 	vec2 m_velocityEn2 = vec2(-10.f, 0.f);
+	int m_curScene = 0;
 
 };
 

@@ -2,9 +2,12 @@
 
 void ContactListener::BeginContact(b2Contact* contact)
 {
+    int entA = (contact->GetFixtureA()->GetBody()->GetEntityNumber());
+    int entB = (contact->GetFixtureB()->GetBody()->GetEntityNumber());
     if (contact->GetFixtureA()->IsSensor())
     {
         void* fixtureUserData = contact->GetFixtureA()->GetUserData();
+        int Btype = contact->GetFixtureB()->GetBody()->GetEntityType();
         if ((int)fixtureUserData == 1)
         {
             ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).Contacted();
@@ -14,6 +17,11 @@ void ContactListener::BeginContact(b2Contact* contact)
             if (contact->GetFixtureB()->GetBody()->GetType() == b2_staticBody)
             {
                 ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ContactLeft();
+            }
+            if (Btype == 5)
+            {
+                printf("player touched enemy on side");
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
             }
         }
         if ((int)fixtureUserData == 3)
@@ -22,11 +30,17 @@ void ContactListener::BeginContact(b2Contact* contact)
             {
                 ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ContactRight();
             }
+            if (Btype==5)
+            {
+                printf("player touched enemy on side");
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
+            }
         }
     }
     if (contact->GetFixtureB()->IsSensor())
     {
         void* fixtureUserData = contact->GetFixtureB()->GetUserData();
+        int Atype = contact->GetFixtureB()->GetBody()->GetEntityType();
         if ((int)fixtureUserData == 1)
         {
             ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).Contacted();
@@ -37,6 +51,11 @@ void ContactListener::BeginContact(b2Contact* contact)
             {
                 ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ContactLeft();
             }
+            if (Atype == 5)
+            {
+                printf("player touched enemy on side");
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
+            }
         }
         if ((int)fixtureUserData == 3)
         {
@@ -44,10 +63,14 @@ void ContactListener::BeginContact(b2Contact* contact)
             {
                 ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ContactRight();
             }
+            if (Atype == 5)
+            {
+                printf("player touched enemy on side");
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
+            }
         }
     }
-    int entA = (contact->GetFixtureA()->GetBody()->GetEntityNumber());
-    int entB = (contact->GetFixtureB()->GetBody()->GetEntityNumber());
+   
     if (contact->GetFixtureB()->GetBody()->GetEntityType() == 5)
     {
         //type 5 is block enemy

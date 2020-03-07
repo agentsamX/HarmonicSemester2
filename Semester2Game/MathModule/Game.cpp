@@ -77,8 +77,11 @@ bool Game::Run()
 		//does the window have keyboard focus?
 		if (Input::m_windowFocus)
 		{
-			//Accept all input
-			AcceptInput();
+			if (!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetKill())
+			{
+				//Accept all input
+				AcceptInput();
+			}
 		}
 	}
 
@@ -96,6 +99,10 @@ void Game::Update()
 	PhysicsSystem::Update(m_register, m_activeScene->GetPhysicsWorld());
 
 	m_activeScene->Update(m_register);
+	if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetKillTime()>3.f)
+	{
+		Game::ResetScene();
+	}
 
 }
 
@@ -231,6 +238,7 @@ void Game::KeyboardUp()
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
+		m_curScene = 0;
 	}
 	if (Input::GetKeyDown(Key::One))
 	{
@@ -239,6 +247,7 @@ void Game::KeyboardUp()
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
+		m_curScene = 1;
 	}
 	if (Input::GetKeyDown(Key::Two))
 	{
@@ -247,6 +256,15 @@ void Game::KeyboardUp()
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
+		m_curScene = 2;
+	}
+	if (Input::GetKeyDown(Key::R))
+	{
+		Game::ResetScene();
+	}
+	if (Input::GetKeyDown(Key::OEMComma))
+	{
+		Game::AdvanceScene();
 	}
 }
 
@@ -306,4 +324,57 @@ void Game::MouseWheel(SDL_MouseWheelEvent evnt)
 	}
 	//Resets the enabled flag
 	m_wheel = false;
+}
+
+void Game::AdvanceScene()
+{
+	switch (m_curScene)
+	{
+	case 0:
+		
+		m_activeScene->~Scene();
+		m_scenes.push_back(new Stage1("First Stage"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
+		break;
+	case 1:
+		m_activeScene->~Scene();
+		m_scenes.push_back(new Stage2("Second Stage"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
+		break;
+	case 2:
+			break;
+	}
+	m_curScene++;
+}
+
+void Game::ResetScene()
+{
+	switch (m_curScene)
+	{
+	case 0:
+		m_activeScene->~Scene();
+		m_scenes.push_back(new MenuScene("Main Menu"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
+		break;
+	case 1:
+		m_activeScene->~Scene();
+		m_scenes.push_back(new Stage1("First Stage"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
+		break;
+	case 2:
+		m_activeScene->~Scene();
+		m_scenes.push_back(new Stage2("Second Stage"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
+		break;
+	}
 }
