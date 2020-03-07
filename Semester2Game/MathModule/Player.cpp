@@ -290,3 +290,27 @@ void Player::AddKillTime(float addAm)
 {
 	killTime += addAm;
 }
+
+bool Player::GetGoalContact()
+{
+	if (contactingGoal > 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void Player::SetContactingGoal(bool boo)
+{
+	if (boo)
+	{
+		contactingGoal++;
+	}
+	else
+	{
+		contactingGoal--;
+	}
+}

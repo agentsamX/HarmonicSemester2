@@ -270,6 +270,14 @@ void Game::KeyboardUp()
 	{
 		Game::AdvanceScene();
 	}
+	if (Input::GetKeyUp(Key::W))
+	{
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGoalContact())
+		{
+			printf("advanced scene");
+			Game::AdvanceScene();
+		}
+	}
 }
 
 void Game::MouseMotion(SDL_MouseMotionEvent evnt)

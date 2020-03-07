@@ -45,7 +45,7 @@ void Stage1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Player>(entity);
 		//sets up components
 		std::string fileName = "box.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 32, 32);
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 16, 24);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-80.f, -60.f, 10.f));
 		//collision settings
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
@@ -55,29 +55,29 @@ void Stage1::InitScene(float windowWidth, float windowHeight)
 		b2BodyDef tempDef;
 
 		b2PolygonShape dynamicBox;
-		dynamicBox.SetAsBox(16.01f, 16.01f);
+		dynamicBox.SetAsBox(8.01f, 12.01f);
 		b2FixtureDef fixtureDef;
 		fixtureDef.shape = &dynamicBox;
 		fixtureDef.density = 1.0f;
-		fixtureDef.friction = 1.f;
+		fixtureDef.friction = .6f;
 		fixtureDef.restitution = 0.f;
 
 		b2PolygonShape dynamicBoxF;
-		dynamicBoxF.SetAsBox(15.8f, 1.f, b2Vec2(0.f, -16.1f), 0);
+		dynamicBoxF.SetAsBox(7.8f, 1.f, b2Vec2(0.f, -12.1f), 0);
 		b2FixtureDef footSensor;
 		footSensor.shape = &dynamicBoxF;
 		footSensor.isSensor = true;
 		footSensor.userData = (void*)1;
 
 		b2PolygonShape dynamicBoxL;
-		dynamicBoxL.SetAsBox(1.f, 15.8f, b2Vec2(-16.1f, 0.f), 0);
+		dynamicBoxL.SetAsBox(1.f, 11.8f, b2Vec2(-8.1f, 0.f), 0);
 		b2FixtureDef leftSensor;
 		leftSensor.shape = &dynamicBoxL;
 		leftSensor.isSensor = true;
 		leftSensor.userData = (void*)2;
 
 		b2PolygonShape dynamicBoxR;
-		dynamicBoxR.SetAsBox(1.f, 15.8f, b2Vec2(16.1f, 0.f), 0);
+		dynamicBoxR.SetAsBox(1.f, 11.8f, b2Vec2(8.1f, 0.f), 0);
 		b2FixtureDef rightSensor;
 		rightSensor.shape = &dynamicBoxR;
 		rightSensor.isSensor = true;
@@ -100,6 +100,47 @@ void Stage1::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "boxMain");
 		ECS::SetIsMainPlayer(entity, true);
+	}
+	{
+		auto entity = ECS::CreateEntity();
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<LevelGoal>(entity);
+		//sets up components
+		std::string fileName = "box.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 16,32 );
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-160.f, -52.f, 10.f));
+		//collision settings
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempTrans = ECS::GetComponent<Transform>(entity);
+		b2Body* tempBody;
+		b2BodyDef tempDef;
+		tempDef.fixedRotation = true;
+		b2FixtureDef doorSense;
+		b2PolygonShape doorShape;
+		doorShape.SetAsBox(8.f, 16.f);
+		doorSense.shape = &doorShape;
+		doorSense.isSensor=true;
+		/*b2FixtureDef baseFix;
+		b2PolygonShape doorBase;
+		doorBase.SetAsBox(8.f, 0.01f, b2Vec2(0.f, -16.f), 0.f);
+		baseFix.shape = &doorBase;*/
+		tempDef.type = b2_kinematicBody;
+		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
+		tempBody = m_physicsWorld->CreateBody(&tempDef);
+		tempBody->CreateFixture(&doorSense);
+		//tempBody->CreateFixture(&baseFix);
+		tempBody->SetEntityNumber(entity);
+		tempBody->SetEntityType(4);
+		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			false,false);
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "TestGoal");
 	}
 	{
 		auto entity = ECS::CreateEntity();
