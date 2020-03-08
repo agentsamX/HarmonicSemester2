@@ -33,6 +33,8 @@ public:
 	void SetKill();
 	float GetKillTime();
 	void AddKillTime(float);
+	bool GetGoalContact();
+	void SetContactingGoal(bool);
 private:
 	bool dead = false;
 	bool grounded=false;
@@ -47,5 +49,6 @@ private:
 	int contactLeft = 0;
 	int contactRight = 0;
 	float killTime = 0.f;
+	int contactingGoal = 0;
 };
 

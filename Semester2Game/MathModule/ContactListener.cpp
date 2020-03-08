@@ -126,6 +126,20 @@ void ContactListener::BeginContact(b2Contact* contact)
             ECS::GetComponent<Arrow>(entB).SetFrozen(true);
         }
     }
+    if (contact->GetFixtureA()->GetBody()->GetEntityType() == 4)
+    {
+        if (entB == EntityIdentifier::MainPlayer())
+        {
+            ECS::GetComponent<Player>(entB).SetContactingGoal(true);
+        }
+    }
+    else if(contact->GetFixtureB()->GetBody()->GetEntityType()==4)
+    {
+        if (entA == EntityIdentifier::MainPlayer())
+        {
+            ECS::GetComponent<Player>(entA).SetContactingGoal(true);
+        }
+    }
     
 }
 
@@ -176,6 +190,20 @@ void ContactListener::EndContact(b2Contact* contact)
             {
                 ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).EndRight();
             }
+        }
+    }
+    if (contact->GetFixtureA()->GetBody()->GetEntityType() == 4)
+    {
+        if (entB == EntityIdentifier::MainPlayer())
+        {
+            ECS::GetComponent<Player>(entB).SetContactingGoal(false);
+        }
+    }
+    else if (contact->GetFixtureB()->GetBody()->GetEntityType() == 4)
+    {
+        if (entA == EntityIdentifier::MainPlayer())
+        {
+            ECS::GetComponent<Player>(entA).SetContactingGoal(false);
         }
     }
    

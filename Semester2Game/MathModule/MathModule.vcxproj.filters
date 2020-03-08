@@ -195,6 +195,9 @@
     <ClCompile Include="Stage2.cpp">
       <Filter>Source Files\LevelSources</Filter>
     </ClCompile>
+    <ClCompile Include="LevelGoal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationController.h">
@@ -366,6 +369,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Arrow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelGoal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
