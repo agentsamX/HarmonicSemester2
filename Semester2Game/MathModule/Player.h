@@ -29,7 +29,14 @@ public:
 	void SetRoot(bool);
 	void SetDown(bool);
 	void SetLastRight(bool);
+	bool GetKill();
+	void SetKill();
+	float GetKillTime();
+	void AddKillTime(float);
+	bool GetGoalContact();
+	void SetContactingGoal(bool);
 private:
+	bool dead = false;
 	bool grounded=false;
 	int arrNum = 0;
 	bool faceLeft = false;
@@ -41,5 +48,7 @@ private:
 	int contactNum = 0;
 	int contactLeft = 0;
 	int contactRight = 0;
+	float killTime = 0.f;
+	int contactingGoal = 0;
 };
 

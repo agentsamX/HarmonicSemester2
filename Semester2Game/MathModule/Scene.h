@@ -9,6 +9,7 @@
 #include <SDL2/SDL.h>
 
 
+
 class Scene
 {
 public:
@@ -56,12 +57,16 @@ public:
 
 	//Set window size (makes sure the camera aspect is proper)
 	void SetWindowSize(float windowWidth, float windowHeight);
+
+	bool GetDone();
+	void SetDone();
 protected:
 	vec4 m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
 	b2World* m_physicsWorld = nullptr;
 	b2Vec2 m_gravity = b2Vec2(float32(0.f), float32(0.f));
 	entt::registry* m_sceneReg = nullptr;
 	std::string m_name = "Default Name";
+	bool sceneDone = false;
 	ContactListener listen;
 
 };

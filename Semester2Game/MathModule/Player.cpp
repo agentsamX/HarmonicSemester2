@@ -270,3 +270,47 @@ void Player::SetLastRight(bool inp)
 {
 	lastRight = inp;
 }
+
+bool Player::GetKill()
+{
+	return dead;
+}
+
+void Player::SetKill()
+{
+	dead = true;
+}
+
+float Player::GetKillTime()
+{
+	return killTime;
+}
+
+void Player::AddKillTime(float addAm)
+{
+	killTime += addAm;
+}
+
+bool Player::GetGoalContact()
+{
+	if (contactingGoal > 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void Player::SetContactingGoal(bool boo)
+{
+	if (boo)
+	{
+		contactingGoal++;
+	}
+	else
+	{
+		contactingGoal--;
+	}
+}
