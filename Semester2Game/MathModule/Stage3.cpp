@@ -128,7 +128,7 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		ECS::SetUpIdentifier(entity, bitHolder, "boxMain");
 		ECS::SetIsMainPlayer(entity, true);
 	}
-	
+
 	/*
 	{
 		auto entity = ECS::CreateEntity();
