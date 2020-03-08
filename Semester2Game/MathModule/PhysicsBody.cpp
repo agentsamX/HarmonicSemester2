@@ -195,6 +195,38 @@ PhysicsBody::PhysicsBody(b2Body* body, float width, float height, vec2 centerOff
 
 	InitBody();
 }
+PhysicsBody::PhysicsBody(b2Body* body, float width, float height, vec2 centerOffset, bool isDynamic,bool autoFixture)
+{
+	m_body = body;
+	if (autoFixture)
+	{
+		b2PolygonShape  tempShape;
+		tempShape.SetAsBox(float32(width / 2.f), float32(height / 2.f),
+			b2Vec2(float32(centerOffset.x), float32(centerOffset.y)), float32(0.f));
+
+		b2FixtureDef tempFixture;
+		tempFixture.shape = &tempShape;
+		tempFixture.density = 1.f;
+		tempFixture.friction = 0.3f;
+		m_body->CreateFixture(&tempFixture);
+	}
+
+	m_body = body;
+	m_bodyType = BodyType::BOX;
+
+	m_width = width;
+	m_height = height;
+
+	m_centerOffset = centerOffset;
+	m_bottomLeft = vec2(centerOffset.x - (width / 2.f), centerOffset.y - (height / 2.f));
+	m_bottomRight = vec2(centerOffset.x + (width / 2.f), centerOffset.y - (height / 2.f));
+	m_topLeft = vec2(centerOffset.x - (width / 2.f), centerOffset.y + (height / 2.f));
+	m_topRight = vec2(centerOffset.x + (width / 2.f), centerOffset.y + (height / 2.f));
+
+	m_dynamic = isDynamic;
+
+	InitBody();
+}
 
 void PhysicsBody::Update(Transform* trans)
 {

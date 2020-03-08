@@ -34,3 +34,8 @@ float Arrow::GetArrTime()
 {
 	return arrTime;
 }
+
+void Arrow::SetArrTime(float t)
+{
+	arrTime = t;
+}
