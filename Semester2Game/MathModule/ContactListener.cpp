@@ -91,9 +91,12 @@ void ContactListener::BeginContact(b2Contact* contact)
         {
             //printf("enemy hit by arrow");
             //type 3 is arrow
-            ECS::GetComponent<BlockEnemy>(entB).SetInactive();
-            ECS::GetComponent<PhysicsBody>(entB).SetVelocity(vec3(0.f, 0.f, 0.f));
-            ECS::GetComponent<Arrow>(entA).SetArrTime(4.9f);
+            if (ECS::GetComponent<BlockEnemy>(entB).GetActive())
+            {
+                ECS::GetComponent<BlockEnemy>(entB).SetInactive();
+                ECS::GetComponent<PhysicsBody>(entB).SetVelocity(vec3(0.f, 0.f, 0.f));
+                ECS::GetComponent<Arrow>(entA).SetArrTime(4.9f);
+            }
 
         }
     }
@@ -105,9 +108,12 @@ void ContactListener::BeginContact(b2Contact* contact)
         {
             //printf("enemy hit by arrow");
             //type 3 is arrow
-            ECS::GetComponent<BlockEnemy>(entA).SetInactive();
-            ECS::GetComponent<PhysicsBody>(entA).SetVelocity(vec3(0.f, 0.f, 0.f));
-            ECS::GetComponent<Arrow>(entB).SetArrTime(4.9f);
+            if (ECS::GetComponent<BlockEnemy>(entA).GetActive())
+            {
+                ECS::GetComponent<BlockEnemy>(entA).SetInactive();
+                ECS::GetComponent<PhysicsBody>(entA).SetVelocity(vec3(0.f, 0.f, 0.f));
+                ECS::GetComponent<Arrow>(entB).SetArrTime(4.9f);
+            }
         }
     }
     if (contact->GetFixtureB()->GetBody()->GetEntityType() == 1)
@@ -139,6 +145,16 @@ void ContactListener::BeginContact(b2Contact* contact)
         {
             ECS::GetComponent<Player>(entA).SetContactingGoal(true);
         }
+    }
+    if (contact->GetFixtureA()->GetBody()->GetEntityType() == 3)
+    {
+        printf("Collided type is arrow");
+        ECS::GetComponent<Arrow>(entA).ArrCollide();
+    }
+    else if (contact->GetFixtureB()->GetBody()->GetEntityType() == 3)
+    {
+        printf("Collided type is arrow");
+        ECS::GetComponent<Arrow>(entB).ArrCollide();
     }
     
 }

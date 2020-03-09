@@ -39,3 +39,13 @@ void Arrow::SetArrTime(float t)
 {
 	arrTime = t;
 }
+
+void Arrow::ArrCollide()
+{
+	collisions++;
+	/*if (collisions >= 6)
+	{
+		SetArrTime(4.9f);
+	}*/
+	//arrows collide with player many times when shot, so I will deal with this later
+}
