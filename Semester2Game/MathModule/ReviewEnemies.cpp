@@ -166,7 +166,7 @@ void ReviewEnemies::InitScene(float windowWidth, float windowHeight)
 		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 		tempBody->SetEntityNumber(entity);
-		tempBody->SetEntityType(0);
+		tempBody->SetEntityType(6);
 		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
 			true);
@@ -194,7 +194,7 @@ void ReviewEnemies::InitScene(float windowWidth, float windowHeight)
 		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 		tempBody->SetEntityNumber(entity);
-		tempBody->SetEntityType(0);
+		tempBody->SetEntityType(6);
 		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
 			true);

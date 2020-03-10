@@ -8,7 +8,7 @@ void ContactListener::BeginContact(b2Contact* contact)
     {
         void* fixtureUserData = contact->GetFixtureA()->GetUserData();
         int Btype = contact->GetFixtureB()->GetBody()->GetEntityType();
-        if ((int)fixtureUserData == 1)
+        if ((int)fixtureUserData == 1)//foot
         {
             ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).Contacted();
         }
