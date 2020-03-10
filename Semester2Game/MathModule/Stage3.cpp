@@ -817,7 +817,7 @@ void Stage3::KeyboardDown()
 	{
 		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
 		{
-			phsBod.SetVelocity(vec3(curVelo.x, 30.f, 0.f));
+			phsBod.SetVelocity(vec3(curVelo.x, 22.f, 0.f));
 		}
 	}
 	if (Input::GetKeyDown(Key::F))
