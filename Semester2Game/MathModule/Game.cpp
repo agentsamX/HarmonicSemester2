@@ -271,6 +271,24 @@ void Game::KeyboardUp()
 		m_register = m_activeScene->GetScene();
 		m_curScene = 3;
 	}
+	if (Input::GetKeyDown(Key::Four))
+	{
+		m_activeScene->~Scene();
+		m_scenes.push_back(new ReviewClimb("Review Climb"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
+		m_curScene = 4;
+	}
+	if (Input::GetKeyDown(Key::Five))
+	{
+		m_activeScene->~Scene();
+		m_scenes.push_back(new ReviewEnemies("Review Enemies"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
+		m_curScene = 5;
+	}
 	if (Input::GetKeyDown(Key::R))
 	{
 		Game::ResetScene();

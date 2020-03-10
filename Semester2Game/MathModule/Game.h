@@ -6,6 +6,8 @@
 #include "Stage1.h"
 #include "Stage2.h"
 #include "Stage3.h"
+#include "ReviewClimb.h"
+#include "ReviewEnemies.h"
 #include "MenuScene.h"
 
 //Our main class for running our game

@@ -201,6 +201,12 @@
     <ClCompile Include="Stage3.cpp">
       <Filter>Source Files\LevelSources</Filter>
     </ClCompile>
+    <ClCompile Include="ReviewClimb.cpp">
+      <Filter>Source Files\LevelSources</Filter>
+    </ClCompile>
+    <ClCompile Include="ReviewEnemies.cpp">
+      <Filter>Source Files\LevelSources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationController.h">
@@ -378,6 +384,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Stage3.h">
+      <Filter>Header Files\LevelHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ReviewClimb.h">
+      <Filter>Header Files\LevelHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ReviewEnemies.h">
       <Filter>Header Files\LevelHeaders</Filter>
     </ClInclude>
   </ItemGroup>
