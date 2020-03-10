@@ -39,3 +39,12 @@ void Arrow::SetArrTime(float t)
 {
 	arrTime = t;
 }
+
+void Arrow::ArrCollide()
+{
+	collisions++;
+	if (collisions >= 4)
+	{
+		SetArrTime(4.99f);
+	}
+}
