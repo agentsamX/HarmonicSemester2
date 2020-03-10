@@ -148,13 +148,17 @@ void ContactListener::BeginContact(b2Contact* contact)
     }
     if (contact->GetFixtureA()->GetBody()->GetEntityType() == 3)
     {
-        printf("Collided type is arrow");
-        ECS::GetComponent<Arrow>(entA).ArrCollide();
+        if (entB != EntityIdentifier::MainPlayer())
+        {
+            ECS::GetComponent<Arrow>(entA).ArrCollide();
+        }
     }
     else if (contact->GetFixtureB()->GetBody()->GetEntityType() == 3)
     {
-        printf("Collided type is arrow");
-        ECS::GetComponent<Arrow>(entB).ArrCollide();
+        if (entA != EntityIdentifier::MainPlayer())
+        {
+            ECS::GetComponent<Arrow>(entB).ArrCollide();
+        }
     }
     
 }
