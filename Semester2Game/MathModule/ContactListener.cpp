@@ -11,6 +11,11 @@ void ContactListener::BeginContact(b2Contact* contact)
         if ((int)fixtureUserData == 1)
         {
             ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).Contacted();
+            if (Btype == 6)
+            {
+                printf("player touched spikes on foot");
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
+            }
         }
         if ((int)fixtureUserData == 2)
         {
@@ -50,6 +55,11 @@ void ContactListener::BeginContact(b2Contact* contact)
         if ((int)fixtureUserData == 1)
         {
             ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).Contacted();
+            if (Atype == 6)
+            {
+                printf("player touched spikes on foot");
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
+            }
         }
         if ((int)fixtureUserData == 2)
         {
