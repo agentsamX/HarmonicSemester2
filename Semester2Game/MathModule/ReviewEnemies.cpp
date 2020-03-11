@@ -155,7 +155,7 @@ void ReviewEnemies::InitScene(float windowWidth, float windowHeight)
 		//sets up components
 		std::string fileName = "spike.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 175, 16);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-63.9f, -72.6f, 10.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-63.9f, -72.6f, -10.f));
 		//collision settings
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -183,7 +183,7 @@ void ReviewEnemies::InitScene(float windowWidth, float windowHeight)
 		//sets up components
 		std::string fileName = "spike.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 32, 16);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(87.8f, -72.7f, 10.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(87.8f, -75.f, -10.f));
 		//collision settings
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -639,7 +639,7 @@ void ReviewEnemies::KeyboardDown()
 	{
 		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
 		{
-			phsBod.SetVelocity(vec3(curVelo.x, 22.f, 0.f));
+			phsBod.SetVelocity(vec3(curVelo.x, 23.f, 0.f));
 		}
 	}
 	if (Input::GetKeyDown(Key::F))
