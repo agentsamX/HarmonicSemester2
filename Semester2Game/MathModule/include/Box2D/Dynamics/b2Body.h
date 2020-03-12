@@ -397,7 +397,7 @@ public:
 	//3 arrow
 	//4 exit
 	//5 block enemy
-	//6
+	//6 is target
 	void SetEntityType(int);
 	const int GetEntityType();
 
