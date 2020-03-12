@@ -398,6 +398,7 @@ public:
 	//4 exit
 	//5 block enemy
 	//6 spike
+	//7 is target
 	void SetEntityType(int);
 	const int GetEntityType();
 
