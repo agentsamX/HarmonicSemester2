@@ -191,7 +191,7 @@ void Stage1::InitScene(float windowWidth, float windowHeight)
 		tempDef2.position.Set(float32(tempTrans2.GetPositionX()), float32(tempTrans2.GetPositionY()));
 		tempBody2 = m_physicsWorld->CreateBody(&tempDef2);
 		tempBody2->SetEntityNumber(entity2);
-		tempBody2->SetEntityType(6);
+		tempBody2->SetEntityType(7);
 		tempPhsBody2 = PhysicsBody(tempBody2, float(tempSpr2.GetWidth()), float(tempSpr2.GetHeight()),
 			vec2(0.f, 0.f),
 			false);

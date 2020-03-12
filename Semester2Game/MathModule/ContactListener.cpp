@@ -174,11 +174,11 @@ void ContactListener::BeginContact(b2Contact* contact)
             ECS::GetComponent<Arrow>(entB).ArrCollide();
         }
     }
-    if (contact->GetFixtureA()->GetBody()->GetEntityType() == 6 && contact->GetFixtureB()->GetBody()->GetEntityType()==3)
+    if (contact->GetFixtureA()->GetBody()->GetEntityType() == 7 && contact->GetFixtureB()->GetBody()->GetEntityType()==3)
     {
         ECS::GetComponent<Target>(entA).SetHit();
     }
-    else if (contact->GetFixtureB()->GetBody()->GetEntityType() == 6 && contact->GetFixtureA()->GetBody()->GetEntityType() == 3)
+    else if (contact->GetFixtureB()->GetBody()->GetEntityType() == 7 && contact->GetFixtureA()->GetBody()->GetEntityType() == 3)
     {
         ECS::GetComponent<Target>(entB).SetHit();
     }
