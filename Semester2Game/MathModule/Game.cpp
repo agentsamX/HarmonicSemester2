@@ -301,7 +301,7 @@ void Game::KeyboardUp()
 	{
 		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGoalContact())
 		{
-			printf("advanced scene");
+			//printf("advanced scene");
 			Game::AdvanceScene();
 		}
 	}
@@ -386,6 +386,13 @@ void Game::AdvanceScene()
 		break;
 	case 2:
 			break;
+	case 4:
+		m_activeScene->~Scene();
+		m_scenes.push_back(new ReviewEnemies("Review Enemies"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
+		break;
 	}
 	m_curScene++;
 }

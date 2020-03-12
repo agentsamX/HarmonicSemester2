@@ -13,7 +13,7 @@ void ContactListener::BeginContact(b2Contact* contact)
             ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).Contacted();
             if (Btype == 6)
             {
-                printf("player touched spikes on foot");
+                //printf("player touched spikes on foot");
                 ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
             }
         }
@@ -25,7 +25,7 @@ void ContactListener::BeginContact(b2Contact* contact)
             }
             if (Btype == 5)
             {
-                printf("player touched enemy on side");
+               // printf("player touched enemy on side");
                 if (ECS::GetComponent<BlockEnemy>(entB).GetActive())
                 {
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
@@ -40,7 +40,7 @@ void ContactListener::BeginContact(b2Contact* contact)
             }
             if (Btype==5)
             {
-                printf("player touched enemy on side");
+                //printf("player touched enemy on side");
                 if (ECS::GetComponent<BlockEnemy>(entB).GetActive())
                 {
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();

@@ -192,7 +192,7 @@ void Player::ArrowShot(b2World* curScene)
 		std::string fileName = "box.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 10,1 );
 		ECS::GetComponent<Transform>(entity).SetPosition(ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()).GetPosition()+
-			vec3(offsetX,offsetY,0));
+			vec3(offsetX,offsetY,-3));
 		//collision settings
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);

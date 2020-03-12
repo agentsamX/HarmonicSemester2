@@ -224,7 +224,7 @@ void Stage2::Routines(entt::registry* reg)
 {
 	if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetKill())
 	{
-		printf("player is dead");
+		//printf("player is dead");
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).AddKillTime(Timer::deltaTime);
 	}
 	else
