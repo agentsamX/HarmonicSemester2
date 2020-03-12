@@ -16,6 +16,8 @@
 #include "BlockEnemy.h"
 #include "Arrow.h"
 #include "LevelGoal.h"
+#include "Gate.h"
+#include "Target.h"
 
 class ECS abstract
 {
