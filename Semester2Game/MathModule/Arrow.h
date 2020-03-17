@@ -11,8 +11,10 @@ public:
 	void AddArrTime(float);
 	float GetArrTime();
 	void SetArrTime(float);
+	void ArrCollide();
 
 private:
 	bool frozen=false;
 	float arrTime=0.f;
+	int collisions = 0;
 };

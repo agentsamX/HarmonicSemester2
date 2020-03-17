@@ -28,11 +28,14 @@ void Stage1::InitScene(float windowWidth, float windowHeight)
 		//create new orthographic camera
 		ECS::AttachComponent<Camera>(entity);
 		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<VerticalScroll>(entity);
 		vec4 temp = ECS::GetComponent<Camera>(entity).GetOrthoSize();
 		ECS::GetComponent<Camera>(entity).SetWindowSize(vec2(float(windowWidth), float(windowHeight)));
 		ECS::GetComponent<Camera>(entity).Orthographic(aspectRatio, temp.x, temp.y, temp.z, temp.w, -100.f, 100.f);
+		ECS::GetComponent<VerticalScroll>(entity).SetCam(&ECS::GetComponent<Camera>(entity));
+		ECS::GetComponent<VerticalScroll>(entity).SetOffset(15.f);
 		//sets up the identifier
-		unsigned int bitHolder =EntityIdentifier::CameraBit();
+		unsigned int bitHolder =EntityIdentifier::CameraBit()|| EntityIdentifier::VertScrollCameraBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Main Camera");
 		ECS::SetIsMainCamera(entity, true);
 	}
@@ -141,6 +144,63 @@ void Stage1::InitScene(float windowWidth, float windowHeight)
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "TestGoal");
+	}
+	{
+		auto entity = ECS::CreateEntity();
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<Gate>(entity);
+		//sets up components
+		std::string fileName = "box.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 16, 32);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-140.f, -52.f, 10.f));
+		auto& tempTrans = ECS::GetComponent<Transform>(entity);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		b2Body* tempBody;
+		b2BodyDef tempDef;
+		tempDef.type = b2_kinematicBody;
+		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
+		tempBody = m_physicsWorld->CreateBody(&tempDef);
+		tempBody->SetEntityNumber(entity);
+		tempBody->SetEntityType(0);
+		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			false);
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Gate test");
+
+
+		auto entity2 = ECS::CreateEntity();
+		//add components
+		ECS::AttachComponent<Sprite>(entity2);
+		ECS::AttachComponent<Transform>(entity2);
+		ECS::AttachComponent<PhysicsBody>(entity2);
+		ECS::AttachComponent<Target>(entity2);
+		//sets up components
+		std::string fileName2 = "box.png";
+		ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName2, 16, 16);
+		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(-100.f, 0.f, 10.f));
+		ECS::GetComponent<Target>(entity2).SetGateNum(entity);
+		auto& tempTrans2 = ECS::GetComponent<Transform>(entity2);
+		auto& tempSpr2 = ECS::GetComponent<Sprite>(entity2);
+		auto& tempPhsBody2 = ECS::GetComponent<PhysicsBody>(entity2);
+		b2Body* tempBody2;
+		b2BodyDef tempDef2;
+		tempDef2.type = b2_kinematicBody;
+		tempDef2.position.Set(float32(tempTrans2.GetPositionX()), float32(tempTrans2.GetPositionY()));
+		tempBody2 = m_physicsWorld->CreateBody(&tempDef2);
+		tempBody2->SetEntityNumber(entity2);
+		tempBody2->SetEntityType(7);
+		tempPhsBody2 = PhysicsBody(tempBody2, float(tempSpr2.GetWidth()), float(tempSpr2.GetHeight()),
+			vec2(0.f, 0.f),
+			false);
+		//sets up the identifier
+		unsigned int bitHolder2 = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity2, bitHolder2, "Target test");
 	}
 	{
 		auto entity = ECS::CreateEntity();
@@ -439,6 +499,7 @@ void Stage1::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "floor");
 	}
+	ECS::GetComponent<VerticalScroll>(EntityIdentifier::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()));
 }
 void Stage1::Update(entt::registry* reg)
 {

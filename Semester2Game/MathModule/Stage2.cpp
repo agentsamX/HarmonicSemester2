@@ -28,11 +28,14 @@ void Stage2::InitScene(float windowWidth, float windowHeight)
 		//create new orthographic camera
 		ECS::AttachComponent<Camera>(entity);
 		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<VerticalScroll>(entity);
 		vec4 temp = ECS::GetComponent<Camera>(entity).GetOrthoSize();
 		ECS::GetComponent<Camera>(entity).SetWindowSize(vec2(float(windowWidth), float(windowHeight)));
 		ECS::GetComponent<Camera>(entity).Orthographic(aspectRatio, temp.x, temp.y, temp.z, temp.w, -100.f, 100.f);
+		ECS::GetComponent<VerticalScroll>(entity).SetCam(&ECS::GetComponent<Camera>(entity));
+		ECS::GetComponent<VerticalScroll>(entity).SetOffset(15.f);
 		//sets up the identifier
-		unsigned int bitHolder = EntityIdentifier::CameraBit();
+		unsigned int bitHolder = EntityIdentifier::CameraBit() || EntityIdentifier::VertScrollCameraBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Main Camera");
 		ECS::SetIsMainCamera(entity, true);
 	}
@@ -70,14 +73,14 @@ void Stage2::InitScene(float windowWidth, float windowHeight)
 		footSensor.userData = (void*)1;
 
 		b2PolygonShape dynamicBoxL;
-		dynamicBoxL.SetAsBox(1.f, 11.8f, b2Vec2(-8.1f,0.f), 0);
+		dynamicBoxL.SetAsBox(0.5f, 11.f, b2Vec2(-8.1f,0.f), 0);
 		b2FixtureDef leftSensor;
 		leftSensor.shape = &dynamicBoxL;
 		leftSensor.isSensor = true;
 		leftSensor.userData = (void*)2;
 
 		b2PolygonShape dynamicBoxR;
-		dynamicBoxR.SetAsBox(1.f,11.8f, b2Vec2(8.1f,0.f), 0);
+		dynamicBoxR.SetAsBox(0.5f,11.f, b2Vec2(8.1f,0.f), 0);
 		b2FixtureDef rightSensor;
 		rightSensor.shape = &dynamicBoxR;
 		rightSensor.isSensor = true;
@@ -214,6 +217,7 @@ void Stage2::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "non stick wall test");
 	}
+	ECS::GetComponent<VerticalScroll>(EntityIdentifier::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()));
 }
 void Stage2::Update(entt::registry* reg)
 {
@@ -222,6 +226,7 @@ void Stage2::Update(entt::registry* reg)
 
 void Stage2::Routines(entt::registry* reg)
 {
+	ECS::GetComponent<VerticalScroll>(EntityIdentifier::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()));
 	if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetKill())
 	{
 		printf("player is dead");

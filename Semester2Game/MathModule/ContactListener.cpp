@@ -11,6 +11,11 @@ void ContactListener::BeginContact(b2Contact* contact)
         if ((int)fixtureUserData == 1)
         {
             ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).Contacted();
+            if (Btype == 6)
+            {
+                printf("player touched spikes on foot");
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
+            }
         }
         if ((int)fixtureUserData == 2)
         {
@@ -50,6 +55,11 @@ void ContactListener::BeginContact(b2Contact* contact)
         if ((int)fixtureUserData == 1)
         {
             ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).Contacted();
+            if (Atype == 6)
+            {
+                printf("player touched spikes on foot");
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
+            }
         }
         if ((int)fixtureUserData == 2)
         {
@@ -91,9 +101,12 @@ void ContactListener::BeginContact(b2Contact* contact)
         {
             //printf("enemy hit by arrow");
             //type 3 is arrow
-            ECS::GetComponent<BlockEnemy>(entB).SetInactive();
-            ECS::GetComponent<PhysicsBody>(entB).SetVelocity(vec3(0.f, 0.f, 0.f));
-            ECS::GetComponent<Arrow>(entA).SetArrTime(4.9f);
+            if (ECS::GetComponent<BlockEnemy>(entB).GetActive())
+            {
+                ECS::GetComponent<BlockEnemy>(entB).SetInactive();
+                ECS::GetComponent<PhysicsBody>(entB).SetVelocity(vec3(0.f, 0.f, 0.f));
+                ECS::GetComponent<Arrow>(entA).SetArrTime(4.9f);
+            }
 
         }
     }
@@ -105,9 +118,12 @@ void ContactListener::BeginContact(b2Contact* contact)
         {
             //printf("enemy hit by arrow");
             //type 3 is arrow
-            ECS::GetComponent<BlockEnemy>(entA).SetInactive();
-            ECS::GetComponent<PhysicsBody>(entA).SetVelocity(vec3(0.f, 0.f, 0.f));
-            ECS::GetComponent<Arrow>(entB).SetArrTime(4.9f);
+            if (ECS::GetComponent<BlockEnemy>(entA).GetActive())
+            {
+                ECS::GetComponent<BlockEnemy>(entA).SetInactive();
+                ECS::GetComponent<PhysicsBody>(entA).SetVelocity(vec3(0.f, 0.f, 0.f));
+                ECS::GetComponent<Arrow>(entB).SetArrTime(4.9f);
+            }
         }
     }
     if (contact->GetFixtureB()->GetBody()->GetEntityType() == 1)
@@ -128,6 +144,7 @@ void ContactListener::BeginContact(b2Contact* contact)
     }
     if (contact->GetFixtureA()->GetBody()->GetEntityType() == 4)
     {
+        //4 is level goal
         if (entB == EntityIdentifier::MainPlayer())
         {
             ECS::GetComponent<Player>(entB).SetContactingGoal(true);
@@ -135,10 +152,35 @@ void ContactListener::BeginContact(b2Contact* contact)
     }
     else if(contact->GetFixtureB()->GetBody()->GetEntityType()==4)
     {
+        //4 is level goal
         if (entA == EntityIdentifier::MainPlayer())
         {
             ECS::GetComponent<Player>(entA).SetContactingGoal(true);
         }
+    }
+    if (contact->GetFixtureA()->GetBody()->GetEntityType() == 3)
+    {
+        //3 is arrow
+        if (entB != EntityIdentifier::MainPlayer())
+        {
+            ECS::GetComponent<Arrow>(entA).ArrCollide();
+        }
+    }
+    else if (contact->GetFixtureB()->GetBody()->GetEntityType() == 3)
+    {
+        //3 is arrow
+        if (entA != EntityIdentifier::MainPlayer())
+        {
+            ECS::GetComponent<Arrow>(entB).ArrCollide();
+        }
+    }
+    if (contact->GetFixtureA()->GetBody()->GetEntityType() == 7 && contact->GetFixtureB()->GetBody()->GetEntityType()==3)
+    {
+        ECS::GetComponent<Target>(entA).SetHit();
+    }
+    else if (contact->GetFixtureB()->GetBody()->GetEntityType() == 7 && contact->GetFixtureA()->GetBody()->GetEntityType() == 3)
+    {
+        ECS::GetComponent<Target>(entB).SetHit();
     }
     
 }
