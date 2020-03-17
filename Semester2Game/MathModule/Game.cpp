@@ -103,6 +103,7 @@ void Game::Update()
 	PhysicsSystem::Update(m_register, m_activeScene->GetPhysicsWorld());
 
 	m_activeScene->Update(m_register);
+	
 	if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetKillTime()>3.f)
 	{
 		Game::ResetScene();
