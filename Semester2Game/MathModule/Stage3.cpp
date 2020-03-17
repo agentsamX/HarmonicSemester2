@@ -93,21 +93,21 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		fixtureDef.restitution = 0.f;
 
 		b2PolygonShape dynamicBoxF;
-		dynamicBoxF.SetAsBox(7.8f, 1.f, b2Vec2(0.f, -12.1f), 0);
+		dynamicBoxF.SetAsBox(7.8f, 0.5f, b2Vec2(0.f, -12.1f), 0);
 		b2FixtureDef footSensor;
 		footSensor.shape = &dynamicBoxF;
 		footSensor.isSensor = true;
 		footSensor.userData = (void*)1;
 
 		b2PolygonShape dynamicBoxL;
-		dynamicBoxL.SetAsBox(1.f, 11.8f, b2Vec2(-8.1f, 0.f), 0);
+		dynamicBoxL.SetAsBox(1.f, 11.5f, b2Vec2(-8.1f, 0.f), 0);
 		b2FixtureDef leftSensor;
 		leftSensor.shape = &dynamicBoxL;
 		leftSensor.isSensor = true;
 		leftSensor.userData = (void*)2;
 
 		b2PolygonShape dynamicBoxR;
-		dynamicBoxR.SetAsBox(1.f, 11.8f, b2Vec2(8.1f, 0.f), 0);
+		dynamicBoxR.SetAsBox(1.f, 11.5f, b2Vec2(8.1f, 0.f), 0);
 		b2FixtureDef rightSensor;
 		rightSensor.shape = &dynamicBoxR;
 		rightSensor.isSensor = true;
