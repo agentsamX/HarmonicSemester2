@@ -28,11 +28,14 @@ void Stage2::InitScene(float windowWidth, float windowHeight)
 		//create new orthographic camera
 		ECS::AttachComponent<Camera>(entity);
 		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<VerticalScroll>(entity);
 		vec4 temp = ECS::GetComponent<Camera>(entity).GetOrthoSize();
 		ECS::GetComponent<Camera>(entity).SetWindowSize(vec2(float(windowWidth), float(windowHeight)));
 		ECS::GetComponent<Camera>(entity).Orthographic(aspectRatio, temp.x, temp.y, temp.z, temp.w, -100.f, 100.f);
+		ECS::GetComponent<VerticalScroll>(entity).SetCam(&ECS::GetComponent<Camera>(entity));
+		ECS::GetComponent<VerticalScroll>(entity).SetOffset(15.f);
 		//sets up the identifier
-		unsigned int bitHolder = EntityIdentifier::CameraBit();
+		unsigned int bitHolder = EntityIdentifier::CameraBit() || EntityIdentifier::VertScrollCameraBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Main Camera");
 		ECS::SetIsMainCamera(entity, true);
 	}
@@ -214,6 +217,7 @@ void Stage2::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "non stick wall test");
 	}
+	ECS::GetComponent<VerticalScroll>(EntityIdentifier::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()));
 }
 void Stage2::Update(entt::registry* reg)
 {
@@ -222,6 +226,7 @@ void Stage2::Update(entt::registry* reg)
 
 void Stage2::Routines(entt::registry* reg)
 {
+	ECS::GetComponent<VerticalScroll>(EntityIdentifier::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()));
 	if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetKill())
 	{
 		printf("player is dead");

@@ -103,6 +103,7 @@ void Game::Update()
 	PhysicsSystem::Update(m_register, m_activeScene->GetPhysicsWorld());
 
 	m_activeScene->Update(m_register);
+	
 	if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetKillTime()>3.f)
 	{
 		Game::ResetScene();
@@ -292,6 +293,11 @@ void Game::KeyboardUp()
 void Game::MouseMotion(SDL_MouseMotionEvent evnt)
 {
 	m_activeScene->MouseMotion(evnt);
+	if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGoalContact())
+	{
+		printf("advanced scene");
+		Game::AdvanceScene();
+	}
 	if (m_guiActive)
 	{
 		ImGui::GetIO().MousePos = ImVec2(float(evnt.x), float(evnt.y));
