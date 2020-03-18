@@ -177,10 +177,20 @@ void ContactListener::BeginContact(b2Contact* contact)
     if (contact->GetFixtureA()->GetBody()->GetEntityType() == 7 && contact->GetFixtureB()->GetBody()->GetEntityType()==3)
     {
         ECS::GetComponent<Target>(entA).SetHit();
+        ECS::GetComponent<PhysicsBody>(entA).GetBody()->GetFixtureList()->SetSensor(true);
     }
     else if (contact->GetFixtureB()->GetBody()->GetEntityType() == 7 && contact->GetFixtureA()->GetBody()->GetEntityType() == 3)
     {
         ECS::GetComponent<Target>(entB).SetHit();
+        ECS::GetComponent<PhysicsBody>(entB).GetBody()->GetFixtureList()->SetSensor(true);
+    }
+    if (contact->GetFixtureA()->GetBody()->GetEntityType() == 8 && contact->GetFixtureB()->GetBody()->GetEntityType() != 3)
+    {
+        ECS::GetComponent<PressurePlate>(entA).PressOn();
+    }
+    else if (contact->GetFixtureB()->GetBody()->GetEntityType() == 8 && contact->GetFixtureA()->GetBody()->GetEntityType() != 3)
+    {
+        ECS::GetComponent<PressurePlate>(entB).PressOn();
     }
     
 }
@@ -247,6 +257,14 @@ void ContactListener::EndContact(b2Contact* contact)
         {
             ECS::GetComponent<Player>(entA).SetContactingGoal(false);
         }
+    }
+    if (contact->GetFixtureA()->GetBody()->GetEntityType() == 8 && contact->GetFixtureB()->GetBody()->GetEntityType() != 3)
+    {
+        ECS::GetComponent<PressurePlate>(entA).PressOff();
+    }
+    else if (contact->GetFixtureB()->GetBody()->GetEntityType() == 8 && contact->GetFixtureA()->GetBody()->GetEntityType() != 3)
+    {
+        ECS::GetComponent<PressurePlate>(entB).PressOff();
     }
    
 }
