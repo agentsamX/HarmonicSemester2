@@ -399,6 +399,7 @@ public:
 	//5 block enemy
 	//6
 	//7 is target
+	//8 is pressure plate
 	void SetEntityType(int);
 	const int GetEntityType();
 
