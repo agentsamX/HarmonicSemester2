@@ -18,6 +18,7 @@
 #include "LevelGoal.h"
 #include "Gate.h"
 #include "Target.h"
+#include "PressurePlate.h"
 
 class ECS abstract
 {
