@@ -31,6 +31,10 @@ void ContactListener::BeginContact(b2Contact* contact)
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
                 }
             }
+            else if (Btype == 9)
+            {
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
+            }
         }
         if ((int)fixtureUserData == 3)
         {   
@@ -45,6 +49,10 @@ void ContactListener::BeginContact(b2Contact* contact)
                 {
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
                 }
+            }
+            else if (Btype == 9)
+            {
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
             }
         }
     }
@@ -75,6 +83,10 @@ void ContactListener::BeginContact(b2Contact* contact)
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
                 }
             }
+            else if (Atype == 9)
+            {
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
+            }
         }
         if ((int)fixtureUserData == 3)
         {
@@ -89,6 +101,10 @@ void ContactListener::BeginContact(b2Contact* contact)
                 {
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
                 }
+            }
+            else if (Atype == 9)
+            {
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
             }
         }
     }
