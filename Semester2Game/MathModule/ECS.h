@@ -14,6 +14,7 @@
 #include "HealthBar.h"
 #include "Player.h"
 #include "BlockEnemy.h"
+#include "PlatformEnemy.h"
 #include "Arrow.h"
 #include "LevelGoal.h"
 #include "Gate.h"

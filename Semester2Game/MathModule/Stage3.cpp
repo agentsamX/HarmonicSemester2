@@ -228,7 +228,7 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 			true);
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "blockenemytest");
+		ECS::SetUpIdentifier(entity, bitHolder, "block enemy 1");
 	}
 	{
 		auto entity = ECS::CreateEntity();
@@ -236,7 +236,7 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<BlockEnemy>(entity);
+		ECS::AttachComponent<PlatformEnemy>(entity);
 		//sets up components
 		std::string fileName = "box.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 32, 16);
@@ -251,14 +251,14 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 		tempBody->SetEntityNumber(entity);
-		tempBody->SetEntityType(5);
+		tempBody->SetEntityType(9);
 		tempBody->SetFixedRotation(true);
 		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
 			true);
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "blockenemytest");
+		ECS::SetUpIdentifier(entity, bitHolder, "Platform enemy 1");
 	}
 	{
 		auto entity = ECS::CreateEntity();
@@ -266,7 +266,7 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<BlockEnemy>(entity);
+		ECS::AttachComponent<PlatformEnemy>(entity);
 		//sets up components
 		std::string fileName = "box.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 32, 16);
@@ -281,14 +281,14 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 		tempBody->SetEntityNumber(entity);
-		tempBody->SetEntityType(5);
+		tempBody->SetEntityType(9);
 		tempBody->SetFixedRotation(true);
 		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
 			true);
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "blockenemytest");
+		ECS::SetUpIdentifier(entity, bitHolder, "Platform entity 2");
 	}
 	{
 		auto entity = ECS::CreateEntity();
@@ -296,7 +296,7 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<BlockEnemy>(entity);
+		ECS::AttachComponent<PlatformEnemy>(entity);
 		//sets up components
 		std::string fileName = "box.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 32, 16);
@@ -311,14 +311,14 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 		tempBody->SetEntityNumber(entity);
-		tempBody->SetEntityType(5);
+		tempBody->SetEntityType(9);
 		tempBody->SetFixedRotation(true);
 		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
 			true);
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "blockenemytest");
+		ECS::SetUpIdentifier(entity, bitHolder, "Platform enemy 3");
 	}
 	{
 		auto entity = ECS::CreateEntity();
@@ -326,7 +326,7 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<BlockEnemy>(entity);
+		ECS::AttachComponent<PlatformEnemy>(entity);
 		//sets up components
 		std::string fileName = "box.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 32, 16);
@@ -341,14 +341,14 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 		tempBody->SetEntityNumber(entity);
-		tempBody->SetEntityType(5);
+		tempBody->SetEntityType(9);
 		tempBody->SetFixedRotation(true);
 		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
 			true);
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "blockenemytest");
+		ECS::SetUpIdentifier(entity, bitHolder, "Platform enemy 4");
 	}
 	
 	{
@@ -1346,6 +1346,7 @@ void Stage3::Routines(entt::registry* reg)
 	else
 	{
 		auto viewBlockEnemy = reg->view<BlockEnemy>();
+		auto viewPlatformEnemy = reg->view<PlatformEnemy>();
 		auto viewArrow = reg->view<Arrow>();
 		for (auto entity : viewBlockEnemy)
 		{
@@ -1356,6 +1357,17 @@ void Stage3::Routines(entt::registry* reg)
 			else if (ECS::GetComponent<BlockEnemy>(entity).GetActive())
 			{
 				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(2.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
+			}
+		}
+		for (auto entity : viewPlatformEnemy)
+		{
+			if (ECS::GetComponent<PlatformEnemy>(entity).GetIsLeft())
+			{
+				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(-5.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
+			}
+			else
+			{
+				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(5.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
 			}
 		}
 		for (auto entity : viewArrow)

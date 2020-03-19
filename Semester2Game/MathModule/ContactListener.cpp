@@ -126,6 +126,17 @@ void ContactListener::BeginContact(b2Contact* contact)
             }
         }
     }
+
+    if (contact->GetFixtureB()->GetBody()->GetEntityType() == 9)
+    {
+        //type 9 is platform enemy
+        ECS::GetComponent<PlatformEnemy>(entB).SetIsLeft(!ECS::GetComponent<PlatformEnemy>(entB).GetIsLeft());
+    }
+    else if (contact->GetFixtureA()->GetBody()->GetEntityType() == 9)
+    {
+        //type 9 is platform enemy
+        ECS::GetComponent<PlatformEnemy>(entA).SetIsLeft(!ECS::GetComponent<PlatformEnemy>(entA).GetIsLeft());
+    }
     if (contact->GetFixtureB()->GetBody()->GetEntityType() == 1)
     {
         //type 1 is sticky wall
