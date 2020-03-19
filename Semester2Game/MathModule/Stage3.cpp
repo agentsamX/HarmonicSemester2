@@ -300,7 +300,7 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		//sets up components
 		std::string fileName = "box.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 32, 16);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(80.f, -493.f, 10.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-20.f, -480.f, 10.f));
 		//collision settings
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -330,7 +330,7 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		//sets up components
 		std::string fileName = "box.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 32, 16);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-20.f, -493.f, 10.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(60.f, -480.f, 10.f));
 		//collision settings
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -350,7 +350,7 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "blockenemytest");
 	}
-
+	
 	{
 		auto entity = ECS::CreateEntity();
 		//add components
@@ -359,8 +359,8 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 		//sets up components
 		std::string fileName = "floor.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 255, 32);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-24.f, -49.f, -10.f));
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 255, 31);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-24.f, -50.f, -10.f));
 		//collision settings
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -1054,7 +1054,7 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "sticky wall");
 	}
-	/*
+	
 	{
 		auto entity = ECS::CreateEntity();
 		//add components
@@ -1063,9 +1063,9 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 		ECS::AttachComponent<Gate>(entity);
 		//sets up components
-		std::string fileName = "box.png";
+		std::string fileName = "Gate.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 16, 48);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(80.f, -282.f, -10.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(80.f, -282.f, 8.f));
 		auto& tempTrans = ECS::GetComponent<Transform>(entity);
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -1091,9 +1091,9 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity2);
 		ECS::AttachComponent<Target>(entity2);
 		//sets up components
-		std::string fileName2 = "box.png";
-		ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName2, 9, 13);
-		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(92.4f, -281.5f, -10.f));
+		std::string fileName2 = "TargetR.png";
+		ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName2, 9, 16);
+		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(95.f, -281.5f, 8.f));
 		ECS::GetComponent<Target>(entity2).SetGateNum(entity);
 		auto& tempTrans2 = ECS::GetComponent<Transform>(entity2);
 		auto& tempSpr2 = ECS::GetComponent<Sprite>(entity2);
@@ -1111,7 +1111,7 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		//sets up the identifier
 		unsigned int bitHolder2 = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 		ECS::SetUpIdentifier(entity2, bitHolder2, "Target test");
-	}*/
+	}
 	
 	{
 		auto entity = ECS::CreateEntity();
@@ -1121,9 +1121,9 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 		ECS::AttachComponent<Gate>(entity);
 		//sets up components
-		std::string fileName = "box.png";
+		std::string fileName = "Gate.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 16, 48);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-32.1f, -282.f, -10.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-32.1f, -282.f, 8.f));
 		auto& tempTrans = ECS::GetComponent<Transform>(entity);
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -1149,9 +1149,9 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity2);
 		ECS::AttachComponent<Target>(entity2);
 		//sets up components
-		std::string fileName2 = "box.png";
-		ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName2, 9, 13);
-		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(-19.7f, -266.f, -10.f));
+		std::string fileName2 = "TargetR.png";
+		ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName2, 9, 16);
+		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(-17.7f, -266.f, 8.f));
 		ECS::GetComponent<Target>(entity2).SetGateNum(entity);
 		auto& tempTrans2 = ECS::GetComponent<Transform>(entity2);
 		auto& tempSpr2 = ECS::GetComponent<Sprite>(entity2);
@@ -1179,9 +1179,9 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 		ECS::AttachComponent<Gate>(entity);
 		//sets up components
-		std::string fileName = "box.png";
+		std::string fileName = "Gate.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 16, 48);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-80.1f, -378.7f, -10.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-80.1f, -378.7f, 8.f));
 		auto& tempTrans = ECS::GetComponent<Transform>(entity);
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -1207,9 +1207,9 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity2);
 		ECS::AttachComponent<Target>(entity2);
 		//sets up components
-		std::string fileName2 = "box.png";
-		ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName2, 9, 13);
-		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(-80.1f, -345.9f, -10.f));
+		std::string fileName2 = "TargetL.png";
+		ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName2, 9, 16);
+		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(-82.1f, -345.9f, 8.f));
 		ECS::GetComponent<Target>(entity2).SetGateNum(entity);
 		auto& tempTrans2 = ECS::GetComponent<Transform>(entity2);
 		auto& tempSpr2 = ECS::GetComponent<Sprite>(entity2);
@@ -1236,9 +1236,9 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 		ECS::AttachComponent<Gate>(entity);
 		//sets up components
-		std::string fileName = "box.png";
+		std::string fileName = "Gate.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 16, 48);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-80.1f, -458.f, -10.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-80.1f, -458.f, 8.f));
 		auto& tempTrans = ECS::GetComponent<Transform>(entity);
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -1264,9 +1264,9 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity2);
 		ECS::AttachComponent<Target>(entity2);
 		//sets up components
-		std::string fileName2 = "box.png";
-		ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName2, 9, 13);
-		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(-67.7f, -442.2f, -10.f));
+		std::string fileName2 = "TargetR.png";
+		ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName2, 9, 16);
+		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(-65.7f, -442.2f, 8.f));
 		ECS::GetComponent<Target>(entity2).SetGateNum(entity);
 		auto& tempTrans2 = ECS::GetComponent<Transform>(entity2);
 		auto& tempSpr2 = ECS::GetComponent<Sprite>(entity2);
