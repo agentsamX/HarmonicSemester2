@@ -218,9 +218,9 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		b2PolygonShape dynamicBoxH;
 		dynamicBoxF.SetAsBox(7.8f, 0.5f, b2Vec2(0.f, 12.1f), 0);
 		b2FixtureDef headSensor;
-		footSensor.shape = &dynamicBoxH;
-		footSensor.isSensor = true;
-		footSensor.userData = (void*)4;
+		headSensor.shape = &dynamicBoxH;
+		headSensor.isSensor = true;
+		headSensor.userData = (void*)4;
 
 		b2PolygonShape dynamicBoxL;
 		dynamicBoxL.SetAsBox(1.f, 11.f, b2Vec2(-8.1f, 0.f), 0);
