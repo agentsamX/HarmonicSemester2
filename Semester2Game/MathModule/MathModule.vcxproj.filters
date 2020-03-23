@@ -213,6 +213,9 @@
     <ClCompile Include="PlatformEnemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Stage4.cpp">
+      <Filter>Source Files\LevelSources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationController.h">
@@ -403,6 +406,9 @@
     </ClInclude>
     <ClInclude Include="PlatformEnemy.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage4.h">
+      <Filter>Header Files\LevelHeaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

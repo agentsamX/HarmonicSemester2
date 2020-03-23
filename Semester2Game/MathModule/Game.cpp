@@ -272,6 +272,15 @@ void Game::KeyboardUp()
 		m_register = m_activeScene->GetScene();
 		m_curScene = 3;
 	}
+	if (Input::GetKeyDown(Key::Four))
+	{
+		m_activeScene->~Scene();
+		m_scenes.push_back(new Stage4("Fourth Stage"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
+		m_curScene = 4;
+	}
 	if (Input::GetKeyDown(Key::R))
 	{
 		Game::ResetScene();
