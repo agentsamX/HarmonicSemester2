@@ -17,7 +17,7 @@ void ContactListener::BeginContact(b2Contact* contact)
                 ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
             }
         }
-        if ((int)fixtureUserData == 2)
+        else if ((int)fixtureUserData == 2)
         {
             if (contact->GetFixtureB()->GetBody()->GetType() == b2_staticBody)
             {
@@ -31,8 +31,12 @@ void ContactListener::BeginContact(b2Contact* contact)
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
                 }
             }
+            else if (Btype == 9)
+            {
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
+            }
         }
-        if ((int)fixtureUserData == 3)
+        else if ((int)fixtureUserData == 3)
         {   
             if (contact->GetFixtureB()->GetBody()->GetType() == b2_staticBody)
             {
@@ -45,6 +49,18 @@ void ContactListener::BeginContact(b2Contact* contact)
                 {
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
                 }
+            }
+            else if (Btype == 9)
+            {
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
+            }
+        }
+        else if ((int)fixtureUserData == 4)
+        {
+            if (Btype == 6)
+            {
+                printf("player touched spikes on head");
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
             }
         }
     }
@@ -61,7 +77,7 @@ void ContactListener::BeginContact(b2Contact* contact)
                 ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
             }
         }
-        if ((int)fixtureUserData == 2)
+        else if ((int)fixtureUserData == 2)
         {
             if (contact->GetFixtureA()->GetBody()->GetType() == b2_staticBody)
             {
@@ -75,8 +91,12 @@ void ContactListener::BeginContact(b2Contact* contact)
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
                 }
             }
+            else if (Atype == 9)
+            {
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
+            }
         }
-        if ((int)fixtureUserData == 3)
+        else if ((int)fixtureUserData == 3)
         {
             if (contact->GetFixtureA()->GetBody()->GetType() == b2_staticBody)
             {
@@ -89,6 +109,18 @@ void ContactListener::BeginContact(b2Contact* contact)
                 {
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
                 }
+            }
+            else if (Atype == 9)
+            {
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
+            }
+        }
+        else if ((int)fixtureUserData == 4)
+        {
+            if (Atype == 6)
+            {
+                printf("player touched spikes on head");
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
             }
         }
     }
@@ -125,6 +157,17 @@ void ContactListener::BeginContact(b2Contact* contact)
                 ECS::GetComponent<Arrow>(entB).SetArrTime(4.9f);
             }
         }
+    }
+
+    if (contact->GetFixtureB()->GetBody()->GetEntityType() == 9)
+    {
+        //type 9 is platform enemy
+        ECS::GetComponent<PlatformEnemy>(entB).SetIsLeft(!ECS::GetComponent<PlatformEnemy>(entB).GetIsLeft());
+    }
+    else if (contact->GetFixtureA()->GetBody()->GetEntityType() == 9)
+    {
+        //type 9 is platform enemy
+        ECS::GetComponent<PlatformEnemy>(entA).SetIsLeft(!ECS::GetComponent<PlatformEnemy>(entA).GetIsLeft());
     }
     if (contact->GetFixtureB()->GetBody()->GetEntityType() == 1)
     {
@@ -177,10 +220,20 @@ void ContactListener::BeginContact(b2Contact* contact)
     if (contact->GetFixtureA()->GetBody()->GetEntityType() == 7 && contact->GetFixtureB()->GetBody()->GetEntityType()==3)
     {
         ECS::GetComponent<Target>(entA).SetHit();
+        ECS::GetComponent<PhysicsBody>(entA).GetBody()->GetFixtureList()->SetSensor(true);
     }
     else if (contact->GetFixtureB()->GetBody()->GetEntityType() == 7 && contact->GetFixtureA()->GetBody()->GetEntityType() == 3)
     {
         ECS::GetComponent<Target>(entB).SetHit();
+        ECS::GetComponent<PhysicsBody>(entB).GetBody()->GetFixtureList()->SetSensor(true);
+    }
+    if (contact->GetFixtureA()->GetBody()->GetEntityType() == 8 && contact->GetFixtureB()->GetBody()->GetEntityType() != 3)
+    {
+        ECS::GetComponent<PressurePlate>(entA).PressOn();
+    }
+    else if (contact->GetFixtureB()->GetBody()->GetEntityType() == 8 && contact->GetFixtureA()->GetBody()->GetEntityType() != 3)
+    {
+        ECS::GetComponent<PressurePlate>(entB).PressOn();
     }
     
 }
@@ -247,6 +300,14 @@ void ContactListener::EndContact(b2Contact* contact)
         {
             ECS::GetComponent<Player>(entA).SetContactingGoal(false);
         }
+    }
+    if (contact->GetFixtureA()->GetBody()->GetEntityType() == 8 && contact->GetFixtureB()->GetBody()->GetEntityType() != 3)
+    {
+        ECS::GetComponent<PressurePlate>(entA).PressOff();
+    }
+    else if (contact->GetFixtureB()->GetBody()->GetEntityType() == 8 && contact->GetFixtureA()->GetBody()->GetEntityType() != 3)
+    {
+        ECS::GetComponent<PressurePlate>(entB).PressOff();
     }
    
 }

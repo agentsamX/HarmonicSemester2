@@ -229,6 +229,8 @@ void Player::ArrowShot(b2World* curScene)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "arrow");
 		arrNum++;
+		std::string blankFile = "blank.png";
+		ECS::GetComponent<Sprite>(arrNum).LoadSprite(blankFile, 16, 16);
 	}
 	else
 	{
@@ -238,7 +240,27 @@ void Player::ArrowShot(b2World* curScene)
 
 void Player::ArrowDestroyed()
 {
+	std::string fileName = "arrow.png";
+	std::string blankFile = "blank.png";
 	arrNum--;
+	switch (arrNum)
+	{
+	case 2:
+		ECS::GetComponent<Sprite>(3).LoadSprite(fileName, 16, 16);
+		ECS::GetComponent<Sprite>(2).LoadSprite(blankFile, 16, 16);
+		ECS::GetComponent<Sprite>(1).LoadSprite(blankFile, 16, 16);
+		break;
+	case 1:
+		ECS::GetComponent<Sprite>(3).LoadSprite(fileName, 16, 16);
+		ECS::GetComponent<Sprite>(2).LoadSprite(fileName, 16, 16);
+		ECS::GetComponent<Sprite>(1).LoadSprite(blankFile, 16, 16);
+		break;
+	case 0:
+		ECS::GetComponent<Sprite>(3).LoadSprite(fileName, 16, 16);
+		ECS::GetComponent<Sprite>(2).LoadSprite(fileName, 16, 16);
+		ECS::GetComponent<Sprite>(1).LoadSprite(fileName, 16, 16);
+		break;
+	}
 }
 
 void Player::SetLeft(bool left)

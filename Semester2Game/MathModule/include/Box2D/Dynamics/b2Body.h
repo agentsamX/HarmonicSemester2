@@ -397,8 +397,10 @@ public:
 	//3 arrow
 	//4 exit
 	//5 block enemy
-	//6
+	//6 spikes
 	//7 is target
+	//8 is pressure plate
+	//9 is platform enemy
 	void SetEntityType(int);
 	const int GetEntityType();
 

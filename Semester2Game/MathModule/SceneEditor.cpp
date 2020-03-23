@@ -136,9 +136,9 @@ void SceneEditor::CreateEditor(entt::registry * reg, Scene* scene)
 						float position[] = { tempTran.GetPosition().x, tempTran.GetPosition().y, tempTran.GetPosition().z };
 						float scale[] = { tempTran.GetScale().x, tempTran.GetScale().y, tempTran.GetScale().z };
 
-						if (ImGui::DragFloat3("Position", position, 0.1f, -200.f, 200.f))
+						if (ImGui::DragFloat3("Position", position, 0.1f, -1500.f, 1500.f))
 							tempTran.SetPosition(vec3(position[0], position[1], position[2]));
-						if (ImGui::DragFloat3("Scale", scale, 0.1f, 1.f, 1000.f))
+						if (ImGui::DragFloat3("Scale", scale, 0.1f, 1.f, 1500.f))
 							tempTran.SetScale(vec3(scale[0], scale[1], scale[2]));
 
 						ImGui::TreePop();
@@ -153,7 +153,7 @@ void SceneEditor::CreateEditor(entt::registry * reg, Scene* scene)
 
 						ImGui::Text(("File Name: " + tempSpr.GetFileName()).c_str());
 
-						if (ImGui::DragFloat2("Sprite Size", size, 1.0f, 1.f, 1000.f))
+						if (ImGui::DragFloat2("Sprite Size", size, 1.0f, 1.f, 1500.f))
 						{
 							tempSpr.SetWidth(int(size[0]));
 							tempSpr.SetHeight(int(size[1]));

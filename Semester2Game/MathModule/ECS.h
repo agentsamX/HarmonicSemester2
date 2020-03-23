@@ -14,10 +14,12 @@
 #include "HealthBar.h"
 #include "Player.h"
 #include "BlockEnemy.h"
+#include "PlatformEnemy.h"
 #include "Arrow.h"
 #include "LevelGoal.h"
 #include "Gate.h"
 #include "Target.h"
+#include "PressurePlate.h"
 
 class ECS abstract
 {
