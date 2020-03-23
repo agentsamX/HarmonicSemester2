@@ -44,6 +44,54 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		//add components
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
+		
+		std::string fileName = "Arrow.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 16, 16);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-180.f, 50.f, 100.f));
+		//collision settings
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempTrans = ECS::GetComponent<Transform>(entity);
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "UIArrow1");
+	}
+	{
+		auto entity = ECS::CreateEntity();
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		std::string fileName = "Arrow.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 16, 16);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-180.f, 70.f, 100.f));
+		//collision settings
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempTrans = ECS::GetComponent<Transform>(entity);
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "UIArrow2");
+	}
+	{
+		auto entity = ECS::CreateEntity();
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		std::string fileName = "Arrow.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 16, 16);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-180.f, 90.f, 100.f));
+		//collision settings
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempTrans = ECS::GetComponent<Transform>(entity);
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "UIArrow3");
+	}
+	{
+		auto entity = ECS::CreateEntity();
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
 		//ECS::AttachComponent<PhysicsBody>(entity);
 		//sets up components
 		std::string fileName = "JungleLevel1.png";
@@ -167,15 +215,22 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		footSensor.isSensor = true;
 		footSensor.userData = (void*)1;
 
+		b2PolygonShape dynamicBoxH;
+		dynamicBoxF.SetAsBox(7.8f, 0.5f, b2Vec2(0.f, 12.1f), 0);
+		b2FixtureDef headSensor;
+		footSensor.shape = &dynamicBoxH;
+		footSensor.isSensor = true;
+		footSensor.userData = (void*)4;
+
 		b2PolygonShape dynamicBoxL;
-		dynamicBoxL.SetAsBox(1.f, 11.5f, b2Vec2(-8.1f, 0.f), 0);
+		dynamicBoxL.SetAsBox(1.f, 11.f, b2Vec2(-8.1f, 0.f), 0);
 		b2FixtureDef leftSensor;
 		leftSensor.shape = &dynamicBoxL;
 		leftSensor.isSensor = true;
 		leftSensor.userData = (void*)2;
 
 		b2PolygonShape dynamicBoxR;
-		dynamicBoxR.SetAsBox(1.f, 11.5f, b2Vec2(8.1f, 0.f), 0);
+		dynamicBoxR.SetAsBox(1.f, 11.f, b2Vec2(8.1f, 0.f), 0);
 		b2FixtureDef rightSensor;
 		rightSensor.shape = &dynamicBoxR;
 		rightSensor.isSensor = true;
@@ -189,6 +244,7 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		tempBody->CreateFixture(&footSensor);
 		tempBody->CreateFixture(&rightSensor);
 		tempBody->CreateFixture(&leftSensor);
+		tempBody->CreateFixture(&headSensor);
 		tempBody->SetEntityNumber(entity);
 		tempBody->SetEntityType(2);
 		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
@@ -1338,6 +1394,10 @@ void Stage3::Update(entt::registry* reg)
 void Stage3::Routines(entt::registry* reg)
 {
 	ECS::GetComponent<VerticalScroll>(EntityIdentifier::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()));
+	vec3 camPos = ECS::GetComponent<Camera>(EntityIdentifier::MainCamera()).GetPosition();
+	ECS::GetComponent<Transform>(1).SetPosition(camPos + vec3(-180.f, 50.f, 0.f));
+	ECS::GetComponent<Transform>(2).SetPosition(camPos + vec3(-180.f, 70.f, 0.f));
+	ECS::GetComponent<Transform>(3).SetPosition(camPos + vec3(-180.f, 90.f, 0.f));
 	if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetKill())
 	{
 		printf("player is dead");
@@ -1397,11 +1457,66 @@ void Stage3::Routines(entt::registry* reg)
 
 void Stage3::GamepadStroke(XInputController* con)
 {
+	auto phsBod = ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer());
+	vec3 curVelo = phsBod.GetVelocity();
+	if (con->IsButtonPressed(A))
+	{
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
+		{
+			phsBod.SetVelocity(vec3(curVelo.x, 23.f, 0.f));
+		}
+	}
+	if (con->IsButtonPressed(X))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ArrowShot(m_physicsWorld);
+	}
+	if (con->IsButtonPressed(DPAD_LEFT))
+	{
+		if (!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLeftContact())
+		{
+			phsBod.SetVelocity(vec3(-10.f, curVelo.y, 0.f));
+		}
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(true);
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(false);
+
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(false); }
+	if (con->IsButtonPressed(DPAD_RIGHT))
+	{
+		if (!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetRightContact())
+		{
+			phsBod.SetVelocity(vec3(10.f, curVelo.y, 0.f));
+		}
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRight(true);
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(true);
+
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRight(false); }
+	if (con->IsButtonPressed(DPAD_UP))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetUp(true);
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetUp(false); }
+	if (con->IsButtonPressed(DPAD_DOWN))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetDown(true);
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetDown(false); }
+	if (con->IsButtonPressed(RB))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(true);
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
+		{
+			phsBod.SetVelocity(vec3(0.f, 0.f, 0.f));
+		}
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(false); }
 }
 
 void Stage3::GamepadStick(XInputController* con)
 {
-
+	Stick sticks[2];
+	con->GetSticks(sticks);
 }
 
 void Stage3::GamepadTrigger(XInputController* con)

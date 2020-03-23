@@ -17,7 +17,7 @@ void ContactListener::BeginContact(b2Contact* contact)
                 ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
             }
         }
-        if ((int)fixtureUserData == 2)
+        else if ((int)fixtureUserData == 2)
         {
             if (contact->GetFixtureB()->GetBody()->GetType() == b2_staticBody)
             {
@@ -36,7 +36,7 @@ void ContactListener::BeginContact(b2Contact* contact)
                 ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
             }
         }
-        if ((int)fixtureUserData == 3)
+        else if ((int)fixtureUserData == 3)
         {   
             if (contact->GetFixtureB()->GetBody()->GetType() == b2_staticBody)
             {
@@ -55,6 +55,14 @@ void ContactListener::BeginContact(b2Contact* contact)
                 ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
             }
         }
+        else if ((int)fixtureUserData == 4)
+        {
+            if (Btype == 6)
+            {
+                printf("player touched spikes on head");
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
+            }
+        }
     }
     if (contact->GetFixtureB()->IsSensor())
     {
@@ -69,7 +77,7 @@ void ContactListener::BeginContact(b2Contact* contact)
                 ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
             }
         }
-        if ((int)fixtureUserData == 2)
+        else if ((int)fixtureUserData == 2)
         {
             if (contact->GetFixtureA()->GetBody()->GetType() == b2_staticBody)
             {
@@ -88,7 +96,7 @@ void ContactListener::BeginContact(b2Contact* contact)
                 ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
             }
         }
-        if ((int)fixtureUserData == 3)
+        else if ((int)fixtureUserData == 3)
         {
             if (contact->GetFixtureA()->GetBody()->GetType() == b2_staticBody)
             {
@@ -104,6 +112,14 @@ void ContactListener::BeginContact(b2Contact* contact)
             }
             else if (Atype == 9)
             {
+                ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
+            }
+        }
+        else if ((int)fixtureUserData == 4)
+        {
+            if (Atype == 6)
+            {
+                printf("player touched spikes on head");
                 ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
             }
         }
