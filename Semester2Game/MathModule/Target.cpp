@@ -23,5 +23,6 @@ void Target::SetHit()
 {
 	targHit = true;
 	ECS::GetComponent<PhysicsBody>(GetGateNum()).GetBody()->GetFixtureList()->SetSensor(true);
+	ECS::GetComponent<AnimationController>(GetGateNum()).SetActiveAnim(1);
 	
 }
