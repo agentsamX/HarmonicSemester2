@@ -419,6 +419,7 @@ void Stage5::InitScene(float windowWidth, float windowHeight)
 		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 		tempBody->SetEntityNumber(entity);
+		tempBody->SetEntityType(6);
 		tempPhsBody = PhysicsBody(tempBody, float(224), float(16),
 			vec2(0.f, 0.f),
 			true);
@@ -662,6 +663,7 @@ void Stage5::InitScene(float windowWidth, float windowHeight)
 		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 		tempBody->SetEntityNumber(entity);
+		tempBody->SetEntityType(6);
 		tempPhsBody = PhysicsBody(tempBody, float(96), float(16),
 			vec2(0.f, 0.f),
 			true);
@@ -1041,6 +1043,7 @@ void Stage5::InitScene(float windowWidth, float windowHeight)
 		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 		tempBody->SetEntityNumber(entity);
+		tempBody->SetEntityType(6);
 		tempPhsBody = PhysicsBody(tempBody, float(32), float(16),
 			vec2(0.f, 0.f),
 			true);
@@ -1345,6 +1348,1041 @@ void Stage5::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "floor");
 	}
+
+	{
+		auto entity = ECS::CreateEntity();
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<Gate>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+
+		//Sets up components
+		std::string Door = "DoorOpening.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(Door);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(3840.f, 480.f), vec2(4000.f, 0.f));
+		anim.AddFrame(vec2(3680.f, 480.f), vec2(3840.f, 0.f));
+		anim.AddFrame(vec2(3520.f, 480.f), vec2(3680.f, 0.f));
+		anim.AddFrame(vec2(3360.f, 480.f), vec2(3520.f, 0.f));
+		anim.AddFrame(vec2(3200.f, 480.f), vec2(3360.f, 0.f));
+		anim.AddFrame(vec2(3040.f, 480.f), vec2(3200.f, 0.f));
+		anim.AddFrame(vec2(2880.f, 480.f), vec2(3040.f, 0.f));
+		anim.AddFrame(vec2(2720.f, 480.f), vec2(2880.f, 0.f));
+		anim.AddFrame(vec2(2560.f, 480.f), vec2(2720.f, 0.f));
+		anim.AddFrame(vec2(2400.f, 480.f), vec2(2560.f, 0.f));
+		anim.AddFrame(vec2(2240.f, 480.f), vec2(2400.f, 0.f));
+		anim.AddFrame(vec2(2080.f, 480.f), vec2(2240.f, 0.f));
+		anim.AddFrame(vec2(1920.f, 480.f), vec2(2080.f, 0.f));
+		anim.AddFrame(vec2(1760.f, 480.f), vec2(1920.f, 0.f));
+		anim.AddFrame(vec2(1600.f, 480.f), vec2(1760.f, 0.f));
+		anim.AddFrame(vec2(1440.f, 480.f), vec2(1600.f, 0.f));
+		anim.AddFrame(vec2(1280.f, 480.f), vec2(1440.f, 0.f));
+		anim.AddFrame(vec2(1120.f, 480.f), vec2(1280.f, 0.f));
+		anim.AddFrame(vec2(960.f, 480.f), vec2(1120.f, 0.f));
+		anim.AddFrame(vec2(800.f, 480.f), vec2(960.f, 0.f));
+		anim.AddFrame(vec2(640.f, 480.f), vec2(800.f, 0.f));
+		anim.AddFrame(vec2(480.f, 480.f), vec2(640.f, 0.f));
+		anim.AddFrame(vec2(320.f, 480.f), vec2(480.f, 0.f));
+		anim.AddFrame(vec2(160.f, 480.f), vec2(320.f, 0.f));
+		anim.AddFrame(vec2(0.f, 480.f), vec2(160.f, 0.f));
+
+		//Makes it repeat
+		anim.SetRepeating(false);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.05f);
+		animController.AddAnimation(Animation());
+
+		//gets first animation
+		auto& anim2 = animController.GetAnimation(1);
+		anim2.AddFrame(vec2(0.f, 480.f), vec2(160.f, 0.f));
+		anim2.AddFrame(vec2(160.f, 480.f), vec2(320.f, 0.f));
+		anim2.AddFrame(vec2(320.f, 480.f), vec2(480.f, 0.f));
+		anim2.AddFrame(vec2(480.f, 480.f), vec2(640.f, 0.f));
+		anim2.AddFrame(vec2(640.f, 480.f), vec2(800.f, 0.f));
+		anim2.AddFrame(vec2(800.f, 480.f), vec2(960.f, 0.f));
+		anim2.AddFrame(vec2(960.f, 480.f), vec2(1120.f, 0.f));
+		anim2.AddFrame(vec2(1120.f, 480.f), vec2(1280.f, 0.f));
+		anim2.AddFrame(vec2(1280.f, 480.f), vec2(1440.f, 0.f));
+		anim2.AddFrame(vec2(1440.f, 480.f), vec2(1600.f, 0.f));
+		anim2.AddFrame(vec2(1600.f, 480.f), vec2(1760.f, 0.f));
+		anim2.AddFrame(vec2(1760.f, 480.f), vec2(1920.f, 0.f));
+		anim2.AddFrame(vec2(1920.f, 480.f), vec2(2080.f, 0.f));
+		anim2.AddFrame(vec2(2080.f, 480.f), vec2(2240.f, 0.f));
+		anim2.AddFrame(vec2(2240.f, 480.f), vec2(2400.f, 0.f));
+		anim2.AddFrame(vec2(2400.f, 480.f), vec2(2560.f, 0.f));
+		anim2.AddFrame(vec2(2560.f, 480.f), vec2(2720.f, 0.f));
+		anim2.AddFrame(vec2(2720.f, 480.f), vec2(2880.f, 0.f));
+		anim2.AddFrame(vec2(2880.f, 480.f), vec2(3040.f, 0.f));
+		anim2.AddFrame(vec2(3040.f, 480.f), vec2(3200.f, 0.f));
+		anim2.AddFrame(vec2(3200.f, 480.f), vec2(3360.f, 0.f));
+		anim2.AddFrame(vec2(3360.f, 480.f), vec2(3520.f, 0.f));
+		anim2.AddFrame(vec2(3520.f, 480.f), vec2(3680.f, 0.f));
+		anim2.AddFrame(vec2(3680.f, 480.f), vec2(3840.f, 0.f));
+		anim2.AddFrame(vec2(3840.f, 480.f), vec2(4000.f, 0.f));
+
+		//Makes it repeat
+		anim2.SetRepeating(false);
+		//Sets the time between frames
+		anim2.SetSecPerFrame(0.05f);
+
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(Door, 16, 48, true, &animController);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-32.f, 176.f, 8.f));
+		auto& tempTrans = ECS::GetComponent<Transform>(entity);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		b2Body* tempBody;
+		b2BodyDef tempDef;
+		tempDef.type = b2_kinematicBody;
+		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
+		tempBody = m_physicsWorld->CreateBody(&tempDef);
+		tempBody->SetEntityNumber(entity);
+		tempBody->SetEntityType(0);
+		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(47.5),
+			vec2(0.f, 0.f),
+			false);
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Gate");
+
+
+		auto entity2 = ECS::CreateEntity();
+		//add components
+		ECS::AttachComponent<Sprite>(entity2);
+		ECS::AttachComponent<Transform>(entity2);
+		ECS::AttachComponent<PhysicsBody>(entity2);
+		ECS::AttachComponent<Target>(entity2);
+		//sets up components
+		std::string fileName2 = "TargetL.png";
+		ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName2, 9, 16);
+		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(-48.f, 192.f, 8.f));
+		ECS::GetComponent<Target>(entity2).SetGateNum(entity);
+		auto& tempTrans2 = ECS::GetComponent<Transform>(entity2);
+		auto& tempSpr2 = ECS::GetComponent<Sprite>(entity2);
+		auto& tempPhsBody2 = ECS::GetComponent<PhysicsBody>(entity2);
+		b2Body* tempBody2;
+		b2BodyDef tempDef2;
+		tempDef2.type = b2_kinematicBody;
+		tempDef2.position.Set(float32(tempTrans2.GetPositionX()), float32(tempTrans2.GetPositionY()));
+		tempBody2 = m_physicsWorld->CreateBody(&tempDef2);
+		tempBody2->SetEntityNumber(entity2);
+		tempBody2->SetEntityType(7);
+		tempPhsBody2 = PhysicsBody(tempBody2, float(tempSpr2.GetWidth()), float(tempSpr2.GetHeight()),
+			vec2(4.f, 0.f),
+			false);
+		//sets up the identifier
+		unsigned int bitHolder2 = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity2, bitHolder2, "Target");
+	}
+
+	{
+	auto entity = ECS::CreateEntity();
+	//add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+	ECS::AttachComponent<PhysicsBody>(entity);
+	ECS::AttachComponent<Gate>(entity);
+	ECS::AttachComponent<AnimationController>(entity);
+
+	//Sets up components
+	std::string Door = "DoorOpening.png";
+	auto& animController = ECS::GetComponent<AnimationController>(entity);
+	animController.InitUVs(Door);
+	//Adds first animation
+	animController.AddAnimation(Animation());
+	//Sets active animation
+	animController.SetActiveAnim(0);
+
+	//gets first animation
+	auto& anim = animController.GetAnimation(0);
+	anim.AddFrame(vec2(3840.f, 480.f), vec2(4000.f, 0.f));
+	anim.AddFrame(vec2(3680.f, 480.f), vec2(3840.f, 0.f));
+	anim.AddFrame(vec2(3520.f, 480.f), vec2(3680.f, 0.f));
+	anim.AddFrame(vec2(3360.f, 480.f), vec2(3520.f, 0.f));
+	anim.AddFrame(vec2(3200.f, 480.f), vec2(3360.f, 0.f));
+	anim.AddFrame(vec2(3040.f, 480.f), vec2(3200.f, 0.f));
+	anim.AddFrame(vec2(2880.f, 480.f), vec2(3040.f, 0.f));
+	anim.AddFrame(vec2(2720.f, 480.f), vec2(2880.f, 0.f));
+	anim.AddFrame(vec2(2560.f, 480.f), vec2(2720.f, 0.f));
+	anim.AddFrame(vec2(2400.f, 480.f), vec2(2560.f, 0.f));
+	anim.AddFrame(vec2(2240.f, 480.f), vec2(2400.f, 0.f));
+	anim.AddFrame(vec2(2080.f, 480.f), vec2(2240.f, 0.f));
+	anim.AddFrame(vec2(1920.f, 480.f), vec2(2080.f, 0.f));
+	anim.AddFrame(vec2(1760.f, 480.f), vec2(1920.f, 0.f));
+	anim.AddFrame(vec2(1600.f, 480.f), vec2(1760.f, 0.f));
+	anim.AddFrame(vec2(1440.f, 480.f), vec2(1600.f, 0.f));
+	anim.AddFrame(vec2(1280.f, 480.f), vec2(1440.f, 0.f));
+	anim.AddFrame(vec2(1120.f, 480.f), vec2(1280.f, 0.f));
+	anim.AddFrame(vec2(960.f, 480.f), vec2(1120.f, 0.f));
+	anim.AddFrame(vec2(800.f, 480.f), vec2(960.f, 0.f));
+	anim.AddFrame(vec2(640.f, 480.f), vec2(800.f, 0.f));
+	anim.AddFrame(vec2(480.f, 480.f), vec2(640.f, 0.f));
+	anim.AddFrame(vec2(320.f, 480.f), vec2(480.f, 0.f));
+	anim.AddFrame(vec2(160.f, 480.f), vec2(320.f, 0.f));
+	anim.AddFrame(vec2(0.f, 480.f), vec2(160.f, 0.f));
+
+	//Makes it repeat
+	anim.SetRepeating(false);
+	//Sets the time between frames
+	anim.SetSecPerFrame(0.05f);
+	animController.AddAnimation(Animation());
+
+	//gets first animation
+	auto& anim2 = animController.GetAnimation(1);
+	anim2.AddFrame(vec2(0.f, 480.f), vec2(160.f, 0.f));
+	anim2.AddFrame(vec2(160.f, 480.f), vec2(320.f, 0.f));
+	anim2.AddFrame(vec2(320.f, 480.f), vec2(480.f, 0.f));
+	anim2.AddFrame(vec2(480.f, 480.f), vec2(640.f, 0.f));
+	anim2.AddFrame(vec2(640.f, 480.f), vec2(800.f, 0.f));
+	anim2.AddFrame(vec2(800.f, 480.f), vec2(960.f, 0.f));
+	anim2.AddFrame(vec2(960.f, 480.f), vec2(1120.f, 0.f));
+	anim2.AddFrame(vec2(1120.f, 480.f), vec2(1280.f, 0.f));
+	anim2.AddFrame(vec2(1280.f, 480.f), vec2(1440.f, 0.f));
+	anim2.AddFrame(vec2(1440.f, 480.f), vec2(1600.f, 0.f));
+	anim2.AddFrame(vec2(1600.f, 480.f), vec2(1760.f, 0.f));
+	anim2.AddFrame(vec2(1760.f, 480.f), vec2(1920.f, 0.f));
+	anim2.AddFrame(vec2(1920.f, 480.f), vec2(2080.f, 0.f));
+	anim2.AddFrame(vec2(2080.f, 480.f), vec2(2240.f, 0.f));
+	anim2.AddFrame(vec2(2240.f, 480.f), vec2(2400.f, 0.f));
+	anim2.AddFrame(vec2(2400.f, 480.f), vec2(2560.f, 0.f));
+	anim2.AddFrame(vec2(2560.f, 480.f), vec2(2720.f, 0.f));
+	anim2.AddFrame(vec2(2720.f, 480.f), vec2(2880.f, 0.f));
+	anim2.AddFrame(vec2(2880.f, 480.f), vec2(3040.f, 0.f));
+	anim2.AddFrame(vec2(3040.f, 480.f), vec2(3200.f, 0.f));
+	anim2.AddFrame(vec2(3200.f, 480.f), vec2(3360.f, 0.f));
+	anim2.AddFrame(vec2(3360.f, 480.f), vec2(3520.f, 0.f));
+	anim2.AddFrame(vec2(3520.f, 480.f), vec2(3680.f, 0.f));
+	anim2.AddFrame(vec2(3680.f, 480.f), vec2(3840.f, 0.f));
+	anim2.AddFrame(vec2(3840.f, 480.f), vec2(4000.f, 0.f));
+
+	//Makes it repeat
+	anim2.SetRepeating(false);
+	//Sets the time between frames
+	anim2.SetSecPerFrame(0.05f);
+
+
+	ECS::GetComponent<Sprite>(entity).LoadSprite(Door, 16, 48, true, &animController);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(48.f, 176.f, 8.f));
+	auto& tempTrans = ECS::GetComponent<Transform>(entity);
+	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+	b2Body* tempBody;
+	b2BodyDef tempDef;
+	tempDef.type = b2_kinematicBody;
+	tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
+	tempBody = m_physicsWorld->CreateBody(&tempDef);
+	tempBody->SetEntityNumber(entity);
+	tempBody->SetEntityType(0);
+	tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(47.5),
+		vec2(0.f, 0.f),
+		false);
+	//sets up the identifier
+	unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+	ECS::SetUpIdentifier(entity, bitHolder, "Gate");
+
+
+	auto entity2 = ECS::CreateEntity();
+	//add components
+	ECS::AttachComponent<Sprite>(entity2);
+	ECS::AttachComponent<Transform>(entity2);
+	ECS::AttachComponent<PhysicsBody>(entity2);
+	ECS::AttachComponent<Target>(entity2);
+	//sets up components
+	std::string fileName2 = "TargetL.png";
+	ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName2, 9, 16);
+	ECS::GetComponent<Transform>(entity2).SetPosition(vec3(32.f, 176.f, 8.f));
+	ECS::GetComponent<Target>(entity2).SetGateNum(entity);
+	auto& tempTrans2 = ECS::GetComponent<Transform>(entity2);
+	auto& tempSpr2 = ECS::GetComponent<Sprite>(entity2);
+	auto& tempPhsBody2 = ECS::GetComponent<PhysicsBody>(entity2);
+	b2Body* tempBody2;
+	b2BodyDef tempDef2;
+	tempDef2.type = b2_kinematicBody;
+	tempDef2.position.Set(float32(tempTrans2.GetPositionX()), float32(tempTrans2.GetPositionY()));
+	tempBody2 = m_physicsWorld->CreateBody(&tempDef2);
+	tempBody2->SetEntityNumber(entity2);
+	tempBody2->SetEntityType(7);
+	tempPhsBody2 = PhysicsBody(tempBody2, float(tempSpr2.GetWidth()), float(tempSpr2.GetHeight()),
+		vec2(4.f, 0.f),
+		false);
+	//sets up the identifier
+	unsigned int bitHolder2 = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+	ECS::SetUpIdentifier(entity2, bitHolder2, "Target");
+	}
+
+	{
+	auto entity = ECS::CreateEntity();
+	//add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+	ECS::AttachComponent<PhysicsBody>(entity);
+	ECS::AttachComponent<Gate>(entity);
+	ECS::AttachComponent<AnimationController>(entity);
+
+	//Sets up components
+	std::string Door = "DoorOpening.png";
+	auto& animController = ECS::GetComponent<AnimationController>(entity);
+	animController.InitUVs(Door);
+	//Adds first animation
+	animController.AddAnimation(Animation());
+	//Sets active animation
+	animController.SetActiveAnim(0);
+
+	//gets first animation
+	auto& anim = animController.GetAnimation(0);
+	anim.AddFrame(vec2(3840.f, 480.f), vec2(4000.f, 0.f));
+	anim.AddFrame(vec2(3680.f, 480.f), vec2(3840.f, 0.f));
+	anim.AddFrame(vec2(3520.f, 480.f), vec2(3680.f, 0.f));
+	anim.AddFrame(vec2(3360.f, 480.f), vec2(3520.f, 0.f));
+	anim.AddFrame(vec2(3200.f, 480.f), vec2(3360.f, 0.f));
+	anim.AddFrame(vec2(3040.f, 480.f), vec2(3200.f, 0.f));
+	anim.AddFrame(vec2(2880.f, 480.f), vec2(3040.f, 0.f));
+	anim.AddFrame(vec2(2720.f, 480.f), vec2(2880.f, 0.f));
+	anim.AddFrame(vec2(2560.f, 480.f), vec2(2720.f, 0.f));
+	anim.AddFrame(vec2(2400.f, 480.f), vec2(2560.f, 0.f));
+	anim.AddFrame(vec2(2240.f, 480.f), vec2(2400.f, 0.f));
+	anim.AddFrame(vec2(2080.f, 480.f), vec2(2240.f, 0.f));
+	anim.AddFrame(vec2(1920.f, 480.f), vec2(2080.f, 0.f));
+	anim.AddFrame(vec2(1760.f, 480.f), vec2(1920.f, 0.f));
+	anim.AddFrame(vec2(1600.f, 480.f), vec2(1760.f, 0.f));
+	anim.AddFrame(vec2(1440.f, 480.f), vec2(1600.f, 0.f));
+	anim.AddFrame(vec2(1280.f, 480.f), vec2(1440.f, 0.f));
+	anim.AddFrame(vec2(1120.f, 480.f), vec2(1280.f, 0.f));
+	anim.AddFrame(vec2(960.f, 480.f), vec2(1120.f, 0.f));
+	anim.AddFrame(vec2(800.f, 480.f), vec2(960.f, 0.f));
+	anim.AddFrame(vec2(640.f, 480.f), vec2(800.f, 0.f));
+	anim.AddFrame(vec2(480.f, 480.f), vec2(640.f, 0.f));
+	anim.AddFrame(vec2(320.f, 480.f), vec2(480.f, 0.f));
+	anim.AddFrame(vec2(160.f, 480.f), vec2(320.f, 0.f));
+	anim.AddFrame(vec2(0.f, 480.f), vec2(160.f, 0.f));
+
+	//Makes it repeat
+	anim.SetRepeating(false);
+	//Sets the time between frames
+	anim.SetSecPerFrame(0.05f);
+	animController.AddAnimation(Animation());
+
+	//gets first animation
+	auto& anim2 = animController.GetAnimation(1);
+	anim2.AddFrame(vec2(0.f, 480.f), vec2(160.f, 0.f));
+	anim2.AddFrame(vec2(160.f, 480.f), vec2(320.f, 0.f));
+	anim2.AddFrame(vec2(320.f, 480.f), vec2(480.f, 0.f));
+	anim2.AddFrame(vec2(480.f, 480.f), vec2(640.f, 0.f));
+	anim2.AddFrame(vec2(640.f, 480.f), vec2(800.f, 0.f));
+	anim2.AddFrame(vec2(800.f, 480.f), vec2(960.f, 0.f));
+	anim2.AddFrame(vec2(960.f, 480.f), vec2(1120.f, 0.f));
+	anim2.AddFrame(vec2(1120.f, 480.f), vec2(1280.f, 0.f));
+	anim2.AddFrame(vec2(1280.f, 480.f), vec2(1440.f, 0.f));
+	anim2.AddFrame(vec2(1440.f, 480.f), vec2(1600.f, 0.f));
+	anim2.AddFrame(vec2(1600.f, 480.f), vec2(1760.f, 0.f));
+	anim2.AddFrame(vec2(1760.f, 480.f), vec2(1920.f, 0.f));
+	anim2.AddFrame(vec2(1920.f, 480.f), vec2(2080.f, 0.f));
+	anim2.AddFrame(vec2(2080.f, 480.f), vec2(2240.f, 0.f));
+	anim2.AddFrame(vec2(2240.f, 480.f), vec2(2400.f, 0.f));
+	anim2.AddFrame(vec2(2400.f, 480.f), vec2(2560.f, 0.f));
+	anim2.AddFrame(vec2(2560.f, 480.f), vec2(2720.f, 0.f));
+	anim2.AddFrame(vec2(2720.f, 480.f), vec2(2880.f, 0.f));
+	anim2.AddFrame(vec2(2880.f, 480.f), vec2(3040.f, 0.f));
+	anim2.AddFrame(vec2(3040.f, 480.f), vec2(3200.f, 0.f));
+	anim2.AddFrame(vec2(3200.f, 480.f), vec2(3360.f, 0.f));
+	anim2.AddFrame(vec2(3360.f, 480.f), vec2(3520.f, 0.f));
+	anim2.AddFrame(vec2(3520.f, 480.f), vec2(3680.f, 0.f));
+	anim2.AddFrame(vec2(3680.f, 480.f), vec2(3840.f, 0.f));
+	anim2.AddFrame(vec2(3840.f, 480.f), vec2(4000.f, 0.f));
+
+	//Makes it repeat
+	anim2.SetRepeating(false);
+	//Sets the time between frames
+	anim2.SetSecPerFrame(0.05f);
+
+
+	ECS::GetComponent<Sprite>(entity).LoadSprite(Door, 16, 48, true, &animController);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(64.f, -32.f, 8.f));
+	auto& tempTrans = ECS::GetComponent<Transform>(entity);
+	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+	b2Body* tempBody;
+	b2BodyDef tempDef;
+	tempDef.type = b2_kinematicBody;
+	tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
+	tempBody = m_physicsWorld->CreateBody(&tempDef);
+	tempBody->SetEntityNumber(entity);
+	tempBody->SetEntityType(0);
+	tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(47.5),
+		vec2(0.f, 0.f),
+		false);
+	//sets up the identifier
+	unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+	ECS::SetUpIdentifier(entity, bitHolder, "Gate");
+
+
+	auto entity2 = ECS::CreateEntity();
+	//add components
+	ECS::AttachComponent<Sprite>(entity2);
+	ECS::AttachComponent<Transform>(entity2);
+	ECS::AttachComponent<PhysicsBody>(entity2);
+	ECS::AttachComponent<Target>(entity2);
+	//sets up components
+	std::string fileName2 = "TargetL.png";
+	ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName2, 9, 16);
+	ECS::GetComponent<Transform>(entity2).SetPosition(vec3(48.f, -32.f, 8.f));
+	ECS::GetComponent<Target>(entity2).SetGateNum(entity);
+	auto& tempTrans2 = ECS::GetComponent<Transform>(entity2);
+	auto& tempSpr2 = ECS::GetComponent<Sprite>(entity2);
+	auto& tempPhsBody2 = ECS::GetComponent<PhysicsBody>(entity2);
+	b2Body* tempBody2;
+	b2BodyDef tempDef2;
+	tempDef2.type = b2_kinematicBody;
+	tempDef2.position.Set(float32(tempTrans2.GetPositionX()), float32(tempTrans2.GetPositionY()));
+	tempBody2 = m_physicsWorld->CreateBody(&tempDef2);
+	tempBody2->SetEntityNumber(entity2);
+	tempBody2->SetEntityType(7);
+	tempPhsBody2 = PhysicsBody(tempBody2, float(tempSpr2.GetWidth()), float(tempSpr2.GetHeight()),
+		vec2(4.f, 0.f),
+		false);
+	//sets up the identifier
+	unsigned int bitHolder2 = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+	ECS::SetUpIdentifier(entity2, bitHolder2, "Target");
+	}
+
+	{
+	auto entity = ECS::CreateEntity();
+	//add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+	ECS::AttachComponent<PhysicsBody>(entity);
+	ECS::AttachComponent<Gate>(entity);
+	ECS::AttachComponent<AnimationController>(entity);
+
+	//Sets up components
+	std::string Door = "DoorOpening.png";
+	auto& animController = ECS::GetComponent<AnimationController>(entity);
+	animController.InitUVs(Door);
+	//Adds first animation
+	animController.AddAnimation(Animation());
+	//Sets active animation
+	animController.SetActiveAnim(0);
+
+	//gets first animation
+	auto& anim = animController.GetAnimation(0);
+	anim.AddFrame(vec2(3840.f, 480.f), vec2(4000.f, 0.f));
+	anim.AddFrame(vec2(3680.f, 480.f), vec2(3840.f, 0.f));
+	anim.AddFrame(vec2(3520.f, 480.f), vec2(3680.f, 0.f));
+	anim.AddFrame(vec2(3360.f, 480.f), vec2(3520.f, 0.f));
+	anim.AddFrame(vec2(3200.f, 480.f), vec2(3360.f, 0.f));
+	anim.AddFrame(vec2(3040.f, 480.f), vec2(3200.f, 0.f));
+	anim.AddFrame(vec2(2880.f, 480.f), vec2(3040.f, 0.f));
+	anim.AddFrame(vec2(2720.f, 480.f), vec2(2880.f, 0.f));
+	anim.AddFrame(vec2(2560.f, 480.f), vec2(2720.f, 0.f));
+	anim.AddFrame(vec2(2400.f, 480.f), vec2(2560.f, 0.f));
+	anim.AddFrame(vec2(2240.f, 480.f), vec2(2400.f, 0.f));
+	anim.AddFrame(vec2(2080.f, 480.f), vec2(2240.f, 0.f));
+	anim.AddFrame(vec2(1920.f, 480.f), vec2(2080.f, 0.f));
+	anim.AddFrame(vec2(1760.f, 480.f), vec2(1920.f, 0.f));
+	anim.AddFrame(vec2(1600.f, 480.f), vec2(1760.f, 0.f));
+	anim.AddFrame(vec2(1440.f, 480.f), vec2(1600.f, 0.f));
+	anim.AddFrame(vec2(1280.f, 480.f), vec2(1440.f, 0.f));
+	anim.AddFrame(vec2(1120.f, 480.f), vec2(1280.f, 0.f));
+	anim.AddFrame(vec2(960.f, 480.f), vec2(1120.f, 0.f));
+	anim.AddFrame(vec2(800.f, 480.f), vec2(960.f, 0.f));
+	anim.AddFrame(vec2(640.f, 480.f), vec2(800.f, 0.f));
+	anim.AddFrame(vec2(480.f, 480.f), vec2(640.f, 0.f));
+	anim.AddFrame(vec2(320.f, 480.f), vec2(480.f, 0.f));
+	anim.AddFrame(vec2(160.f, 480.f), vec2(320.f, 0.f));
+	anim.AddFrame(vec2(0.f, 480.f), vec2(160.f, 0.f));
+
+	//Makes it repeat
+	anim.SetRepeating(false);
+	//Sets the time between frames
+	anim.SetSecPerFrame(0.05f);
+	animController.AddAnimation(Animation());
+
+	//gets first animation
+	auto& anim2 = animController.GetAnimation(1);
+	anim2.AddFrame(vec2(0.f, 480.f), vec2(160.f, 0.f));
+	anim2.AddFrame(vec2(160.f, 480.f), vec2(320.f, 0.f));
+	anim2.AddFrame(vec2(320.f, 480.f), vec2(480.f, 0.f));
+	anim2.AddFrame(vec2(480.f, 480.f), vec2(640.f, 0.f));
+	anim2.AddFrame(vec2(640.f, 480.f), vec2(800.f, 0.f));
+	anim2.AddFrame(vec2(800.f, 480.f), vec2(960.f, 0.f));
+	anim2.AddFrame(vec2(960.f, 480.f), vec2(1120.f, 0.f));
+	anim2.AddFrame(vec2(1120.f, 480.f), vec2(1280.f, 0.f));
+	anim2.AddFrame(vec2(1280.f, 480.f), vec2(1440.f, 0.f));
+	anim2.AddFrame(vec2(1440.f, 480.f), vec2(1600.f, 0.f));
+	anim2.AddFrame(vec2(1600.f, 480.f), vec2(1760.f, 0.f));
+	anim2.AddFrame(vec2(1760.f, 480.f), vec2(1920.f, 0.f));
+	anim2.AddFrame(vec2(1920.f, 480.f), vec2(2080.f, 0.f));
+	anim2.AddFrame(vec2(2080.f, 480.f), vec2(2240.f, 0.f));
+	anim2.AddFrame(vec2(2240.f, 480.f), vec2(2400.f, 0.f));
+	anim2.AddFrame(vec2(2400.f, 480.f), vec2(2560.f, 0.f));
+	anim2.AddFrame(vec2(2560.f, 480.f), vec2(2720.f, 0.f));
+	anim2.AddFrame(vec2(2720.f, 480.f), vec2(2880.f, 0.f));
+	anim2.AddFrame(vec2(2880.f, 480.f), vec2(3040.f, 0.f));
+	anim2.AddFrame(vec2(3040.f, 480.f), vec2(3200.f, 0.f));
+	anim2.AddFrame(vec2(3200.f, 480.f), vec2(3360.f, 0.f));
+	anim2.AddFrame(vec2(3360.f, 480.f), vec2(3520.f, 0.f));
+	anim2.AddFrame(vec2(3520.f, 480.f), vec2(3680.f, 0.f));
+	anim2.AddFrame(vec2(3680.f, 480.f), vec2(3840.f, 0.f));
+	anim2.AddFrame(vec2(3840.f, 480.f), vec2(4000.f, 0.f));
+
+	//Makes it repeat
+	anim2.SetRepeating(false);
+	//Sets the time between frames
+	anim2.SetSecPerFrame(0.05f);
+
+
+	ECS::GetComponent<Sprite>(entity).LoadSprite(Door, 16, 48, true, &animController);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(-64.f, -32.f, 8.f));
+	auto& tempTrans = ECS::GetComponent<Transform>(entity);
+	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+	b2Body* tempBody;
+	b2BodyDef tempDef;
+	tempDef.type = b2_kinematicBody;
+	tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
+	tempBody = m_physicsWorld->CreateBody(&tempDef);
+	tempBody->SetEntityNumber(entity);
+	tempBody->SetEntityType(0);
+	tempPhsBody = PhysicsBody(tempBody, float(16), float(47.5),
+		vec2(0.f, 0.f),
+		false);
+	//sets up the identifier
+	unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+	ECS::SetUpIdentifier(entity, bitHolder, "Gate");
+
+
+	auto entity2 = ECS::CreateEntity();
+	//add components
+	ECS::AttachComponent<Sprite>(entity2);
+	ECS::AttachComponent<Transform>(entity2);
+	ECS::AttachComponent<PhysicsBody>(entity2);
+	ECS::AttachComponent<Target>(entity2);
+	//sets up components
+	std::string fileName2 = "TargetL.png";
+	ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName2, 9, 16);
+	ECS::GetComponent<Transform>(entity2).SetPosition(vec3(-80.f, -16.f, 8.f));
+	ECS::GetComponent<Target>(entity2).SetGateNum(entity);
+	auto& tempTrans2 = ECS::GetComponent<Transform>(entity2);
+	auto& tempSpr2 = ECS::GetComponent<Sprite>(entity2);
+	auto& tempPhsBody2 = ECS::GetComponent<PhysicsBody>(entity2);
+	b2Body* tempBody2;
+	b2BodyDef tempDef2;
+	tempDef2.type = b2_kinematicBody;
+	tempDef2.position.Set(float32(tempTrans2.GetPositionX()), float32(tempTrans2.GetPositionY()));
+	tempBody2 = m_physicsWorld->CreateBody(&tempDef2);
+	tempBody2->SetEntityNumber(entity2);
+	tempBody2->SetEntityType(7);
+	tempPhsBody2 = PhysicsBody(tempBody2, float(tempSpr2.GetWidth()), float(tempSpr2.GetHeight()),
+		vec2(4.f, 0.f),
+		false);
+	//sets up the identifier
+	unsigned int bitHolder2 = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+	ECS::SetUpIdentifier(entity2, bitHolder2, "Target");
+	}
+	/*
+	{
+	auto entity = ECS::CreateEntity();
+	//add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+	ECS::AttachComponent<PhysicsBody>(entity);
+	ECS::AttachComponent<Gate>(entity);
+	ECS::AttachComponent<AnimationController>(entity);
+
+	//Sets up components
+	std::string Door = "DoorOpening.png";
+	auto& animController = ECS::GetComponent<AnimationController>(entity);
+	animController.InitUVs(Door);
+	//Adds first animation
+	animController.AddAnimation(Animation());
+	//Sets active animation
+	animController.SetActiveAnim(0);
+
+	//gets first animation
+	auto& anim = animController.GetAnimation(0);
+	anim.AddFrame(vec2(3840.f, 480.f), vec2(4000.f, 0.f));
+	anim.AddFrame(vec2(3680.f, 480.f), vec2(3840.f, 0.f));
+	anim.AddFrame(vec2(3520.f, 480.f), vec2(3680.f, 0.f));
+	anim.AddFrame(vec2(3360.f, 480.f), vec2(3520.f, 0.f));
+	anim.AddFrame(vec2(3200.f, 480.f), vec2(3360.f, 0.f));
+	anim.AddFrame(vec2(3040.f, 480.f), vec2(3200.f, 0.f));
+	anim.AddFrame(vec2(2880.f, 480.f), vec2(3040.f, 0.f));
+	anim.AddFrame(vec2(2720.f, 480.f), vec2(2880.f, 0.f));
+	anim.AddFrame(vec2(2560.f, 480.f), vec2(2720.f, 0.f));
+	anim.AddFrame(vec2(2400.f, 480.f), vec2(2560.f, 0.f));
+	anim.AddFrame(vec2(2240.f, 480.f), vec2(2400.f, 0.f));
+	anim.AddFrame(vec2(2080.f, 480.f), vec2(2240.f, 0.f));
+	anim.AddFrame(vec2(1920.f, 480.f), vec2(2080.f, 0.f));
+	anim.AddFrame(vec2(1760.f, 480.f), vec2(1920.f, 0.f));
+	anim.AddFrame(vec2(1600.f, 480.f), vec2(1760.f, 0.f));
+	anim.AddFrame(vec2(1440.f, 480.f), vec2(1600.f, 0.f));
+	anim.AddFrame(vec2(1280.f, 480.f), vec2(1440.f, 0.f));
+	anim.AddFrame(vec2(1120.f, 480.f), vec2(1280.f, 0.f));
+	anim.AddFrame(vec2(960.f, 480.f), vec2(1120.f, 0.f));
+	anim.AddFrame(vec2(800.f, 480.f), vec2(960.f, 0.f));
+	anim.AddFrame(vec2(640.f, 480.f), vec2(800.f, 0.f));
+	anim.AddFrame(vec2(480.f, 480.f), vec2(640.f, 0.f));
+	anim.AddFrame(vec2(320.f, 480.f), vec2(480.f, 0.f));
+	anim.AddFrame(vec2(160.f, 480.f), vec2(320.f, 0.f));
+	anim.AddFrame(vec2(0.f, 480.f), vec2(160.f, 0.f));
+
+	//Makes it repeat
+	anim.SetRepeating(false);
+	//Sets the time between frames
+	anim.SetSecPerFrame(0.05f);
+	animController.AddAnimation(Animation());
+
+	//gets first animation
+	auto& anim2 = animController.GetAnimation(1);
+	anim2.AddFrame(vec2(0.f, 480.f), vec2(160.f, 0.f));
+	anim2.AddFrame(vec2(160.f, 480.f), vec2(320.f, 0.f));
+	anim2.AddFrame(vec2(320.f, 480.f), vec2(480.f, 0.f));
+	anim2.AddFrame(vec2(480.f, 480.f), vec2(640.f, 0.f));
+	anim2.AddFrame(vec2(640.f, 480.f), vec2(800.f, 0.f));
+	anim2.AddFrame(vec2(800.f, 480.f), vec2(960.f, 0.f));
+	anim2.AddFrame(vec2(960.f, 480.f), vec2(1120.f, 0.f));
+	anim2.AddFrame(vec2(1120.f, 480.f), vec2(1280.f, 0.f));
+	anim2.AddFrame(vec2(1280.f, 480.f), vec2(1440.f, 0.f));
+	anim2.AddFrame(vec2(1440.f, 480.f), vec2(1600.f, 0.f));
+	anim2.AddFrame(vec2(1600.f, 480.f), vec2(1760.f, 0.f));
+	anim2.AddFrame(vec2(1760.f, 480.f), vec2(1920.f, 0.f));
+	anim2.AddFrame(vec2(1920.f, 480.f), vec2(2080.f, 0.f));
+	anim2.AddFrame(vec2(2080.f, 480.f), vec2(2240.f, 0.f));
+	anim2.AddFrame(vec2(2240.f, 480.f), vec2(2400.f, 0.f));
+	anim2.AddFrame(vec2(2400.f, 480.f), vec2(2560.f, 0.f));
+	anim2.AddFrame(vec2(2560.f, 480.f), vec2(2720.f, 0.f));
+	anim2.AddFrame(vec2(2720.f, 480.f), vec2(2880.f, 0.f));
+	anim2.AddFrame(vec2(2880.f, 480.f), vec2(3040.f, 0.f));
+	anim2.AddFrame(vec2(3040.f, 480.f), vec2(3200.f, 0.f));
+	anim2.AddFrame(vec2(3200.f, 480.f), vec2(3360.f, 0.f));
+	anim2.AddFrame(vec2(3360.f, 480.f), vec2(3520.f, 0.f));
+	anim2.AddFrame(vec2(3520.f, 480.f), vec2(3680.f, 0.f));
+	anim2.AddFrame(vec2(3680.f, 480.f), vec2(3840.f, 0.f));
+	anim2.AddFrame(vec2(3840.f, 480.f), vec2(4000.f, 0.f));
+
+	//Makes it repeat
+	anim2.SetRepeating(false);
+	//Sets the time between frames
+	anim2.SetSecPerFrame(0.05f);
+
+
+	ECS::GetComponent<Sprite>(entity).LoadSprite(Door, 16, 48, true, &animController);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(-48.f, 240.f, 8.f));
+	auto& tempTrans = ECS::GetComponent<Transform>(entity);
+	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+	b2Body* tempBody;
+	b2BodyDef tempDef;
+	tempDef.type = b2_kinematicBody;
+	tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
+	tempBody = m_physicsWorld->CreateBody(&tempDef);
+	tempBody->SetEntityNumber(entity);
+	tempBody->SetEntityType(0);
+	tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+		vec2(0.f, 0.f),
+		false);
+	//sets up the identifier
+	unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+	ECS::SetUpIdentifier(entity, bitHolder, "Gate");
+
+
+	auto entity2 = ECS::CreateEntity();
+	//add components
+	ECS::AttachComponent<Sprite>(entity2);
+	ECS::AttachComponent<Transform>(entity2);
+	ECS::AttachComponent<PhysicsBody>(entity2);
+	ECS::AttachComponent<PressurePlate>(entity2);
+	//sets up components
+	std::string fileName2 = "Pressure.png";
+	ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName2, 16, 16);
+	ECS::GetComponent<Transform>(entity2).SetPosition(vec3(0.f, 224.f, 8.f));
+	ECS::GetComponent<PressurePlate>(entity2).SetGateNum(entity);
+	auto& tempTrans2 = ECS::GetComponent<Transform>(entity2);
+	auto& tempSpr2 = ECS::GetComponent<Sprite>(entity2);
+	auto& tempPhsBody2 = ECS::GetComponent<PhysicsBody>(entity2);
+	b2Body* tempBody2;
+	b2BodyDef tempDef2;
+	tempDef2.type = b2_kinematicBody;
+	tempDef2.position.Set(float32(tempTrans2.GetPositionX()), float32(tempTrans2.GetPositionY()));
+	tempBody2 = m_physicsWorld->CreateBody(&tempDef2);
+	tempBody2->SetEntityNumber(entity2);
+	tempBody2->SetEntityType(8);
+	tempPhsBody2 = PhysicsBody(tempBody2, float(16), float(4),
+		vec2(0.f, 0.f),
+		false);
+	//sets up the identifier
+	unsigned int bitHolder2 = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+	ECS::SetUpIdentifier(entity2, bitHolder2, "Pressure");
+	}
+	*/
+	{
+	auto entity = ECS::CreateEntity();
+	//add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+	ECS::AttachComponent<PhysicsBody>(entity);
+	ECS::AttachComponent<PlatformEnemy>(entity);
+	ECS::AttachComponent<AnimationController>(entity);
+
+	//Sets up components
+	std::string Float = "Floating Enemy.png";
+	auto& animController = ECS::GetComponent<AnimationController>(entity);
+	animController.InitUVs(Float);
+	//Adds first animation
+	animController.AddAnimation(Animation());
+	//Sets active animation
+	animController.SetActiveAnim(0);
+
+	//gets first animation
+	auto& anim = animController.GetAnimation(0);
+	anim.AddFrame(vec2(0.f, 160.f), vec2(320.f, 0.f));
+	anim.AddFrame(vec2(320.f, 160.f), vec2(640.f, 0.f));
+	anim.AddFrame(vec2(640.f, 160.f), vec2(960.f, 0.f));
+	anim.AddFrame(vec2(960.f, 160.f), vec2(1280.f, 0.f));
+	anim.AddFrame(vec2(1280.f, 160.f), vec2(1600.f, 0.f));
+	anim.AddFrame(vec2(1600.f, 160.f), vec2(1920.f, 0.f));
+	anim.AddFrame(vec2(1920.f, 160.f), vec2(2240.f, 0.f));
+	anim.AddFrame(vec2(2240.f, 160.f), vec2(2560.f, 0.f));
+	anim.AddFrame(vec2(2560.f, 160.f), vec2(2880.f, 0.f));
+	anim.AddFrame(vec2(2880.f, 160.f), vec2(3200.f, 0.f));
+	anim.AddFrame(vec2(3200.f, 160.f), vec2(3520.f, 0.f));
+	anim.AddFrame(vec2(3520.f, 160.f), vec2(3840.f, 0.f));
+
+	//Makes it repeat
+	anim.SetRepeating(true);
+	//Sets the time between frames
+	anim.SetSecPerFrame(0.1667f);
+	animController.AddAnimation(Animation());
+	//Sets active animation
+	animController.SetActiveAnim(1);
+
+	//gets first animation
+	auto& anim2 = animController.GetAnimation(1);
+	anim2.AddFrame(vec2(320.f, 160.f), vec2(0.f, 0.f));
+	anim2.AddFrame(vec2(640.f, 160.f), vec2(320.f, 0.f));
+	anim2.AddFrame(vec2(960.f, 160.f), vec2(640.f, 0.f));
+	anim2.AddFrame(vec2(1280.f, 160.f), vec2(960.f, 0.f));
+	anim2.AddFrame(vec2(1600.f, 160.f), vec2(1280.f, 0.f));
+	anim2.AddFrame(vec2(1920.f, 160.f), vec2(1600.f, 0.f));
+	anim2.AddFrame(vec2(2240.f, 160.f), vec2(1920.f, 0.f));
+	anim2.AddFrame(vec2(2560.f, 160.f), vec2(2240.f, 0.f));
+	anim2.AddFrame(vec2(2880.f, 160.f), vec2(2560.f, 0.f));
+	anim2.AddFrame(vec2(3200.f, 160.f), vec2(2880.f, 0.f));
+	anim2.AddFrame(vec2(3520.f, 160.f), vec2(3200.f, 0.f));
+	anim2.AddFrame(vec2(3840.f, 160.f), vec2(3520.f, 0.f));
+
+
+	//Makes it repeat
+	anim2.SetRepeating(true);
+	//Sets the time between frames
+	anim2.SetSecPerFrame(0.1667f);
+
+
+	ECS::GetComponent<Sprite>(entity).LoadSprite(Float, 32, 16, true, &animController);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(-24.f, 144.f, 10.f));
+	//collision settings
+	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+	auto& tempTrans = ECS::GetComponent<Transform>(entity);
+	b2Body* tempBody;
+	b2BodyDef tempDef;
+	tempDef.type = b2_dynamicBody;
+	tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
+	tempBody = m_physicsWorld->CreateBody(&tempDef);
+	tempBody->SetEntityNumber(entity);
+	tempBody->SetEntityType(9);
+	tempBody->SetFixedRotation(true);
+	tempPhsBody = PhysicsBody(tempBody, float(32), float(16),
+		vec2(0.f, 0.f),
+		true);
+	//sets up the identifier
+	unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit()|EntityIdentifier::AnimationBit();
+	ECS::SetUpIdentifier(entity, bitHolder, "Platform enemy");
+	}
+
+	{
+		auto entity = ECS::CreateEntity();
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<PlatformEnemy>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+
+		//Sets up components
+		std::string Float = "Floating Enemy.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(Float);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(0.f, 160.f), vec2(320.f, 0.f));
+		anim.AddFrame(vec2(320.f, 160.f), vec2(640.f, 0.f));
+		anim.AddFrame(vec2(640.f, 160.f), vec2(960.f, 0.f));
+		anim.AddFrame(vec2(960.f, 160.f), vec2(1280.f, 0.f));
+		anim.AddFrame(vec2(1280.f, 160.f), vec2(1600.f, 0.f));
+		anim.AddFrame(vec2(1600.f, 160.f), vec2(1920.f, 0.f));
+		anim.AddFrame(vec2(1920.f, 160.f), vec2(2240.f, 0.f));
+		anim.AddFrame(vec2(2240.f, 160.f), vec2(2560.f, 0.f));
+		anim.AddFrame(vec2(2560.f, 160.f), vec2(2880.f, 0.f));
+		anim.AddFrame(vec2(2880.f, 160.f), vec2(3200.f, 0.f));
+		anim.AddFrame(vec2(3200.f, 160.f), vec2(3520.f, 0.f));
+		anim.AddFrame(vec2(3520.f, 160.f), vec2(3840.f, 0.f));
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.1667f);
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(1);
+
+		//gets first animation
+		auto& anim2 = animController.GetAnimation(1);
+		anim2.AddFrame(vec2(320.f, 160.f), vec2(0.f, 0.f));
+		anim2.AddFrame(vec2(640.f, 160.f), vec2(320.f, 0.f));
+		anim2.AddFrame(vec2(960.f, 160.f), vec2(640.f, 0.f));
+		anim2.AddFrame(vec2(1280.f, 160.f), vec2(960.f, 0.f));
+		anim2.AddFrame(vec2(1600.f, 160.f), vec2(1280.f, 0.f));
+		anim2.AddFrame(vec2(1920.f, 160.f), vec2(1600.f, 0.f));
+		anim2.AddFrame(vec2(2240.f, 160.f), vec2(1920.f, 0.f));
+		anim2.AddFrame(vec2(2560.f, 160.f), vec2(2240.f, 0.f));
+		anim2.AddFrame(vec2(2880.f, 160.f), vec2(2560.f, 0.f));
+		anim2.AddFrame(vec2(3200.f, 160.f), vec2(2880.f, 0.f));
+		anim2.AddFrame(vec2(3520.f, 160.f), vec2(3200.f, 0.f));
+		anim2.AddFrame(vec2(3840.f, 160.f), vec2(3520.f, 0.f));
+
+
+		//Makes it repeat
+		anim2.SetRepeating(true);
+		//Sets the time between frames
+		anim2.SetSecPerFrame(0.1667f);
+
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(Float, 32, 16, true, &animController);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-23.5, -64.f, 10.f));
+		//collision settings
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempTrans = ECS::GetComponent<Transform>(entity);
+		b2Body* tempBody;
+		b2BodyDef tempDef;
+		tempDef.type = b2_dynamicBody;
+		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
+		tempBody = m_physicsWorld->CreateBody(&tempDef);
+		tempBody->SetEntityNumber(entity);
+		tempBody->SetEntityType(9);
+		tempBody->SetFixedRotation(true);
+		tempPhsBody = PhysicsBody(tempBody, float(32), float(16),
+			vec2(0.f, 0.f),
+			true);
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Platform enemy");
+	}
+
+	{
+		auto entity = ECS::CreateEntity();
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<BlockEnemy>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+
+		//Sets up components
+		std::string Block = "BlockMoveGol.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(Block);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(0.f, 320.f), vec2(320.f, 0.f));
+		anim.AddFrame(vec2(320.f, 320.f), vec2(640.f, 0.f));
+		anim.AddFrame(vec2(640.f, 320.f), vec2(960.f, 0.f));
+		anim.AddFrame(vec2(960.f, 320.f), vec2(1280.f, 0.f));
+		anim.AddFrame(vec2(1280.f, 320.f), vec2(1600.f, 0.f));
+		anim.AddFrame(vec2(1600.f, 320.f), vec2(1920.f, 0.f));
+		anim.AddFrame(vec2(1920.f, 320.f), vec2(2240.f, 0.f));
+		anim.AddFrame(vec2(2240.f, 320.f), vec2(2560.f, 0.f));
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.1667f);
+
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(1);
+
+		//gets first animation
+		auto& anim2 = animController.GetAnimation(1);
+		anim2.AddFrame(vec2(320.f, 320.f), vec2(0.f, 0.f));
+		anim2.AddFrame(vec2(640.f, 320.f), vec2(320.f, 0.f));
+		anim2.AddFrame(vec2(960.f, 320.f), vec2(640.f, 0.f));
+		anim2.AddFrame(vec2(1280.f, 320.f), vec2(960.f, 0.f));
+		anim2.AddFrame(vec2(1600.f, 320.f), vec2(1280.f, 0.f));
+		anim2.AddFrame(vec2(1920.f, 320.f), vec2(1600.f, 0.f));
+		anim2.AddFrame(vec2(2240.f, 320.f), vec2(1920.f, 0.f));
+		anim2.AddFrame(vec2(2560.f, 320.f), vec2(2240.f, 0.f));
+
+		//Makes it repeat
+		anim2.SetRepeating(true);
+		//Sets the time between frames
+		anim2.SetSecPerFrame(0.1667f);
+
+
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(Block, 16, 16, true, &animController);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-87.f, -128.f, 10.f));
+		//collision settings
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempTrans = ECS::GetComponent<Transform>(entity);
+		b2Body* tempBody;
+		b2BodyDef tempDef;
+		tempDef.type = b2_dynamicBody;
+		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
+		tempBody = m_physicsWorld->CreateBody(&tempDef);
+		tempBody->SetEntityNumber(entity);
+		tempBody->SetEntityType(5);
+		tempBody->SetFixedRotation(true);
+		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			true);
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "block enemy");
+	}
+
+	{
+		auto entity = ECS::CreateEntity();
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		//sets up components
+		std::string fileName = "floor.png";
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(80.f, 224.f, -10.f));
+		//collision settings
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempTrans = ECS::GetComponent<Transform>(entity);
+		b2Body* tempBody;
+		b2BodyDef tempDef;
+		tempDef.type = b2_staticBody;
+		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
+		tempBody = m_physicsWorld->CreateBody(&tempDef);
+		tempBody->SetEntityNumber(entity);
+		tempBody->SetEntityType(6);
+		tempPhsBody = PhysicsBody(tempBody, float(16), float(8),
+			vec2(0.f, -8.f),
+			true);
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "spikes");
+	}
+
+	{
+		auto entity = ECS::CreateEntity();
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		//sets up components
+		std::string fileName = "floor.png";
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(80.f, 224.f, -10.f));
+		//collision settings
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempTrans = ECS::GetComponent<Transform>(entity);
+		b2Body* tempBody;
+		b2BodyDef tempDef;
+		tempDef.type = b2_staticBody;
+		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
+		tempBody = m_physicsWorld->CreateBody(&tempDef);
+		tempBody->SetEntityNumber(entity);
+		tempBody->SetEntityType(6);
+		tempPhsBody = PhysicsBody(tempBody, float(6), float(8),
+			vec2(0.f, 0.f),
+			true);
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "spikes");
+	}
+
+	{
+		auto entity = ECS::CreateEntity();
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		//sets up components
+		std::string fileName = "floor.png";
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(112.f, -48.f, -10.f));
+		//collision settings
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempTrans = ECS::GetComponent<Transform>(entity);
+		b2Body* tempBody;
+		b2BodyDef tempDef;
+		tempDef.type = b2_staticBody;
+		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
+		tempBody = m_physicsWorld->CreateBody(&tempDef);
+		tempBody->SetEntityNumber(entity);
+		tempBody->SetEntityType(6);
+		tempPhsBody = PhysicsBody(tempBody, float(16), float(8),
+			vec2(0.f, -8.f),
+			true);
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "spikes");
+	}
+
+	{
+		auto entity = ECS::CreateEntity();
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		//sets up components
+		std::string fileName = "floor.png";
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(112.f, -48.f, -10.f));
+		//collision settings
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempTrans = ECS::GetComponent<Transform>(entity);
+		b2Body* tempBody;
+		b2BodyDef tempDef;
+		tempDef.type = b2_staticBody;
+		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
+		tempBody = m_physicsWorld->CreateBody(&tempDef);
+		tempBody->SetEntityNumber(entity);
+		tempBody->SetEntityType(6);
+		tempPhsBody = PhysicsBody(tempBody, float(6), float(8),
+			vec2(0.f, 0.f),
+			true);
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "spikes");
+	}
 	ECS::GetComponent<VerticalScroll>(EntityIdentifier::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()));
 }
 
@@ -1375,10 +2413,12 @@ void Stage5::Routines(entt::registry* reg)
 			if (ECS::GetComponent<BlockEnemy>(entity).GetIsLeft() && ECS::GetComponent<BlockEnemy>(entity).GetActive())
 			{
 				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(-2.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(0);
 			}
 			else if (ECS::GetComponent<BlockEnemy>(entity).GetActive())
 			{
 				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(2.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(1);
 			}
 		}
 		for (auto entity : viewPlatformEnemy)
@@ -1386,10 +2426,12 @@ void Stage5::Routines(entt::registry* reg)
 			if (ECS::GetComponent<PlatformEnemy>(entity).GetIsLeft())
 			{
 				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(-5.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(0);
 			}
 			else
 			{
 				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(5.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(1);
 			}
 		}
 		for (auto entity : viewArrow)
@@ -1419,11 +2461,66 @@ void Stage5::Routines(entt::registry* reg)
 
 void Stage5::GamepadStroke(XInputController* con)
 {
+	auto phsBod = ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer());
+	vec3 curVelo = phsBod.GetVelocity();
+	if (con->IsButtonPressed(A))
+	{
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
+		{
+			phsBod.SetVelocity(vec3(curVelo.x, 23.f, 0.f));
+		}
+	}
+	if (con->IsButtonPressed(X))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ArrowShot(m_physicsWorld);
+	}
+	if (con->IsButtonPressed(DPAD_LEFT))
+	{
+		if (!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLeftContact())
+		{
+			phsBod.SetVelocity(vec3(-10.f, curVelo.y, 0.f));
+		}
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(true);
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(false);
+
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(false); }
+	if (con->IsButtonPressed(DPAD_RIGHT))
+	{
+		if (!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetRightContact())
+		{
+			phsBod.SetVelocity(vec3(10.f, curVelo.y, 0.f));
+		}
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRight(true);
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(true);
+
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRight(false); }
+	if (con->IsButtonPressed(DPAD_UP))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetUp(true);
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetUp(false); }
+	if (con->IsButtonPressed(DPAD_DOWN))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetDown(true);
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetDown(false); }
+	if (con->IsButtonPressed(RB))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(true);
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
+		{
+			phsBod.SetVelocity(vec3(0.f, 0.f, 0.f));
+		}
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(false); }
 }
 
 void Stage5::GamepadStick(XInputController* con)
 {
-
+	Stick sticks[2];
+	con->GetSticks(sticks);
 }
 
 void Stage5::GamepadTrigger(XInputController* con)

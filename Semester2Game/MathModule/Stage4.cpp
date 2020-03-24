@@ -1624,10 +1624,12 @@ void Stage4::Routines(entt::registry* reg)
 			if (ECS::GetComponent<BlockEnemy>(entity).GetIsLeft() && ECS::GetComponent<BlockEnemy>(entity).GetActive())
 			{
 				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(-2.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(0);
 			}
 			else if (ECS::GetComponent<BlockEnemy>(entity).GetActive())
 			{
 				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(2.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(1);
 			}
 		}
 		for (auto entity : viewPlatformEnemy)
@@ -1635,10 +1637,12 @@ void Stage4::Routines(entt::registry* reg)
 			if (ECS::GetComponent<PlatformEnemy>(entity).GetIsLeft())
 			{
 				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(-5.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(0);
 			}
 			else
 			{
 				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(5.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(1);
 			}
 		}
 		for (auto entity : viewArrow)
@@ -1668,11 +1672,66 @@ void Stage4::Routines(entt::registry* reg)
 
 void Stage4::GamepadStroke(XInputController* con)
 {
+	auto phsBod = ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer());
+	vec3 curVelo = phsBod.GetVelocity();
+	if (con->IsButtonPressed(A))
+	{
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
+		{
+			phsBod.SetVelocity(vec3(curVelo.x, 23.f, 0.f));
+		}
+	}
+	if (con->IsButtonPressed(X))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ArrowShot(m_physicsWorld);
+	}
+	if (con->IsButtonPressed(DPAD_LEFT))
+	{
+		if (!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLeftContact())
+		{
+			phsBod.SetVelocity(vec3(-10.f, curVelo.y, 0.f));
+		}
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(true);
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(false);
+
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(false); }
+	if (con->IsButtonPressed(DPAD_RIGHT))
+	{
+		if (!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetRightContact())
+		{
+			phsBod.SetVelocity(vec3(10.f, curVelo.y, 0.f));
+		}
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRight(true);
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(true);
+
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRight(false); }
+	if (con->IsButtonPressed(DPAD_UP))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetUp(true);
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetUp(false); }
+	if (con->IsButtonPressed(DPAD_DOWN))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetDown(true);
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetDown(false); }
+	if (con->IsButtonPressed(RB))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(true);
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
+		{
+			phsBod.SetVelocity(vec3(0.f, 0.f, 0.f));
+		}
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(false); }
 }
 
 void Stage4::GamepadStick(XInputController* con)
 {
-
+	Stick sticks[2];
+	con->GetSticks(sticks);
 }
 
 void Stage4::GamepadTrigger(XInputController* con)
