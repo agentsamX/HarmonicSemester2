@@ -239,10 +239,12 @@ void ContactListener::BeginContact(b2Contact* contact)
     }
     if (contact->GetFixtureA()->GetBody()->GetEntityType() == 8 && contact->GetFixtureB()->GetBody()->GetEntityType() != 3)
     {
+        printf("Contact with plate");
         ECS::GetComponent<PressurePlate>(entA).PressOn();
     }
     else if (contact->GetFixtureB()->GetBody()->GetEntityType() == 8 && contact->GetFixtureA()->GetBody()->GetEntityType() != 3)
     {
+        printf("Contact with plate");
         ECS::GetComponent<PressurePlate>(entB).PressOn();
     }
     

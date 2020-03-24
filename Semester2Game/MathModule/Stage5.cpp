@@ -1888,7 +1888,6 @@ void Stage5::InitScene(float windowWidth, float windowHeight)
 	unsigned int bitHolder2 = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 	ECS::SetUpIdentifier(entity2, bitHolder2, "Target");
 	}
-	/*
 	{
 	auto entity = ECS::CreateEntity();
 	//add components
@@ -2011,19 +2010,26 @@ void Stage5::InitScene(float windowWidth, float windowHeight)
 	auto& tempPhsBody2 = ECS::GetComponent<PhysicsBody>(entity2);
 	b2Body* tempBody2;
 	b2BodyDef tempDef2;
+
+	b2FixtureDef plateDef;
+	b2PolygonShape plateShape;
+	plateShape.SetAsBox(8.f, 2.f, b2Vec2(0.f, -6.f), 0);
+	plateDef.shape = &plateShape;
+	plateDef.isSensor = true;
+
 	tempDef2.type = b2_kinematicBody;
 	tempDef2.position.Set(float32(tempTrans2.GetPositionX()), float32(tempTrans2.GetPositionY()));
 	tempBody2 = m_physicsWorld->CreateBody(&tempDef2);
+	tempBody2->CreateFixture(&plateDef);
 	tempBody2->SetEntityNumber(entity2);
 	tempBody2->SetEntityType(8);
 	tempPhsBody2 = PhysicsBody(tempBody2, float(16), float(4),
 		vec2(0.f, 0.f),
-		false);
+		false,false);
 	//sets up the identifier
 	unsigned int bitHolder2 = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 	ECS::SetUpIdentifier(entity2, bitHolder2, "Pressure");
 	}
-	*/
 	{
 	auto entity = ECS::CreateEntity();
 	//add components
