@@ -31,6 +31,7 @@ void PressurePlate::PressOn()
 	if (press > 0)
 	{
 		ECS::GetComponent<PhysicsBody>(GetGateNum()).GetBody()->GetFixtureList()->SetSensor(true);
+		ECS::GetComponent<AnimationController>(GetGateNum()).SetActiveAnim(1);
 	}
 }
 void PressurePlate::PressOff()
@@ -39,5 +40,6 @@ void PressurePlate::PressOff()
 	if (press <= 0)
 	{
 		ECS::GetComponent<PhysicsBody>(GetGateNum()).GetBody()->GetFixtureList()->SetSensor(false);
+		ECS::GetComponent<AnimationController>(GetGateNum()).SetActiveAnim(0);
 	}
 }

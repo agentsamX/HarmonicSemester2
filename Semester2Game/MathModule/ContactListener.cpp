@@ -11,6 +11,7 @@ void ContactListener::BeginContact(b2Contact* contact)
         if ((int)fixtureUserData == 1)
         {
             ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).Contacted();
+           
             if (Btype == 6)
             {
                 printf("player touched spikes on foot");
@@ -67,10 +68,11 @@ void ContactListener::BeginContact(b2Contact* contact)
     if (contact->GetFixtureB()->IsSensor())
     {
         void* fixtureUserData = contact->GetFixtureB()->GetUserData();
-        int Atype = contact->GetFixtureB()->GetBody()->GetEntityType();
+        int Atype = contact->GetFixtureA()->GetBody()->GetEntityType();
         if ((int)fixtureUserData == 1)
         {
             ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).Contacted();
+          
             if (Atype == 6)
             {
                 printf("player touched spikes on foot");
@@ -249,6 +251,7 @@ void ContactListener::EndContact(b2Contact* contact)
         if ((int)fixtureUserData == 1)
         {
             ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).EndContacted();
+           
         }
         if ((int)fixtureUserData == 2)
         {
@@ -271,6 +274,7 @@ void ContactListener::EndContact(b2Contact* contact)
         if ((int)fixtureUserData == 1)
         {
             ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).EndContacted();
+          
         }
         if ((int)fixtureUserData == 2)
         {
