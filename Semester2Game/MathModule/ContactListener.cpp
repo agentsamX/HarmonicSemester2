@@ -32,10 +32,12 @@ void ContactListener::BeginContact(b2Contact* contact)
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
                 }
             }
+            /*
             else if (Btype == 9)
             {
                 ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
             }
+            */
         }
         else if ((int)fixtureUserData == 3)
         {   
@@ -51,10 +53,12 @@ void ContactListener::BeginContact(b2Contact* contact)
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
                 }
             }
+            /*
             else if (Btype == 9)
             {
                 ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
             }
+            */
         }
         else if ((int)fixtureUserData == 4)
         {
@@ -93,10 +97,12 @@ void ContactListener::BeginContact(b2Contact* contact)
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
                 }
             }
+            /*
             else if (Atype == 9)
             {
                 ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
             }
+            */
         }
         else if ((int)fixtureUserData == 3)
         {
@@ -112,10 +118,12 @@ void ContactListener::BeginContact(b2Contact* contact)
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
                 }
             }
+            /*
             else if (Atype == 9)
             {
                 ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
             }
+            */
         }
         else if ((int)fixtureUserData == 4)
         {
@@ -161,12 +169,12 @@ void ContactListener::BeginContact(b2Contact* contact)
         }
     }
 
-    if (contact->GetFixtureB()->GetBody()->GetEntityType() == 9)
+    if (contact->GetFixtureB()->GetBody()->GetEntityType() == 9 && entA != EntityIdentifier::MainPlayer())
     {
         //type 9 is platform enemy
         ECS::GetComponent<PlatformEnemy>(entB).SetIsLeft(!ECS::GetComponent<PlatformEnemy>(entB).GetIsLeft());
     }
-    else if (contact->GetFixtureA()->GetBody()->GetEntityType() == 9)
+    else if (contact->GetFixtureA()->GetBody()->GetEntityType() == 9 && entB != EntityIdentifier::MainPlayer())
     {
         //type 9 is platform enemy
         ECS::GetComponent<PlatformEnemy>(entA).SetIsLeft(!ECS::GetComponent<PlatformEnemy>(entA).GetIsLeft());

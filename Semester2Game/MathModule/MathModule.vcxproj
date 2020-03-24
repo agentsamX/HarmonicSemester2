@@ -196,6 +196,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage3.h" />
     <ClInclude Include="Stage4.h" />
+    <ClInclude Include="Stage5.h" />
     <ClInclude Include="Target.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
@@ -263,6 +264,7 @@
     <ClCompile Include="Stage2.h" />
     <ClCompile Include="Stage3.cpp" />
     <ClCompile Include="Stage4.cpp" />
+    <ClCompile Include="Stage5.cpp" />
     <ClCompile Include="Target.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
