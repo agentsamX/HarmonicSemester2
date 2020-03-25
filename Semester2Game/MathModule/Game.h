@@ -7,6 +7,7 @@
 #include "Stage2.h"
 #include "Stage3.h"
 #include "Stage4.h"
+#include "Stage7.h"
 #include "Stage8.h"
 #include "MenuScene.h"
 
