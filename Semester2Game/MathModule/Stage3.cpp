@@ -309,6 +309,30 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		anim2.SetRepeating(true);
 		//Sets the time between frames
 		anim2.SetSecPerFrame(0.1667f);
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim3 = animController.GetAnimation(2);
+		anim3.AddFrame(vec2(0.f, 640.f), vec2(320.f, 320.f));
+		anim3.AddFrame(vec2(320.f, 640.f), vec2(640.f, 320.f));
+		anim3.AddFrame(vec2(640.f, 640.f), vec2(960.f, 320.f));
+		anim3.AddFrame(vec2(960.f, 640.f), vec2(1280.f, 320.f));
+		anim3.AddFrame(vec2(1280.f, 640.f), vec2(1600.f, 320.f));
+		anim3.AddFrame(vec2(1600.f, 640.f), vec2(1920.f, 320.f));
+		anim3.AddFrame(vec2(1920.f, 640.f), vec2(2240.f, 320.f));
+		anim3.AddFrame(vec2(2240.f, 640.f), vec2(2560.f, 320.f));
+		anim3.AddFrame(vec2(2560.f, 640.f), vec2(2880.f, 320.f));
+		anim3.AddFrame(vec2(2880.f, 640.f), vec2(3200.f, 320.f));
+		anim3.AddFrame(vec2(3200.f, 640.f), vec2(3520.f, 320.f));
+		anim3.AddFrame(vec2(3520.f, 640.f), vec2(3840.f, 320.f));
+		anim3.AddFrame(vec2(3840.f, 640.f), vec2(4160.f, 320.f));
+		anim3.AddFrame(vec2(4160.f, 640.f), vec2(4480.f, 320.f));
+		//Makes it repeat
+		anim3.SetRepeating(false);
+		//Sets the time between frames
+		anim3.SetSecPerFrame(0.1f);
 
 
 
@@ -1990,6 +2014,16 @@ void Stage3::Routines(entt::registry* reg)
 			{
 				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(2.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
 				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(1);
+			}
+			else if(ECS::GetComponent<BlockEnemy>(entity).GetJustDead())
+			{
+				ECS::GetComponent<PhysicsBody>(entity).GetBody()->GetFixtureList()->SetSensor(true);
+				b2FixtureDef blockDead;
+				b2PolygonShape deadShape;
+				deadShape.SetAsBox(8.f, 7.f, b2Vec2(0.f, -1.5f), 0);
+				blockDead.shape = &deadShape;
+				ECS::GetComponent<PhysicsBody>(entity).GetBody()->CreateFixture(&blockDead);
+
 			}
 		}
 		for (auto entity : viewPlatformEnemy)

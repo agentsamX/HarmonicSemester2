@@ -148,6 +148,7 @@ void ContactListener::BeginContact(b2Contact* contact)
                 ECS::GetComponent<BlockEnemy>(entB).SetInactive();
                 ECS::GetComponent<PhysicsBody>(entB).SetVelocity(vec3(0.f, 0.f, 0.f));
                 ECS::GetComponent<Arrow>(entA).SetArrTime(4.9f);
+                ECS::GetComponent<AnimationController>(entB).SetActiveAnim(2);
             }
 
         }
@@ -165,6 +166,7 @@ void ContactListener::BeginContact(b2Contact* contact)
                 ECS::GetComponent<BlockEnemy>(entA).SetInactive();
                 ECS::GetComponent<PhysicsBody>(entA).SetVelocity(vec3(0.f, 0.f, 0.f));
                 ECS::GetComponent<Arrow>(entB).SetArrTime(4.9f);
+                ECS::GetComponent<AnimationController>(entA).SetActiveAnim(2);
             }
         }
     }

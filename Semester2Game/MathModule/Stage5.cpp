@@ -2535,8 +2535,18 @@ void Stage5::GamepadTrigger(XInputController* con)
 
 void Stage5::KeyboardHold()
 {
+	bool moved = false;
 	auto& phsBod = ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer());
 	vec3 curVelo = phsBod.GetVelocity();
+	if (Input::GetKey(Key::Shift))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(true);
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
+		{
+			phsBod.SetVelocity(vec3(0.f, 0.f, 0.f));
+		}
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(false); }
 	if (Input::GetKey(Key::A))
 	{
 		if (!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLeftContact())
@@ -2545,6 +2555,8 @@ void Stage5::KeyboardHold()
 		}
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(true);
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(false);
+		//ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(5);
+		moved = true;
 
 	}
 	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(false); }
@@ -2556,29 +2568,89 @@ void Stage5::KeyboardHold()
 		}
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRight(true);
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(true);
+		//ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(4);
+		moved = true;
 
 	}
 	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRight(false); }
 	if (Input::GetKey(Key::W))
 	{
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetUp(true);
+		/*if (moved&&!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetRooted()&&ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
+		{
+			if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLastRight())
+			{
+				ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(7);
+			}
+			else
+			{
+				ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(6);
+			}
+		}
+		else if(ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
+		{
+			if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLastRight())
+			{
+				ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(3);
+			}
+			else
+			{
+				ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(2);
+			}
+		}*/
 	}
 	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetUp(false); }
 	if (Input::GetKey(Key::S))
 	{
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetDown(true);
+		/*if (moved&&!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetRooted()&&ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
+		{
+			if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLastRight())
+			{
+				ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(7);
+			}
+			else
+			{
+				ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(6);
+			}
+		}
+		else if(ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
+		{
+			if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLastRight())
+			{
+				ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(3);
+			}
+			else
+			{
+				ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(2);
+			}
+		}*/
 	}
 	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetDown(false); }
-	if (Input::GetKey(Key::Shift))
+	/*
+	if(!moved&&!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetUp()&& ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetDown())
 	{
-		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(true);
-		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLastRight()&&ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
 		{
-			phsBod.SetVelocity(vec3(0.f, 0.f, 0.f));
+			//play idle right
+			ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(0);
 		}
-	}
-	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(false); }
-
+		else
+		{
+			//play idle left
+			ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(1);
+		}
+	}*/
+	/*
+	0 Idle Right
+	1 Idle Left
+	2 Idle Armless Left
+	3 Idle Armless right
+	4 Move Right
+	5 Move Left
+	6 Armless Left move
+	7 Armless Right move
+	*/
 
 }
 
