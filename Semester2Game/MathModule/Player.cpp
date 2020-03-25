@@ -336,3 +336,18 @@ void Player::SetContactingGoal(bool boo)
 		contactingGoal--;
 	}
 }
+
+void Player::AddJumpTime(float delta)
+{
+	jumpTime += delta;
+}
+
+float Player::GetJumpTime()
+{
+	return jumpTime;
+}
+
+void Player::ResetJump()
+{
+	jumpTime = 0.f;
+}

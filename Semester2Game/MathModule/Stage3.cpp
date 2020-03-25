@@ -269,7 +269,7 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		anim8.AddFrame(vec2(160.f, 1280.f), vec2(320.f, 1040.f));
 		anim8.AddFrame(vec2(372.f, 1280.f), vec2(532.f, 1040.f));
 		anim8.SetRepeating(false);
-		anim8.SetSecPerFrame(0.1667f);
+		anim8.SetSecPerFrame(0.05);
 		//jump left
 		animController.AddAnimation(Animation());
 		auto& anim9 = animController.GetAnimation(9);
@@ -277,7 +277,7 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		anim9.AddFrame(vec2(320.f, 1280.f), vec2(160.f, 1040.f));
 		anim9.AddFrame(vec2(532.f, 1280.f), vec2(372.f, 1040.f));
 		anim9.SetRepeating(false);
-		anim9.SetSecPerFrame(0.1667f);
+		anim9.SetSecPerFrame(0.05);
 
 		
 
@@ -2085,6 +2085,7 @@ void Stage3::Routines(entt::registry* reg)
 	ECS::GetComponent<Transform>(1).SetPosition(camPos + vec3(-180.f, 50.f, 0.f));
 	ECS::GetComponent<Transform>(2).SetPosition(camPos + vec3(-180.f, 70.f, 0.f));
 	ECS::GetComponent<Transform>(3).SetPosition(camPos + vec3(-180.f, 90.f, 0.f));
+	ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).AddJumpTime(Timer::deltaTime);
 	if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetKill())
 	{
 		printf("player is dead");
@@ -2229,15 +2230,6 @@ void Stage3::KeyboardHold()
 	bool moved = false;
 	auto& phsBod = ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer());
 	vec3 curVelo = phsBod.GetVelocity();
-	if (Input::GetKey(Key::Shift))
-	{
-		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(true);
-		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
-		{
-			phsBod.SetVelocity(vec3(0.f, 0.f, 0.f));
-		}
-	}
-	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(false); }
 	if (Input::GetKey(Key::A))
 	{
 		if (!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLeftContact())
@@ -2246,7 +2238,7 @@ void Stage3::KeyboardHold()
 		}
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(true);
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(false);
-		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).GetActiveAnim() != 8 && ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).GetActiveAnim() != 9)
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetJumpTime() > 1.f)
 		{
 			ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(5);
 		}
@@ -2262,7 +2254,7 @@ void Stage3::KeyboardHold()
 		}
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRight(true);
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(true);
-		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).GetActiveAnim() != 8 && ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).GetActiveAnim() != 9)
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetJumpTime() > 1.f)
 		{
 			ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(4);
 		}
@@ -2324,10 +2316,20 @@ void Stage3::KeyboardHold()
 		}
 	}
 	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetDown(false); }
+	if (Input::GetKey(Key::Shift))
+	{
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(true);
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
+		{
+			phsBod.SetVelocity(vec3(0.f, 0.f, 0.f));
+			moved = false;
+		}
+	}
+	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRoot(false); }
 	
 	if(!moved&&!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetUp()&& !ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetDown())
 	{
-		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).GetActiveAnim() != 8&& ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).GetActiveAnim() != 9)
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetJumpTime() > 1.f)
 		{
 			if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLastRight())
 			{
@@ -2366,7 +2368,7 @@ void Stage3::KeyboardDown()
 	{
 		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
 		{
-			
+			ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ResetJump();
 			phsBod.SetVelocity(vec3(curVelo.x, 23.f, 0.f));
 			if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLastRight())
 			{
