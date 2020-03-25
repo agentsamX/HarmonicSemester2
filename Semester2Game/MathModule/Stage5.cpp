@@ -2555,7 +2555,7 @@ void Stage5::KeyboardHold()
 		}
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(true);
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(false);
-		//ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(5);
+		ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(5);
 		moved = true;
 
 	}
@@ -2568,7 +2568,7 @@ void Stage5::KeyboardHold()
 		}
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRight(true);
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(true);
-		//ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(4);
+		ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(4);
 		moved = true;
 
 	}
@@ -2576,7 +2576,7 @@ void Stage5::KeyboardHold()
 	if (Input::GetKey(Key::W))
 	{
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetUp(true);
-		/*if (moved&&!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetRooted()&&ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
+		if (moved&&!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetRooted()&&ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
 		{
 			if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLastRight())
 			{
@@ -2597,13 +2597,13 @@ void Stage5::KeyboardHold()
 			{
 				ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(2);
 			}
-		}*/
+		}
 	}
 	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetUp(false); }
 	if (Input::GetKey(Key::S))
 	{
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetDown(true);
-		/*if (moved&&!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetRooted()&&ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
+		if (moved&&!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetRooted()&&ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
 		{
 			if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLastRight())
 			{
@@ -2624,23 +2624,23 @@ void Stage5::KeyboardHold()
 			{
 				ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(2);
 			}
-		}*/
+		}
 	}
 	else { ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetDown(false); }
-	/*
-	if(!moved&&!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetUp()&& ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetDown())
+	
+	if(!moved&&!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetUp()&& !ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetDown())
 	{
 		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLastRight()&&ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
 		{
 			//play idle right
 			ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(0);
 		}
-		else
+		else if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
 		{
 			//play idle left
 			ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(1);
 		}
-	}*/
+	}
 	/*
 	0 Idle Right
 	1 Idle Left
@@ -2650,6 +2650,7 @@ void Stage5::KeyboardHold()
 	5 Move Left
 	6 Armless Left move
 	7 Armless Right move
+	8 Jump
 	*/
 
 }
@@ -2663,6 +2664,7 @@ void Stage5::KeyboardDown()
 		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded())
 		{
 			phsBod.SetVelocity(vec3(curVelo.x, 23.f, 0.f));
+			ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(8);
 		}
 	}
 	if (Input::GetKeyDown(Key::F))
