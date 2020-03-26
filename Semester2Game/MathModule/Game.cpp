@@ -378,20 +378,25 @@ void Game::AdvanceScene()
 	case 0:
 		
 		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage1("First Stage"));
+		m_scenes.push_back(new Stage4("First Level"));
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
 		break;
 	case 1:
 		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage2("Second Stage"));
+		m_scenes.push_back(new Stage3("Second Level"));
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
 		break;
 	case 2:
-			break;
+		m_activeScene->~Scene();
+		m_scenes.push_back(new Stage5("Third Level"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
+		break;
 	}
 	m_curScene++;
 }
@@ -402,21 +407,21 @@ void Game::ResetScene()
 	{
 	case 0:
 		m_activeScene->~Scene();
-		m_scenes.push_back(new MenuScene("Main Menu"));
+		m_scenes.push_back(new Stage4("First Level"));
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
 		break;
 	case 1:
 		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage1("First Stage"));
+		m_scenes.push_back(new Stage3("Second Level"));
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
 		break;
 	case 2:
 		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage2("Second Stage"));
+		m_scenes.push_back(new Stage5("Third Level"));
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
