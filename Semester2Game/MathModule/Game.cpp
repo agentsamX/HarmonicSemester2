@@ -281,6 +281,15 @@ void Game::KeyboardUp()
 		m_register = m_activeScene->GetScene();
 		m_curScene = 4;
 	}
+	if (Input::GetKeyDown(Key::Six))
+	{
+		m_activeScene->~Scene();
+		m_scenes.push_back(new Stage6("Sixth Stage"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
+		m_curScene = 6;
+	}
 	if (Input::GetKeyDown(Key::Seven))
 	{
 		m_activeScene->~Scene();
@@ -418,21 +427,35 @@ void Game::ResetScene()
 		break;
 	case 1:
 		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage1("First Stage"));
+		m_scenes.push_back(new Stage4("First Stage"));
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
 		break;
 	case 2:
 		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage2("Second Stage"));
+		m_scenes.push_back(new Stage3("Second Stage"));
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
 		break;
 	case 3:
 		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage3("Third Stage"));
+		m_scenes.push_back(new Stage6("Fourth Stage"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
+		break;
+	case 4:
+		m_activeScene->~Scene();
+		m_scenes.push_back(new Stage7("Fifth Stage"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
+		break;
+	case 5:
+		m_activeScene->~Scene();
+		m_scenes.push_back(new Stage8("Sixth Stage"));
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
