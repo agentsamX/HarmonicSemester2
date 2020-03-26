@@ -189,7 +189,7 @@ void Player::ArrowShot(b2World* curScene)
 		ECS::AttachComponent<PhysicsBody>(entity);
 		ECS::AttachComponent<Arrow>(entity);
 		//sets up components
-		std::string fileName = "box.png";
+		std::string fileName = "arrowAction.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 10,1 );
 		ECS::GetComponent<Transform>(entity).SetPosition(ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()).GetPosition()+
 			vec3(offsetX,offsetY,0));
@@ -347,7 +347,22 @@ float Player::GetJumpTime()
 	return jumpTime;
 }
 
+void Player::ResetShoot()
+{
+	shootTime = 0.f;
+}
+
 void Player::ResetJump()
 {
 	jumpTime = 0.f;
+}
+
+void Player::AddShootTime(float delta)
+{
+	shootTime += delta;
+}
+
+float Player::GetShootTime()
+{
+	return shootTime;
 }

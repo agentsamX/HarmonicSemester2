@@ -92,6 +92,42 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		//add components
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		///Sets up components
+		std::string Arm = "Arm.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(Arm);
+		//Arm Idle
+		animController.AddAnimation(Animation());
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(0.f, 160.f), vec2(150.f, 10.f));
+		anim.SetRepeating(false);
+		anim.SetSecPerFrame(0.1667f);
+		//Arm Shoot
+		animController.AddAnimation(Animation());
+		auto& anim1 = animController.GetAnimation(1);
+		anim1.AddFrame(vec2(0.f, 160.f), vec2(150.f, 10.f));
+		anim1.AddFrame(vec2(160.f, 160.f), vec2(307.f, 10.f));
+		anim1.AddFrame(vec2(330.f, 160.f), vec2(480.f, 10.f));
+		anim1.SetRepeating(false);
+		anim1.SetSecPerFrame(0.1667f);
+		//transparent
+		animController.AddAnimation(Animation());
+		auto& anim2 = animController.GetAnimation(2);
+		anim2.AddFrame(vec2(0.f, 0.f), vec2(1.f, 1.f));
+
+		animController.SetActiveAnim(2);
+		ECS::GetComponent<Sprite>(entity).LoadSprite(Arm, 16, 16, true, &animController);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, -447.7f, 6.f)); 
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() |EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Arm");
+	}
+	{
+		auto entity = ECS::CreateEntity();
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
 		//ECS::AttachComponent<PhysicsBody>(entity);
 		//sets up components
 		std::string fileName = "JungleLevel1.png";
@@ -181,7 +217,6 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "BG");
 	}
-
 	{
 		auto entity = ECS::CreateEntity();
 		//add components
@@ -278,7 +313,32 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		anim9.AddFrame(vec2(532.f, 1280.f), vec2(372.f, 1040.f));
 		anim9.SetRepeating(false);
 		anim9.SetSecPerFrame(0.05);
-
+		//shoot right
+		animController.AddAnimation(Animation());
+		auto& anim10 = animController.GetAnimation(10);
+		anim10.AddFrame(vec2(0.f, 640.f), vec2(160.f, 400.f));
+		anim10.AddFrame(vec2(160.f, 640.f), vec2(320.f, 400.f));
+		anim10.AddFrame(vec2(320.f, 640.f), vec2(480.f, 400.f));
+		anim10.SetRepeating(false);
+		anim10.SetSecPerFrame(0.05);
+		//shoot left
+		animController.AddAnimation(Animation());
+		auto& anim11 = animController.GetAnimation(11);
+		anim11.AddFrame(vec2(160.f, 640.f), vec2(0.f, 400.f));
+		anim11.AddFrame(vec2(320.f, 640.f), vec2(160.f, 400.f));
+		anim11.AddFrame(vec2(480.f, 640.f), vec2(320.f, 400.f));
+		anim11.SetRepeating(false);
+		anim11.SetSecPerFrame(0.05);
+		//death
+		animController.AddAnimation(Animation());
+		auto& anim12 = animController.GetAnimation(12);
+		anim12.AddFrame(vec2(20.f, 1600.f), vec2(260.f, 1370.f));
+		anim12.AddFrame(vec2(330.f, 1600.f), vec2(570.f, 1370.f));
+		anim12.AddFrame(vec2(650.f, 1600.f), vec2(890.f, 1370.f));
+		anim12.AddFrame(vec2(970.f, 1600.f), vec2(1210.f, 1370.f));
+		anim12.AddFrame(vec2(1280.f, 1600.f), vec2(1520.f, 1370.f));
+		anim12.SetRepeating(false);
+		anim12.SetSecPerFrame(0.1667f);
 		
 
 		animController.SetActiveAnim(0);
@@ -2082,13 +2142,18 @@ void Stage3::Routines(entt::registry* reg)
 {
 	ECS::GetComponent<VerticalScroll>(EntityIdentifier::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()));
 	vec3 camPos = ECS::GetComponent<Camera>(EntityIdentifier::MainCamera()).GetPosition();
+	vec3 playPos = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()).GetPosition();
 	ECS::GetComponent<Transform>(1).SetPosition(camPos + vec3(-180.f, 50.f, 0.f));
 	ECS::GetComponent<Transform>(2).SetPosition(camPos + vec3(-180.f, 70.f, 0.f));
 	ECS::GetComponent<Transform>(3).SetPosition(camPos + vec3(-180.f, 90.f, 0.f));
+	ECS::GetComponent<Transform>(4).SetPosition(playPos+vec3(5.f,0.f,0.f));
 	ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).AddJumpTime(Timer::deltaTime);
+	ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).AddShootTime(Timer::deltaTime);
 	if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetKill())
 	{
-		printf("player is dead");
+		ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetWidth(24.f);
+		ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetHeight(24.f);
+		ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(12);
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).AddKillTime(Timer::deltaTime);
 	}
 	else
@@ -2228,9 +2293,19 @@ void Stage3::GamepadTrigger(XInputController* con)
 void Stage3::KeyboardHold()
 {
 	bool moved = false;
+	bool noShoot = false;
+	bool noJump = false;
+	if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetJumpTime() > 1.f)
+	{
+		noJump = true;
+	}
+	if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetShootTime() > 0.5f)
+	{ 
+		noShoot = true;
+	}
 	auto& phsBod = ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer());
 	vec3 curVelo = phsBod.GetVelocity();
-	if (Input::GetKey(Key::A))
+	if (Input::GetKey(Key::A))  
 	{
 		if (!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLeftContact())
 		{
@@ -2238,7 +2313,7 @@ void Stage3::KeyboardHold()
 		}
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(true);
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(false);
-		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetJumpTime() > 1.f)
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && noShoot&&noJump)
 		{
 			ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(5);
 		}
@@ -2254,7 +2329,7 @@ void Stage3::KeyboardHold()
 		}
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRight(true);
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(true);
-		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetJumpTime() > 1.f)
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && noShoot&& noJump)
 		{
 			ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(4);
 		}
@@ -2329,7 +2404,7 @@ void Stage3::KeyboardHold()
 	
 	if(!moved&&!ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetUp()&& !ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetDown())
 	{
-		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetJumpTime() > 1.f)
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && noShoot&& noJump)
 		{
 			if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLastRight())
 			{
@@ -2354,6 +2429,8 @@ void Stage3::KeyboardHold()
 	7 Armless Right move
 	8 Jump right
 	9 jump left
+	10 shoot right
+	11 shoot left
 	*/
 
 
@@ -2386,6 +2463,18 @@ void Stage3::KeyboardDown()
 	if (Input::GetKeyDown(Key::F))
 	{
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ArrowShot(m_physicsWorld);
+		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ResetShoot();
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLastRight())
+		{
+			ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(10);
+			ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).GetAnimation(10).Reset();
+
+		}
+		else
+		{
+			ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(11);
+			ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).GetAnimation(11).Reset();
+		}
 	}
 }
 
