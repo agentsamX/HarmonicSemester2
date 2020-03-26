@@ -29,7 +29,7 @@ void Game::InitGame()
 {
 	//Scene names and clear colors
 	m_name = "Hello World";
-	m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
+	m_clearColor = vec4(0.105, 0.105, 0.105, 1.f);
 
 	//Initializes the backend
 	BackEnd::InitBackEnd(m_name);
