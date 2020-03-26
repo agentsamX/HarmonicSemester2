@@ -2980,7 +2980,7 @@ void Stage5::InitScene(float windowWidth, float windowHeight)
 	unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit() | EntityIdentifier::AnimationBit();
 	ECS::SetUpIdentifier(entity, bitHolder, "block enemy ");
 	}
-
+	
 	{
 	auto entity = ECS::CreateEntity();
 	//add components
@@ -3166,7 +3166,7 @@ void Stage5::InitScene(float windowWidth, float windowHeight)
 
 
 	ECS::GetComponent<Sprite>(entity).LoadSprite(Block, 16, 16, true, &animController);
-	ECS::GetComponent<Transform>(entity).SetPosition(vec3(36.f, 32.f, 10.f));
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(60.f, 32.f, 10.f));
 	//collision settings
 	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
