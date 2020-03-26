@@ -135,7 +135,7 @@ void ContactListener::BeginContact(b2Contact* contact)
         }
     }
    
-    if (contact->GetFixtureB()->GetBody()->GetEntityType() == 5)
+    if (contact->GetFixtureB()->GetBody()->GetEntityType() == 5 && ECS::GetComponent<PhysicsBody>(entA).GetBody()->GetFixtureList()->IsSensor() != true)
     {
         //type 5 is block enemy
         ECS::GetComponent<BlockEnemy>(entB).SetIsLeft(!ECS::GetComponent<BlockEnemy>(entB).GetIsLeft());
@@ -153,7 +153,7 @@ void ContactListener::BeginContact(b2Contact* contact)
 
         }
     }
-    else if (contact->GetFixtureA()->GetBody()->GetEntityType() == 5)
+    else if (contact->GetFixtureA()->GetBody()->GetEntityType() == 5 && ECS::GetComponent<PhysicsBody>(entB).GetBody()->GetFixtureList()->IsSensor() != true)
     {
         //type 5 is block enemy
         ECS::GetComponent<BlockEnemy>(entA).SetIsLeft(!ECS::GetComponent<BlockEnemy>(entA).GetIsLeft());
