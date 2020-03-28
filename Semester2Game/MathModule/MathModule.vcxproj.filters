@@ -219,6 +219,9 @@
     <ClCompile Include="Stage5.cpp">
       <Filter>Source Files\LevelSources</Filter>
     </ClCompile>
+    <ClCompile Include="BossEnemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationController.h">
@@ -415,6 +418,9 @@
     </ClInclude>
     <ClInclude Include="Stage5.h">
       <Filter>Header Files\LevelHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="BossEnemy.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -270,7 +270,7 @@ void Game::KeyboardUp()
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
-		m_curScene = 3;
+		m_curScene = 2;
 	}
 	if (Input::GetKeyDown(Key::Four))
 	{
@@ -279,7 +279,7 @@ void Game::KeyboardUp()
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
-		m_curScene = 4;
+		m_curScene = 1;
 	}
 	if (Input::GetKeyDown(Key::Five))
 	{
@@ -288,7 +288,7 @@ void Game::KeyboardUp()
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
-		m_curScene = 5;
+		m_curScene = 3;
 	}
 	if (Input::GetKeyDown(Key::R))
 	{
@@ -406,44 +406,24 @@ void Game::ResetScene()
 	switch (m_curScene)
 	{
 	case 0:
+		
+	case 1:
 		m_activeScene->~Scene();
 		m_scenes.push_back(new Stage4("First Level"));
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
 		break;
-	case 1:
+	case 2:
 		m_activeScene->~Scene();
 		m_scenes.push_back(new Stage3("Second Level"));
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
 		break;
-	case 2:
-		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage5("Third Level"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		break;
 	case 3:
 		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage3("Third Stage"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		break;
-	
-	case 4:
-		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage4("Fourth Stage"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		break;
-	case 5:
-		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage5("Fifth Stage"));
+		m_scenes.push_back(new Stage5("Third Level"));
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();

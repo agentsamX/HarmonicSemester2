@@ -148,6 +148,7 @@
     <ClInclude Include="AnimationSystem.h" />
     <ClInclude Include="Arrow.h" />
     <ClInclude Include="BlockEnemy.h" />
+    <ClInclude Include="BossEnemy.h" />
     <ClInclude Include="ContactListener.h" />
     <ClInclude Include="Gate.h" />
     <ClInclude Include="LevelGoal.h" />
@@ -215,6 +216,7 @@
     <ClCompile Include="AnimationSystem.cpp" />
     <ClCompile Include="Arrow.cpp" />
     <ClCompile Include="BlockEnemy.cpp" />
+    <ClCompile Include="BossEnemy.cpp" />
     <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="Gate.cpp" />
     <ClCompile Include="LevelGoal.cpp" />

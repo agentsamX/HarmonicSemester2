@@ -20,6 +20,7 @@
 #include "Gate.h"
 #include "Target.h"
 #include "PressurePlate.h"
+#include "BossEnemy.h"
 
 class ECS abstract
 {
