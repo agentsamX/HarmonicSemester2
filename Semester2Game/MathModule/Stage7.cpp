@@ -1977,16 +1977,53 @@ void Stage7::Routines(entt::registry* reg)
 	{
 		auto viewBlockEnemy = reg->view<BlockEnemy>();
 		auto viewPlatformEnemy = reg->view<PlatformEnemy>();
+		auto viewBossEnemy = reg->view<BossEnemy>();
 		auto viewArrow = reg->view<Arrow>();
 		for (auto entity : viewBlockEnemy)
 		{
 			if (ECS::GetComponent<BlockEnemy>(entity).GetIsLeft() && ECS::GetComponent<BlockEnemy>(entity).GetActive())
 			{
 				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(-2.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(0);
 			}
 			else if (ECS::GetComponent<BlockEnemy>(entity).GetActive())
 			{
 				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(2.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(1);
+			}
+			else if (ECS::GetComponent<BlockEnemy>(entity).GetJustDead())
+			{
+				ECS::GetComponent<PhysicsBody>(entity).GetBody()->GetFixtureList()->SetSensor(true);
+				b2FixtureDef blockDead;
+				b2PolygonShape deadShape;
+				deadShape.SetAsBox(8.f, 7.f, b2Vec2(0.f, -1.5f), 0);
+				blockDead.shape = &deadShape;
+				ECS::GetComponent<PhysicsBody>(entity).GetBody()->CreateFixture(&blockDead);
+
+			}
+		}
+		for (auto entity : viewBossEnemy)
+		{
+			ECS::GetComponent<BossEnemy>(entity).AddTime(Timer::deltaTime);
+			if (ECS::GetComponent<BossEnemy>(entity).GetIsLeft() && ECS::GetComponent<BossEnemy>(entity).GetActive())
+			{
+				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(-2.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(0);
+			}
+			else if (ECS::GetComponent<BossEnemy>(entity).GetActive())
+			{
+				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(2.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(1);
+			}
+			else if (ECS::GetComponent<BossEnemy>(entity).GetJustDead())
+			{
+				ECS::GetComponent<PhysicsBody>(entity).GetBody()->GetFixtureList()->SetSensor(true);
+				b2FixtureDef bossDead;
+				b2PolygonShape deadShape;
+				deadShape.SetAsBox(8.f, 7.f, b2Vec2(0.f, -1.5f), 0);
+				bossDead.shape = &deadShape;
+				ECS::GetComponent<PhysicsBody>(entity).GetBody()->CreateFixture(&bossDead);
+				//This needs changes
 			}
 		}
 		for (auto entity : viewPlatformEnemy)
