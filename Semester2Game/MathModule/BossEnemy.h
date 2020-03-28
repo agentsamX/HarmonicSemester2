@@ -9,6 +9,7 @@ public:
 	bool GetActive();
 	bool GetJustDead();
 	void TakeDamage();
+	void AddTime(float);
 
 private:
 	bool isLeft = true;

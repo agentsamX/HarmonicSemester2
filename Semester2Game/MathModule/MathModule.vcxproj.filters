@@ -222,6 +222,15 @@
     <ClCompile Include="BossEnemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Stage8.cpp">
+      <Filter>Source Files\LevelSources</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage7.cpp">
+      <Filter>Source Files\LevelSources</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage6.cpp">
+      <Filter>Source Files\LevelSources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationController.h">
@@ -421,6 +430,15 @@
     </ClInclude>
     <ClInclude Include="BossEnemy.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage8.h">
+      <Filter>Header Files\LevelHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage7.h">
+      <Filter>Header Files\LevelHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage6.h">
+      <Filter>Header Files\LevelHeaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -50,3 +50,8 @@ void BossEnemy::TakeDamage()
 		}
 	}
 }
+
+void BossEnemy::AddTime(float delta)
+{
+	timeSinceHit += delta;
+}
