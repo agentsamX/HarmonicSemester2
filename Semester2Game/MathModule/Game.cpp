@@ -29,7 +29,7 @@ void Game::InitGame()
 {
 	//Scene names and clear colors
 	m_name = "Hello World";
-	m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
+	m_clearColor = vec4(0.105, 0.105, 0.105, 1.f);
 
 	//Initializes the backend
 	BackEnd::InitBackEnd(m_name);
@@ -270,7 +270,7 @@ void Game::KeyboardUp()
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
-		m_curScene = 3;
+		m_curScene = 2;
 	}
 	if (Input::GetKeyDown(Key::Four))
 	{
@@ -279,7 +279,16 @@ void Game::KeyboardUp()
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
-		m_curScene = 4;
+		m_curScene = 1;
+	}
+	if (Input::GetKeyDown(Key::Five))
+	{
+		m_activeScene->~Scene();
+		m_scenes.push_back(new Stage5("Fifth Stage"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
+		m_curScene = 3;
 	}
 	if (Input::GetKeyDown(Key::Six))
 	{
@@ -396,20 +405,25 @@ void Game::AdvanceScene()
 	case 0:
 		
 		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage1("First Stage"));
+		m_scenes.push_back(new Stage4("First Level"));
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
 		break;
 	case 1:
 		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage2("Second Stage"));
+		m_scenes.push_back(new Stage3("Second Level"));
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
 		break;
 	case 2:
-			break;
+		m_activeScene->~Scene();
+		m_scenes.push_back(new Stage5("Third Level"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
+		break;
 	}
 	m_curScene++;
 }
@@ -419,14 +433,10 @@ void Game::ResetScene()
 	switch (m_curScene)
 	{
 	case 0:
-		m_activeScene->~Scene();
-		m_scenes.push_back(new MenuScene("Main Menu"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		break;
+		
 	case 1:
 		m_activeScene->~Scene();
+		m_scenes.push_back(new Stage4("First Level"));
 		m_scenes.push_back(new Stage4("First Stage"));
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
@@ -434,6 +444,7 @@ void Game::ResetScene()
 		break;
 	case 2:
 		m_activeScene->~Scene();
+		m_scenes.push_back(new Stage3("Second Level"));
 		m_scenes.push_back(new Stage3("Second Stage"));
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
@@ -441,6 +452,7 @@ void Game::ResetScene()
 		break;
 	case 3:
 		m_activeScene->~Scene();
+		m_scenes.push_back(new Stage5("Third Level"));
 		m_scenes.push_back(new Stage6("Fourth Stage"));
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));

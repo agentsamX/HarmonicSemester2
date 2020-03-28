@@ -17,9 +17,23 @@ void BlockEnemy::SetIsLeft(bool dire)
 void BlockEnemy::SetInactive()
 {
 	isActive = false;
+	justDead = true;
 }
 
 bool BlockEnemy::GetActive()
 {
 	return isActive;
+}
+
+bool BlockEnemy::GetJustDead()
+{
+	if (justDead)
+	{
+		justDead = false;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
