@@ -703,6 +703,7 @@ void Stage6::InitScene(float windowWidth, float windowHeight)
 		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
 			true);
+		ECS::GetComponent<PlatformEnemy>(entity).SetFloating(ECS::GetComponent<PhysicsBody>(entity).GetBody()->GetTransform().p.y);
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit() | EntityIdentifier::AnimationBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Floating Platform enemy 1");
@@ -2259,12 +2260,17 @@ void Stage6::Routines(entt::registry* reg)
 {
 	ECS::GetComponent<VerticalScroll>(EntityIdentifier::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()));
 	vec3 camPos = ECS::GetComponent<Camera>(EntityIdentifier::MainCamera()).GetPosition();
+	vec3 playPos = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()).GetPosition();
 	ECS::GetComponent<Transform>(1).SetPosition(camPos + vec3(-180.f, 50.f, 0.f));
 	ECS::GetComponent<Transform>(2).SetPosition(camPos + vec3(-180.f, 70.f, 0.f));
 	ECS::GetComponent<Transform>(3).SetPosition(camPos + vec3(-180.f, 90.f, 0.f));
+	ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).AddJumpTime(Timer::deltaTime);
+	ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).AddShootTime(Timer::deltaTime);
 	if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetKill())
 	{
-		printf("player is dead");
+		ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetWidth(24.f);
+		ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetHeight(24.f);
+		ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(12);
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).AddKillTime(Timer::deltaTime);
 	}
 	else
@@ -2277,21 +2283,40 @@ void Stage6::Routines(entt::registry* reg)
 			if (ECS::GetComponent<BlockEnemy>(entity).GetIsLeft() && ECS::GetComponent<BlockEnemy>(entity).GetActive())
 			{
 				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(-2.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(0);
 			}
 			else if (ECS::GetComponent<BlockEnemy>(entity).GetActive())
 			{
 				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(2.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(1);
+			}
+			else if (ECS::GetComponent<BlockEnemy>(entity).GetJustDead())
+			{
+				ECS::GetComponent<PhysicsBody>(entity).GetBody()->GetFixtureList()->SetSensor(true);
+				b2FixtureDef blockDead;
+				b2PolygonShape deadShape;
+				deadShape.SetAsBox(8.f, 7.f, b2Vec2(0.f, -1.5f), 0);
+				blockDead.shape = &deadShape;
+				ECS::GetComponent<PhysicsBody>(entity).GetBody()->CreateFixture(&blockDead);
+
 			}
 		}
 		for (auto entity : viewPlatformEnemy)
 		{
 			if (ECS::GetComponent<PlatformEnemy>(entity).GetIsLeft())
 			{
-				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(-5.f, 0.41f, 0.f));
+				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(-5.f, 0.f, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(0);
 			}
 			else
 			{
-				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(5.f, 0.41f, 0.f));
+				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(5.f, 0.f, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(1);
+			}
+			if (ECS::GetComponent<PlatformEnemy>(entity).GetFloating())
+			{
+				b2Vec2 tempPos = ECS::GetComponent<PhysicsBody>(entity).GetBody()->GetTransform().p;
+				ECS::GetComponent<PhysicsBody>(entity).SetPosition(b2Vec2(tempPos.x, ECS::GetComponent<PlatformEnemy>(entity).GetYLock()));
 			}
 		}
 		for (auto entity : viewArrow)
@@ -2317,6 +2342,7 @@ void Stage6::Routines(entt::registry* reg)
 			}
 		}
 	}
+	
 }
 
 void Stage6::GamepadStroke(XInputController* con)
@@ -2413,7 +2439,7 @@ void Stage6::KeyboardHold()
 		}
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(true);
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(false);
-		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && noShoot && noJump)
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && noShoot&& noJump)
 		{
 			ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(5);
 		}
@@ -2429,7 +2455,7 @@ void Stage6::KeyboardHold()
 		}
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRight(true);
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(true);
-		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && noShoot && noJump)
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && noShoot&& noJump)
 		{
 			ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(4);
 		}
@@ -2554,7 +2580,7 @@ void Stage6::KeyboardHold()
 
 	if (!moved && !ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetUp() && !ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetDown())
 	{
-		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && noShoot && noJump)
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && noShoot&& noJump)
 		{
 			if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLastRight())
 			{

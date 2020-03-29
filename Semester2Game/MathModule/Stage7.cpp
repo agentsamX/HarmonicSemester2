@@ -2707,11 +2707,18 @@ void Stage7::Routines(entt::registry* reg)
 		{
 			if (ECS::GetComponent<PlatformEnemy>(entity).GetIsLeft())
 			{
-				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(-5.f, 0.45f, 0.f));
+				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(-5.f, 0.f, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(0);
 			}
 			else
 			{
-				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(5.f, 0.45f, 0.f));
+				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(5.f, 0.f, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(1);
+			}
+			if (ECS::GetComponent<PlatformEnemy>(entity).GetFloating())
+			{
+				b2Vec2 tempPos = ECS::GetComponent<PhysicsBody>(entity).GetBody()->GetTransform().p;
+				ECS::GetComponent<PhysicsBody>(entity).SetPosition(b2Vec2(tempPos.x, ECS::GetComponent<PlatformEnemy>(entity).GetYLock()));
 			}
 		}
 		for (auto entity : viewArrow)
@@ -2737,6 +2744,7 @@ void Stage7::Routines(entt::registry* reg)
 			}
 		}
 	}
+
 }
 
 void Stage7::GamepadStroke(XInputController* con)
@@ -2833,7 +2841,7 @@ void Stage7::KeyboardHold()
 		}
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLeft(true);
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(false);
-		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && noShoot && noJump)
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && noShoot&& noJump)
 		{
 			ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(5);
 		}
@@ -2849,7 +2857,7 @@ void Stage7::KeyboardHold()
 		}
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetRight(true);
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetLastRight(true);
-		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && noShoot && noJump)
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && noShoot&& noJump)
 		{
 			ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).SetActiveAnim(4);
 		}
@@ -2974,7 +2982,7 @@ void Stage7::KeyboardHold()
 
 	if (!moved && !ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetUp() && !ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetDown())
 	{
-		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && noShoot && noJump)
+		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGrounded() && noShoot&& noJump)
 		{
 			if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetLastRight())
 			{
@@ -3008,6 +3016,7 @@ void Stage7::KeyboardHold()
 
 void Stage7::KeyboardDown()
 {
+
 	auto& phsBod = ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer());
 	vec3 curVelo = phsBod.GetVelocity();
 	if (Input::GetKeyDown(Key::Space))
