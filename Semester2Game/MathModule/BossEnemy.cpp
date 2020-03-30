@@ -55,3 +55,13 @@ void BossEnemy::AddTime(float delta)
 {
 	timeSinceHit += delta;
 }
+
+int BossEnemy::GetGateNum()
+{
+	return gateNum;
+}
+
+void BossEnemy::SetGateNum(int num)
+{
+	gateNum = num;
+}

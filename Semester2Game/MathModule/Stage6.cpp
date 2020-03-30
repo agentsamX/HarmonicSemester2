@@ -687,7 +687,8 @@ void Stage6::InitScene(float windowWidth, float windowHeight)
 
 
 		ECS::GetComponent<Sprite>(entity).LoadSprite(Float, 32, 16, true, &animController);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(79.1f, -298.5f, 10.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(79.1f, -260.5f, 10.f));
+		
 		//collision settings
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -703,7 +704,7 @@ void Stage6::InitScene(float windowWidth, float windowHeight)
 		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
 			true);
-		ECS::GetComponent<PlatformEnemy>(entity).SetFloating(ECS::GetComponent<PhysicsBody>(entity).GetBody()->GetTransform().p.y);
+		//ECS::GetComponent<PlatformEnemy>(entity).SetFloating(ECS::GetComponent<PhysicsBody>(entity).GetBody()->GetTransform().p.y);
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit() | EntityIdentifier::AnimationBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Floating Platform enemy 1");

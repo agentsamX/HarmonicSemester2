@@ -208,9 +208,7 @@ void ContactListener::BeginContact(b2Contact* contact)
             if (ECS::GetComponent<BossEnemy>(entB).GetActive())
             {
                 ECS::GetComponent<BossEnemy>(entB).TakeDamage();
-                ECS::GetComponent<PhysicsBody>(entB).SetVelocity(vec3(0.f, 0.f, 0.f));
                 ECS::GetComponent<Arrow>(entA).SetArrTime(4.9f);
-                ECS::GetComponent<AnimationController>(entB).SetActiveAnim(2);
             }
 
         }
@@ -218,17 +216,15 @@ void ContactListener::BeginContact(b2Contact* contact)
     else if (contact->GetFixtureA()->GetBody()->GetEntityType() == 10 && ECS::GetComponent<PhysicsBody>(entB).GetBody()->GetFixtureList()->IsSensor() != true)
     {
         //type 5 is block enemy
-        ECS::GetComponent<BossEnemy>(entA).SetIsLeft(!ECS::GetComponent<BlockEnemy>(entA).GetIsLeft());
+        ECS::GetComponent<BossEnemy>(entA).SetIsLeft(!ECS::GetComponent<BossEnemy>(entA).GetIsLeft());
         if (contact->GetFixtureB()->GetBody()->GetEntityType() == 3)
         {
             //printf("enemy hit by arrow");
             //type 3 is arrow
             if (ECS::GetComponent<BossEnemy>(entA).GetActive())
             {
-                ECS::GetComponent<BossEnemy>(entA).SetInactive();
-                ECS::GetComponent<PhysicsBody>(entA).SetVelocity(vec3(0.f, 0.f, 0.f));
+                ECS::GetComponent<BossEnemy>(entA).TakeDamage();
                 ECS::GetComponent<Arrow>(entB).SetArrTime(4.9f);
-                ECS::GetComponent<AnimationController>(entA).SetActiveAnim(2);
             }
         }
     }

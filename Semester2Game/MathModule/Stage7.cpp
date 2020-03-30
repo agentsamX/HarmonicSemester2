@@ -2680,6 +2680,7 @@ void Stage7::Routines(entt::registry* reg)
 		auto viewBlockEnemy = reg->view<BlockEnemy>();
 		auto viewPlatformEnemy = reg->view<PlatformEnemy>();
 		auto viewArrow = reg->view<Arrow>();
+		auto viewBossEnemy = reg->view<BossEnemy>();
 		for (auto entity : viewBlockEnemy)
 		{
 			if (ECS::GetComponent<BlockEnemy>(entity).GetIsLeft() && ECS::GetComponent<BlockEnemy>(entity).GetActive())
@@ -2741,6 +2742,29 @@ void Stage7::Routines(entt::registry* reg)
 				m_physicsWorld->DestroyBody(ECS::GetComponent<PhysicsBody>(entity).GetBody());
 				ECS::DestroyEntity(entNum);
 				ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ArrowDestroyed();
+			}
+		}
+		for (auto entity : viewBlockEnemy)
+		{
+
+			if (ECS::GetComponent<BossEnemy>(entity).GetIsLeft() && ECS::GetComponent<BossEnemy>(entity).GetActive())
+			{
+				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(-2.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(0);
+			}
+			else if (ECS::GetComponent<BossEnemy>(entity).GetActive())
+			{
+				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(2.f, ECS::GetComponent<PhysicsBody>(entity).GetVelocity().y, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(1);
+			}
+			else if (ECS::GetComponent<BossEnemy>(entity).GetJustDead())
+			{
+				ECS::GetComponent<PhysicsBody>(entity).SetVelocity(vec3(0.f, 0.f, 0.f));
+				ECS::GetComponent<AnimationController>(entity).SetActiveAnim(2);
+				ECS::GetComponent<PhysicsBody>(entity).GetBody()->GetFixtureList()->SetSensor(true);
+				ECS::GetComponent<PhysicsBody>(ECS::GetComponent<BossEnemy>(entity).GetGateNum()).GetBody()->GetFixtureList()->SetSensor(true);
+				ECS::GetComponent<AnimationController>(ECS::GetComponent<BossEnemy>(entity).GetGateNum()).SetActiveAnim(1);
+
 			}
 		}
 	}

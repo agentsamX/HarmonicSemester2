@@ -10,6 +10,8 @@ public:
 	bool GetJustDead();
 	void TakeDamage();
 	void AddTime(float);
+	int GetGateNum();
+	void SetGateNum(int num);
 
 private:
 	bool isLeft = true;
@@ -17,6 +19,7 @@ private:
 	bool justDead = false;
 	int health = 5;
 	float timeSinceHit = 0.0;
+	int gateNum;
 
 };
 
