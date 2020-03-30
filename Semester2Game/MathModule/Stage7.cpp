@@ -840,7 +840,6 @@ void Stage7::InitScene(float windowWidth, float windowHeight)
 	ECS::SetUpIdentifier(entity, bitHolder, "block enemy 4");
 	}
 	
-	
 	/*
 	{
 		auto entity = ECS::CreateEntity();
@@ -2202,6 +2201,8 @@ void Stage7::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder2 = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 		ECS::SetUpIdentifier(entity2, bitHolder2, "Pressure");
 	}
+	
+
 	//gates
 	{
 	auto entity = ECS::CreateEntity();
@@ -2605,7 +2606,6 @@ void Stage7::InitScene(float windowWidth, float windowHeight)
 	unsigned int bitHolder2 = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 	ECS::SetUpIdentifier(entity2, bitHolder2, "Target");
 	}
-	
 	
 	{
 		auto entity = ECS::CreateEntity();
