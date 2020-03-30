@@ -22,3 +22,19 @@ bool PlatformEnemy::GetActive()
 {
 	return isActive;
 }
+
+void PlatformEnemy::SetFloating(float y)
+{
+	yPos = y;
+	needFloat = true;
+}
+
+bool PlatformEnemy::GetFloating()
+{
+	return needFloat;
+}
+
+float PlatformEnemy::GetYLock()
+{
+	return yPos;
+}
