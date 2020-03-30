@@ -2744,7 +2744,7 @@ void Stage7::Routines(entt::registry* reg)
 				ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).ArrowDestroyed();
 			}
 		}
-		for (auto entity : viewBlockEnemy)
+		for (auto entity : viewBossEnemy)
 		{
 
 			if (ECS::GetComponent<BossEnemy>(entity).GetIsLeft() && ECS::GetComponent<BossEnemy>(entity).GetActive())
