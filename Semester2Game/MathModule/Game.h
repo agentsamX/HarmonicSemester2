@@ -8,6 +8,9 @@
 #include "Stage3.h"
 #include "Stage4.h"
 #include "Stage5.h"
+#include "Stage6.h"
+#include "Stage7.h"
+#include "Stage8.h"
 #include "MenuScene.h"
 
 //Our main class for running our game

@@ -401,6 +401,7 @@ public:
 	//7 is target
 	//8 is pressure plate
 	//9 is platform enemy
+	//10 is boss enemy
 	void SetEntityType(int);
 	const int GetEntityType();
 

@@ -32,6 +32,13 @@ void ContactListener::BeginContact(b2Contact* contact)
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
                 }
             }
+            else if (Btype == 10)
+            {
+                if (ECS::GetComponent<BlockEnemy>(entA).GetActive())
+                {
+                    ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
+                }
+            }
             /*
             else if (Btype == 9)
             {
@@ -49,6 +56,13 @@ void ContactListener::BeginContact(b2Contact* contact)
             {
                 printf("player touched enemy on side");
                 if (ECS::GetComponent<BlockEnemy>(entB).GetActive())
+                {
+                    ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
+                }
+            }
+            else if (Btype == 10)
+            {
+                if (ECS::GetComponent<BlockEnemy>(entA).GetActive())
                 {
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
                 }
@@ -91,8 +105,14 @@ void ContactListener::BeginContact(b2Contact* contact)
             }
             if (Atype == 5)
             {
-                printf("player touched enemy on side");
                 if (ECS::GetComponent<BlockEnemy>(entA).GetActive())
+                {
+                    ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
+                }
+            }
+            else if (Atype == 10)
+            {
+                if (ECS::GetComponent<BossEnemy>(entA).GetActive())
                 {
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
                 }
@@ -114,6 +134,13 @@ void ContactListener::BeginContact(b2Contact* contact)
             {
                 printf("player touched enemy on side");
                 if (ECS::GetComponent<BlockEnemy>(entA).GetActive())
+                {
+                    ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
+                }
+            }
+            else if (Atype == 10)
+            {
+                if (ECS::GetComponent<BossEnemy>(entA).GetActive())
                 {
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
                 }
@@ -167,6 +194,37 @@ void ContactListener::BeginContact(b2Contact* contact)
                 ECS::GetComponent<PhysicsBody>(entA).SetVelocity(vec3(0.f, 0.f, 0.f));
                 ECS::GetComponent<Arrow>(entB).SetArrTime(4.9f);
                 ECS::GetComponent<AnimationController>(entA).SetActiveAnim(2);
+            }
+        }
+    }
+    if (contact->GetFixtureB()->GetBody()->GetEntityType() == 10 && ECS::GetComponent<PhysicsBody>(entA).GetBody()->GetFixtureList()->IsSensor() != true)
+    {
+        //type 5 is block enemy
+        ECS::GetComponent<BossEnemy>(entB).SetIsLeft(!ECS::GetComponent<BossEnemy>(entB).GetIsLeft());
+        if (contact->GetFixtureA()->GetBody()->GetEntityType() == 3)
+        {
+            //printf("enemy hit by arrow");
+            //type 3 is arrow
+            if (ECS::GetComponent<BossEnemy>(entB).GetActive())
+            {
+                ECS::GetComponent<BossEnemy>(entB).TakeDamage();
+                ECS::GetComponent<Arrow>(entA).SetArrTime(4.9f);
+            }
+
+        }
+    }
+    else if (contact->GetFixtureA()->GetBody()->GetEntityType() == 10 && ECS::GetComponent<PhysicsBody>(entB).GetBody()->GetFixtureList()->IsSensor() != true)
+    {
+        //type 5 is block enemy
+        ECS::GetComponent<BossEnemy>(entA).SetIsLeft(!ECS::GetComponent<BossEnemy>(entA).GetIsLeft());
+        if (contact->GetFixtureB()->GetBody()->GetEntityType() == 3)
+        {
+            //printf("enemy hit by arrow");
+            //type 3 is arrow
+            if (ECS::GetComponent<BossEnemy>(entA).GetActive())
+            {
+                ECS::GetComponent<BossEnemy>(entA).TakeDamage();
+                ECS::GetComponent<Arrow>(entB).SetArrTime(4.9f);
             }
         }
     }
