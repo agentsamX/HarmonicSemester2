@@ -34,7 +34,7 @@ void ContactListener::BeginContact(b2Contact* contact)
             }
             else if (Btype == 10)
             {
-                if (ECS::GetComponent<BlockEnemy>(entA).GetActive())
+                if (ECS::GetComponent<BossEnemy>(entA).GetActive())
                 {
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
                 }
@@ -62,7 +62,7 @@ void ContactListener::BeginContact(b2Contact* contact)
             }
             else if (Btype == 10)
             {
-                if (ECS::GetComponent<BlockEnemy>(entA).GetActive())
+                if (ECS::GetComponent<BossEnemy>(entA).GetActive())
                 {
                     ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetKill();
                 }
