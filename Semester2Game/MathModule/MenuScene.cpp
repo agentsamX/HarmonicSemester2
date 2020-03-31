@@ -46,8 +46,8 @@ void MenuScene::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<Sprite>(entity);
 		std::string fileName = "gaiatitle.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 300, 150);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 51.f, 0.f));
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 280, 200);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 34.f, 0.f));
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Title Placeholder");
 	}
