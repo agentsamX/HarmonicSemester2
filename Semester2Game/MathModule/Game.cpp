@@ -445,6 +445,13 @@ void Game::AdvanceScene()
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
 		break;
+	case 6:
+		m_activeScene->~Scene();
+		m_scenes.push_back(new EndScene("End Screen"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
+		break;
 	}
 	m_curScene++;
 	
