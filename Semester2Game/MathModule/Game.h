@@ -12,6 +12,7 @@
 #include "Stage7.h"
 #include "Stage8.h"
 #include "MenuScene.h"
+#include "EndScene.h"
 
 //Our main class for running our game
 class Game

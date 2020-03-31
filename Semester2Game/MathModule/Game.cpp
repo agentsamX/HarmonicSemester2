@@ -28,7 +28,7 @@ Game::~Game()
 void Game::InitGame()
 {
 	//Scene names and clear colors
-	m_name = "Hello World";
+	m_name = "Gaia's Grasp";
 	m_clearColor = vec4(0.105, 0.105, 0.105, 1.f);
 
 	//Initializes the backend
@@ -441,6 +441,13 @@ void Game::AdvanceScene()
 	case 5:
 		m_activeScene->~Scene();
 		m_scenes.push_back(new Stage8("Sixth Stage"));
+		m_activeScene = m_scenes.back();
+		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_activeScene->GetScene();
+		break;
+	case 6:
+		m_activeScene->~Scene();
+		m_scenes.push_back(new EndScene("End Screen"));
 		m_activeScene = m_scenes.back();
 		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_activeScene->GetScene();
