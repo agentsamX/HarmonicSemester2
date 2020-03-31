@@ -1057,6 +1057,7 @@ void Stage7::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "floor");
 	}
+	
 	//walls start
 	{
 
@@ -2839,7 +2840,7 @@ void Stage7::InitScene(float windowWidth, float windowHeight)
 
 
 		ECS::GetComponent<Sprite>(entity).LoadSprite(Door, 16, 48, true, &animController);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-111.9f, -474.3f, 8.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(128.f, -475.f, 8.f));
 		auto& tempTrans = ECS::GetComponent<Transform>(entity);
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -2955,8 +2956,8 @@ void Stage7::InitScene(float windowWidth, float windowHeight)
 
 
 
-		ECS::GetComponent<Sprite>(entity2).LoadSprite(Block, 32, 32, true, &animController2);
-		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(18.f, -340.f, 10.f));
+		ECS::GetComponent<Sprite>(entity2).LoadSprite(Block, 48, 56, true, &animController2);
+		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(18.f, -440.f, 10.f));
 		//collision settings
 		ECS::GetComponent<BossEnemy>(entity2).SetGateNum(entity);
 		auto& tempSpr2 = ECS::GetComponent<Sprite>(entity2);
