@@ -45,9 +45,9 @@ void MenuScene::InitScene(float windowWidth, float windowHeight)
 		auto entity = ECS::CreateEntity();
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<Sprite>(entity);
-		std::string fileName = "box.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 300, 50);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 65.7f, 0.f));
+		std::string fileName = "gaiatitle.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 300, 150);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 51.f, 0.f));
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Title Placeholder");
 	}
@@ -55,28 +55,30 @@ void MenuScene::InitScene(float windowWidth, float windowHeight)
 		auto entity = ECS::CreateEntity();
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<Sprite>(entity);
-		std::string fileName = "box.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 200, 30);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 8.1f, 0.f));
+		std::string fileName = "Play.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 100, 48);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, -21.f, 0.f));
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Menu Item 1");
 	}
+	/*
 	{
 		auto entity = ECS::CreateEntity();
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<Sprite>(entity);
 		std::string fileName = "box.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 150, 30);
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 150, 100);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, -30.f, 0.f));
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Menu Item 2");
 	}
+	*/
 	{
 		auto entity = ECS::CreateEntity();
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<Sprite>(entity);
-		std::string fileName = "box.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 100, 30);
+		std::string fileName = "Exit.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 100, 48);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, -71.f, 0.f));
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Menu Item 3");

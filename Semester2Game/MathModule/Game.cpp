@@ -28,7 +28,7 @@ Game::~Game()
 void Game::InitGame()
 {
 	//Scene names and clear colors
-	m_name = "Hello World";
+	m_name = "Gaia's Grasp";
 	m_clearColor = vec4(0.105, 0.105, 0.105, 1.f);
 
 	//Initializes the backend
