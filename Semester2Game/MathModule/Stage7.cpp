@@ -2798,6 +2798,18 @@ void Stage7::InitScene(float windowWidth, float windowHeight)
 		anim.AddFrame(vec2(2240.f, 480.f), vec2(2400.f, 0.f));
 		anim.AddFrame(vec2(2080.f, 480.f), vec2(2240.f, 0.f));
 		anim.AddFrame(vec2(1920.f, 480.f), vec2(2080.f, 0.f));
+		anim.AddFrame(vec2(1760.f, 480.f), vec2(1920.f, 0.f));
+		anim.AddFrame(vec2(1600.f, 480.f), vec2(1760.f, 0.f));
+		anim.AddFrame(vec2(1440.f, 480.f), vec2(1600.f, 0.f));
+		anim.AddFrame(vec2(1280.f, 480.f), vec2(1440.f, 0.f));
+		anim.AddFrame(vec2(1120.f, 480.f), vec2(1280.f, 0.f));
+		anim.AddFrame(vec2(960.f, 480.f), vec2(1120.f, 0.f));
+		anim.AddFrame(vec2(800.f, 480.f), vec2(960.f, 0.f));
+		anim.AddFrame(vec2(640.f, 480.f), vec2(800.f, 0.f));
+		anim.AddFrame(vec2(480.f, 480.f), vec2(640.f, 0.f));
+		anim.AddFrame(vec2(320.f, 480.f), vec2(480.f, 0.f));
+		anim.AddFrame(vec2(160.f, 480.f), vec2(320.f, 0.f));
+		anim.AddFrame(vec2(0.f, 480.f), vec2(160.f, 0.f));
 
 		//Makes it repeat
 		anim.SetRepeating(false);
