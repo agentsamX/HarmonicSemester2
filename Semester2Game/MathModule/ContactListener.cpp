@@ -290,11 +290,13 @@ void ContactListener::BeginContact(b2Contact* contact)
     if (contact->GetFixtureA()->GetBody()->GetEntityType() == 7 && contact->GetFixtureB()->GetBody()->GetEntityType()==3)
     {
         ECS::GetComponent<Target>(entA).SetHit();
+        ECS::GetComponent<AnimationController>(entA).SetActiveAnim(1);
         ECS::GetComponent<PhysicsBody>(entA).GetBody()->GetFixtureList()->SetSensor(true);
     }
     else if (contact->GetFixtureB()->GetBody()->GetEntityType() == 7 && contact->GetFixtureA()->GetBody()->GetEntityType() == 3)
     {
         ECS::GetComponent<Target>(entB).SetHit();
+        ECS::GetComponent<AnimationController>(entB).SetActiveAnim(1);
         ECS::GetComponent<PhysicsBody>(entB).GetBody()->GetFixtureList()->SetSensor(true);
     }
     if (contact->GetFixtureA()->GetBody()->GetEntityType() == 8 && contact->GetFixtureB()->GetBody()->GetEntityType() != 3)
