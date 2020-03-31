@@ -128,6 +128,8 @@ void MenuScene::MouseClick(SDL_MouseButtonEvent evnt)
 	}*/
 	if (evnt.x > 568 && evnt.x < 967 && evnt.y>465 && evnt.y < 583)
 	{
+		std::string click = "PlayClicked.png";
+		ECS::GetComponent<Sprite>(3).LoadSprite(click,100,30);
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetContactingGoal(true);
 	}
 	else if (evnt.x > 568 && evnt.x < 967 && evnt.y>629 && evnt.y < 746)
