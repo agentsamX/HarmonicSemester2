@@ -1637,9 +1637,36 @@ void Stage5::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Transform>(entity2);
 		ECS::AttachComponent<PhysicsBody>(entity2);
 		ECS::AttachComponent<Target>(entity2);
-		//sets up components
-		std::string fileName2 = "TargetL.png";
-		ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName2, 9, 16);
+		ECS::AttachComponent<AnimationController>(entity2);
+
+		//Sets up components
+		std::string targ = "Target.png";
+		auto& animController2 = ECS::GetComponent<AnimationController>(entity2);
+		animController2.InitUVs(targ);
+		//Adds first animation
+		animController2.AddAnimation(Animation());
+		animController2.SetActiveAnim(0);
+		auto& anim3 = animController2.GetAnimation(0);
+		anim3.AddFrame(vec2(150.f, 160.f), vec2(0.f, 10.f));
+		//Makes it repeat
+		anim3.SetRepeating(false);
+		//Sets the time between frames
+		anim3.SetSecPerFrame(0.1667f);
+		animController2.AddAnimation(Animation());
+		auto& anim4 = animController2.GetAnimation(1);
+		anim4.AddFrame(vec2(150.f, 160.f), vec2(0.f, 10.f));
+		anim4.AddFrame(vec2(310.f, 160.f), vec2(160.f, 10.f));
+		anim4.AddFrame(vec2(470.f, 160.f), vec2(320.f, 10.f));
+		anim4.AddFrame(vec2(630.f, 160.f), vec2(480.f, 10.f));
+		anim4.AddFrame(vec2(790.f, 160.f), vec2(640.f, 10.f));
+		anim4.AddFrame(vec2(950.f, 160.f), vec2(800.f, 10.f));
+		//Makes it repeat
+		anim4.SetRepeating(false);
+		//Sets the time between frames
+		anim4.SetSecPerFrame(0.07f);
+
+
+		ECS::GetComponent<Sprite>(entity2).LoadSprite(targ, 16, 16, true, &animController2);
 		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(-44.f, 192.f, 8.f));
 		ECS::GetComponent<Target>(entity2).SetGateNum(entity);
 		auto& tempTrans2 = ECS::GetComponent<Transform>(entity2);
@@ -1772,9 +1799,36 @@ void Stage5::InitScene(float windowWidth, float windowHeight)
 	ECS::AttachComponent<Transform>(entity2);
 	ECS::AttachComponent<PhysicsBody>(entity2);
 	ECS::AttachComponent<Target>(entity2);
-	//sets up components
-	std::string fileName2 = "TargetL.png";
-	ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName2, 9, 16);
+	ECS::AttachComponent<AnimationController>(entity2);
+
+	//Sets up components
+	std::string targ = "Target.png";
+	auto& animController2 = ECS::GetComponent<AnimationController>(entity2);
+	animController2.InitUVs(targ);
+	//Adds first animation
+	animController2.AddAnimation(Animation());
+	animController2.SetActiveAnim(0);
+	auto& anim3 = animController2.GetAnimation(0);
+	anim3.AddFrame(vec2(150.f, 160.f), vec2(0.f, 10.f));
+	//Makes it repeat
+	anim3.SetRepeating(false);
+	//Sets the time between frames
+	anim3.SetSecPerFrame(0.1667f);
+	animController2.AddAnimation(Animation());
+	auto& anim4 = animController2.GetAnimation(1);
+	anim4.AddFrame(vec2(150.f, 160.f), vec2(0.f, 10.f));
+	anim4.AddFrame(vec2(310.f, 160.f), vec2(160.f, 10.f));
+	anim4.AddFrame(vec2(470.f, 160.f), vec2(320.f, 10.f));
+	anim4.AddFrame(vec2(630.f, 160.f), vec2(480.f, 10.f));
+	anim4.AddFrame(vec2(790.f, 160.f), vec2(640.f, 10.f));
+	anim4.AddFrame(vec2(950.f, 160.f), vec2(800.f, 10.f));
+	//Makes it repeat
+	anim4.SetRepeating(false);
+	//Sets the time between frames
+	anim4.SetSecPerFrame(0.07f);
+
+
+	ECS::GetComponent<Sprite>(entity2).LoadSprite(targ, 16, 16, true, &animController2);
 	ECS::GetComponent<Transform>(entity2).SetPosition(vec3(36.f, 176.f, 8.f));
 	ECS::GetComponent<Target>(entity2).SetGateNum(entity);
 	auto& tempTrans2 = ECS::GetComponent<Transform>(entity2);
@@ -1907,9 +1961,36 @@ void Stage5::InitScene(float windowWidth, float windowHeight)
 	ECS::AttachComponent<Transform>(entity2);
 	ECS::AttachComponent<PhysicsBody>(entity2);
 	ECS::AttachComponent<Target>(entity2);
-	//sets up components
-	std::string fileName2 = "TargetL.png";
-	ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName2, 9, 16);
+	ECS::AttachComponent<AnimationController>(entity2);
+
+	//Sets up components
+	std::string targ = "Target.png";
+	auto& animController2 = ECS::GetComponent<AnimationController>(entity2);
+	animController2.InitUVs(targ);
+	//Adds first animation
+	animController2.AddAnimation(Animation());
+	animController2.SetActiveAnim(0);
+	auto& anim3 = animController2.GetAnimation(0);
+	anim3.AddFrame(vec2(150.f, 160.f), vec2(0.f, 10.f));
+	//Makes it repeat
+	anim3.SetRepeating(false);
+	//Sets the time between frames
+	anim3.SetSecPerFrame(0.1667f);
+	animController2.AddAnimation(Animation());
+	auto& anim4 = animController2.GetAnimation(1);
+	anim4.AddFrame(vec2(150.f, 160.f), vec2(0.f, 10.f));
+	anim4.AddFrame(vec2(310.f, 160.f), vec2(160.f, 10.f));
+	anim4.AddFrame(vec2(470.f, 160.f), vec2(320.f, 10.f));
+	anim4.AddFrame(vec2(630.f, 160.f), vec2(480.f, 10.f));
+	anim4.AddFrame(vec2(790.f, 160.f), vec2(640.f, 10.f));
+	anim4.AddFrame(vec2(950.f, 160.f), vec2(800.f, 10.f));
+	//Makes it repeat
+	anim4.SetRepeating(false);
+	//Sets the time between frames
+	anim4.SetSecPerFrame(0.07f);
+
+
+	ECS::GetComponent<Sprite>(entity2).LoadSprite(targ, 16, 16, true, &animController2);
 	ECS::GetComponent<Transform>(entity2).SetPosition(vec3(52.f, -32.f, 8.f));
 	ECS::GetComponent<Target>(entity2).SetGateNum(entity);
 	auto& tempTrans2 = ECS::GetComponent<Transform>(entity2);
@@ -2042,9 +2123,36 @@ void Stage5::InitScene(float windowWidth, float windowHeight)
 	ECS::AttachComponent<Transform>(entity2);
 	ECS::AttachComponent<PhysicsBody>(entity2);
 	ECS::AttachComponent<Target>(entity2);
-	//sets up components
-	std::string fileName2 = "TargetL.png";
-	ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName2, 9, 16);
+	ECS::AttachComponent<AnimationController>(entity2);
+
+	//Sets up components
+	std::string targ = "Target.png";
+	auto& animController2 = ECS::GetComponent<AnimationController>(entity2);
+	animController2.InitUVs(targ);
+	//Adds first animation
+	animController2.AddAnimation(Animation());
+	animController2.SetActiveAnim(0);
+	auto& anim3 = animController2.GetAnimation(0);
+	anim3.AddFrame(vec2(150.f, 160.f), vec2(0.f, 10.f));
+	//Makes it repeat
+	anim3.SetRepeating(false);
+	//Sets the time between frames
+	anim3.SetSecPerFrame(0.1667f);
+	animController2.AddAnimation(Animation());
+	auto& anim4 = animController2.GetAnimation(1);
+	anim4.AddFrame(vec2(150.f, 160.f), vec2(0.f, 10.f));
+	anim4.AddFrame(vec2(310.f, 160.f), vec2(160.f, 10.f));
+	anim4.AddFrame(vec2(470.f, 160.f), vec2(320.f, 10.f));
+	anim4.AddFrame(vec2(630.f, 160.f), vec2(480.f, 10.f));
+	anim4.AddFrame(vec2(790.f, 160.f), vec2(640.f, 10.f));
+	anim4.AddFrame(vec2(950.f, 160.f), vec2(800.f, 10.f));
+	//Makes it repeat
+	anim4.SetRepeating(false);
+	//Sets the time between frames
+	anim4.SetSecPerFrame(0.07f);
+
+
+	ECS::GetComponent<Sprite>(entity2).LoadSprite(targ, 16, 16, true, &animController2);
 	ECS::GetComponent<Transform>(entity2).SetPosition(vec3(-76.f, -16.f, 8.f));
 	ECS::GetComponent<Target>(entity2).SetGateNum(entity);
 	auto& tempTrans2 = ECS::GetComponent<Transform>(entity2);
@@ -2177,9 +2285,36 @@ void Stage5::InitScene(float windowWidth, float windowHeight)
 	ECS::AttachComponent<Transform>(entity2);
 	ECS::AttachComponent<PhysicsBody>(entity2);
 	ECS::AttachComponent<Target>(entity2);
-	//sets up components
-	std::string fileName2 = "TargetL.png";
-	ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName2, 9, 16);
+	ECS::AttachComponent<AnimationController>(entity2);
+
+	//Sets up components
+	std::string targ = "Target.png";
+	auto& animController2 = ECS::GetComponent<AnimationController>(entity2);
+	animController2.InitUVs(targ);
+	//Adds first animation
+	animController2.AddAnimation(Animation());
+	animController2.SetActiveAnim(0);
+	auto& anim3 = animController2.GetAnimation(0);
+	anim3.AddFrame(vec2(150.f, 160.f), vec2(0.f, 10.f));
+	//Makes it repeat
+	anim3.SetRepeating(false);
+	//Sets the time between frames
+	anim3.SetSecPerFrame(0.1667f);
+	animController2.AddAnimation(Animation());
+	auto& anim4 = animController2.GetAnimation(1);
+	anim4.AddFrame(vec2(150.f, 160.f), vec2(0.f, 10.f));
+	anim4.AddFrame(vec2(310.f, 160.f), vec2(160.f, 10.f));
+	anim4.AddFrame(vec2(470.f, 160.f), vec2(320.f, 10.f));
+	anim4.AddFrame(vec2(630.f, 160.f), vec2(480.f, 10.f));
+	anim4.AddFrame(vec2(790.f, 160.f), vec2(640.f, 10.f));
+	anim4.AddFrame(vec2(950.f, 160.f), vec2(800.f, 10.f));
+	//Makes it repeat
+	anim4.SetRepeating(false);
+	//Sets the time between frames
+	anim4.SetSecPerFrame(0.07f);
+
+
+	ECS::GetComponent<Sprite>(entity2).LoadSprite(targ, 16, 16, true, &animController2);
 	ECS::GetComponent<Transform>(entity2).SetPosition(vec3(52.f, -48.f, 8.f));
 	ECS::GetComponent<Target>(entity2).SetGateNum(entity);
 	auto& tempTrans2 = ECS::GetComponent<Transform>(entity2);
@@ -3346,6 +3481,47 @@ void Stage5::InitScene(float windowWidth, float windowHeight)
 	//sets up the identifier
 	unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit() | EntityIdentifier::AnimationBit();
 	ECS::SetUpIdentifier(entity, bitHolder, "block enemy ");
+	}
+
+	{
+	auto entity = ECS::CreateEntity();
+	//add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+	ECS::AttachComponent<PhysicsBody>(entity);
+	ECS::AttachComponent<LevelGoal>(entity);
+	//sets up components
+	std::string fileName = "door.png";
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(-128.f, -216.1f, 10.f));
+	//collision settings
+	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+	auto& tempTrans = ECS::GetComponent<Transform>(entity);
+	b2Body* tempBody;
+	b2BodyDef tempDef;
+	tempDef.fixedRotation = true;
+	b2FixtureDef doorSense;
+	b2PolygonShape doorShape;
+	doorShape.SetAsBox(8.f, 16.f);
+	doorSense.shape = &doorShape;
+	doorSense.isSensor = true;
+	/*b2FixtureDef baseFix;
+	b2PolygonShape doorBase;
+	doorBase.SetAsBox(8.f, 0.01f, b2Vec2(0.f, -16.f), 0.f);
+	baseFix.shape = &doorBase;*/
+	tempDef.type = b2_kinematicBody;
+	tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
+	tempBody = m_physicsWorld->CreateBody(&tempDef);
+	tempBody->CreateFixture(&doorSense);
+	//tempBody->CreateFixture(&baseFix);
+	tempBody->SetEntityNumber(entity);
+	tempBody->SetEntityType(4);
+	tempPhsBody = PhysicsBody(tempBody, float(16), float(32),
+		vec2(0.f, 0.f),
+		false, false);
+	//sets up the identifier
+	unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+	ECS::SetUpIdentifier(entity, bitHolder, "TestGoal");
 	}
 	ECS::GetComponent<VerticalScroll>(EntityIdentifier::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()));
 }
