@@ -236,86 +236,62 @@ void Game::KeyboardUp()
 	{
 		PhysicsBody::SetDraw(!PhysicsBody::GetDraw());
 	}
-	if (Input::GetKeyDown(Key::Zero))
+	if (Input::GetKey(Key::L))
 	{
-		m_activeScene->~Scene();
-		m_scenes.push_back(new MenuScene("Main Menu"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		m_curScene = 0;
-	}
-	if (Input::GetKeyDown(Key::One))
-	{
-		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage1("First Stage"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		m_curScene = 1;
-	}
-	if (Input::GetKeyDown(Key::Two))
-	{
-		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage2("Second Stage"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		m_curScene = 2;
-	}
-	if (Input::GetKeyDown(Key::Three))
-	{
-		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage3("Third Stage"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		m_curScene = 2;
-	}
-	if (Input::GetKeyDown(Key::Four))
-	{
-		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage4("Fourth Stage"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		m_curScene = 1;
-	}
-	if (Input::GetKeyDown(Key::Five))
-	{
-		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage5("Fifth Stage"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		m_curScene = 3;
-	}
-	if (Input::GetKeyDown(Key::Six))
-	{
-		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage6("Sixth Stage"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		m_curScene = 4;
-	}
-	if (Input::GetKeyDown(Key::Seven))
-	{
-		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage7("Seventh Stage"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		m_curScene = 5;
-	}
-	if (Input::GetKeyDown(Key::Eight))
-	{
-		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage8("Eighth Stage"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		m_curScene = 6;
+		if (Input::GetKeyDown(Key::One))
+		{
+			m_activeScene->~Scene();
+			m_scenes.push_back(new Stage4("First Level"));
+			m_activeScene = m_scenes.back();
+			m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+			m_register = m_activeScene->GetScene();
+			m_curScene = 1;
+		}
+		if (Input::GetKeyDown(Key::Two))
+		{
+			m_activeScene->~Scene();
+			m_scenes.push_back(new Stage3("Second Level"));
+			m_activeScene = m_scenes.back();
+			m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+			m_register = m_activeScene->GetScene();
+			m_curScene = 2;
+		}
+		if (Input::GetKeyDown(Key::Three))
+		{
+			m_activeScene->~Scene();
+			m_scenes.push_back(new Stage5("Third Level"));
+			m_activeScene = m_scenes.back();
+			m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+			m_register = m_activeScene->GetScene();
+			m_curScene = 3;
+		}
+		if (Input::GetKeyDown(Key::Four))
+		{
+			m_activeScene->~Scene();
+			m_scenes.push_back(new Stage6("Fourth Level"));
+			m_activeScene = m_scenes.back();
+			m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+			m_register = m_activeScene->GetScene();
+			m_curScene = 4;
+		}
+		if (Input::GetKeyDown(Key::Five))
+		{
+			m_activeScene->~Scene();
+			m_scenes.push_back(new Stage7("Fifth level"));
+			m_activeScene = m_scenes.back();
+			m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+			m_register = m_activeScene->GetScene();
+			m_curScene = 5;
+		}
+		if (Input::GetKeyDown(Key::Six))
+		{
+			m_activeScene->~Scene();
+			m_scenes.push_back(new Stage8("Sixth Level"));
+			m_activeScene = m_scenes.back();
+			m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+			m_register = m_activeScene->GetScene();
+			m_curScene = 6;
+		}
 	}
 	if (Input::GetKeyDown(Key::R))
 	{
@@ -329,7 +305,7 @@ void Game::KeyboardUp()
 	{
 		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGoalContact())
 		{
-			printf("advanced scene");
+			//printf("advanced scene");
 			Game::AdvanceScene();
 		}
 	}
@@ -340,7 +316,7 @@ void Game::MouseMotion(SDL_MouseMotionEvent evnt)
 	m_activeScene->MouseMotion(evnt);
 	if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGoalContact())
 	{
-		printf("advanced scene");
+		//printf("advanced scene");
 		Game::AdvanceScene();
 	}
 	if (m_guiActive)
@@ -364,15 +340,15 @@ void Game::MouseClick(SDL_MouseButtonEvent evnt)
 
 	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
-		printf("Left mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
+		//printf("Left mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
 	}
 	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT))
 	{
-		printf("Right mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
+		//printf("Right mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
 	}
 	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_MIDDLE))
 	{
-		printf("Middle mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
+		//printf("Middle mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
 	}
 	if (m_guiActive)
 	{
@@ -389,7 +365,7 @@ void Game::MouseClick(SDL_MouseButtonEvent evnt)
 void Game::MouseWheel(SDL_MouseWheelEvent evnt)
 {
 	m_activeScene->MouseWheel(evnt);
-	printf("mouse scroll %f\n", float(evnt.y));
+	//printf("mouse scroll %f\n", float(evnt.y));
 	if (m_guiActive)
 	{
 		ImGui::GetIO().MouseWheel = float(evnt.y);
