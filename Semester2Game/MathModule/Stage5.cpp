@@ -349,7 +349,7 @@ void Stage5::InitScene(float windowWidth, float windowHeight)
 		//sets up components
 		std::string fileName = "JungleLevel2.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 336, 592);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 9.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 8.f));
 		//collision settings
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		//auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -367,7 +367,6 @@ void Stage5::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "LevelBackground");
 	}
-
 	{
 		auto entity = ECS::CreateEntity();
 		//add components
