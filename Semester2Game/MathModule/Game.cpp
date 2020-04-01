@@ -236,86 +236,62 @@ void Game::KeyboardUp()
 	{
 		PhysicsBody::SetDraw(!PhysicsBody::GetDraw());
 	}
-	if (Input::GetKeyDown(Key::Zero))
+	if (Input::GetKey(Key::L))
 	{
-		m_activeScene->~Scene();
-		m_scenes.push_back(new MenuScene("Main Menu"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		m_curScene = 0;
-	}
-	if (Input::GetKeyDown(Key::One))
-	{
-		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage1("First Stage"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		m_curScene = 1;
-	}
-	if (Input::GetKeyDown(Key::Two))
-	{
-		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage2("Second Stage"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		m_curScene = 2;
-	}
-	if (Input::GetKeyDown(Key::Three))
-	{
-		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage3("Third Stage"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		m_curScene = 2;
-	}
-	if (Input::GetKeyDown(Key::Four))
-	{
-		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage4("Fourth Stage"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		m_curScene = 1;
-	}
-	if (Input::GetKeyDown(Key::Five))
-	{
-		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage5("Fifth Stage"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		m_curScene = 3;
-	}
-	if (Input::GetKeyDown(Key::Six))
-	{
-		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage6("Sixth Stage"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		m_curScene = 4;
-	}
-	if (Input::GetKeyDown(Key::Seven))
-	{
-		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage7("Seventh Stage"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		m_curScene = 5;
-	}
-	if (Input::GetKeyDown(Key::Eight))
-	{
-		m_activeScene->~Scene();
-		m_scenes.push_back(new Stage8("Eighth Stage"));
-		m_activeScene = m_scenes.back();
-		m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-		m_register = m_activeScene->GetScene();
-		m_curScene = 6;
+		if (Input::GetKeyDown(Key::One))
+		{
+			m_activeScene->~Scene();
+			m_scenes.push_back(new Stage4("First Level"));
+			m_activeScene = m_scenes.back();
+			m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+			m_register = m_activeScene->GetScene();
+			m_curScene = 1;
+		}
+		if (Input::GetKeyDown(Key::Two))
+		{
+			m_activeScene->~Scene();
+			m_scenes.push_back(new Stage3("Second Level"));
+			m_activeScene = m_scenes.back();
+			m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+			m_register = m_activeScene->GetScene();
+			m_curScene = 2;
+		}
+		if (Input::GetKeyDown(Key::Three))
+		{
+			m_activeScene->~Scene();
+			m_scenes.push_back(new Stage5("Third Level"));
+			m_activeScene = m_scenes.back();
+			m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+			m_register = m_activeScene->GetScene();
+			m_curScene = 3;
+		}
+		if (Input::GetKeyDown(Key::Four))
+		{
+			m_activeScene->~Scene();
+			m_scenes.push_back(new Stage6("Fourth Level"));
+			m_activeScene = m_scenes.back();
+			m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+			m_register = m_activeScene->GetScene();
+			m_curScene = 4;
+		}
+		if (Input::GetKeyDown(Key::Five))
+		{
+			m_activeScene->~Scene();
+			m_scenes.push_back(new Stage7("Fifth level"));
+			m_activeScene = m_scenes.back();
+			m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+			m_register = m_activeScene->GetScene();
+			m_curScene = 5;
+		}
+		if (Input::GetKeyDown(Key::Six))
+		{
+			m_activeScene->~Scene();
+			m_scenes.push_back(new Stage8("Sixth Level"));
+			m_activeScene = m_scenes.back();
+			m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+			m_register = m_activeScene->GetScene();
+			m_curScene = 6;
+		}
 	}
 	if (Input::GetKeyDown(Key::R))
 	{

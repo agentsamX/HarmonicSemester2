@@ -2959,7 +2959,7 @@ void Stage6::InitScene(float windowWidth, float windowHeight)
 		//sets up components
 		std::string fileName = "door.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 16, 32);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-128.f, -466.1f, -10.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-128.f, -466.1f, 9.f));
 		//collision settings
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
