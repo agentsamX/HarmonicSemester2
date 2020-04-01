@@ -611,107 +611,7 @@ void Stage7::InitScene(float windowWidth, float windowHeight)
 	unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit() | EntityIdentifier::AnimationBit();
 	ECS::SetUpIdentifier(entity, bitHolder, "block enemy 2");
 	}
-	{
-	auto entity = ECS::CreateEntity();
-	//add components
-	ECS::AttachComponent<Sprite>(entity);
-	ECS::AttachComponent<Transform>(entity);
-	ECS::AttachComponent<PhysicsBody>(entity);
-	ECS::AttachComponent<BlockEnemy>(entity);
-	ECS::AttachComponent<AnimationController>(entity);
-
-	//Sets up components
-	std::string Block = "BlockMoveGol.png";
-	auto& animController = ECS::GetComponent<AnimationController>(entity);
-	animController.InitUVs(Block);
-	//Adds first animation
-	animController.AddAnimation(Animation());
-	//Sets active animation
-	animController.SetActiveAnim(0);
-
-	//gets first animation
-	auto& anim = animController.GetAnimation(0);
-	anim.AddFrame(vec2(0.f, 320.f), vec2(320.f, 0.f));
-	anim.AddFrame(vec2(320.f, 320.f), vec2(640.f, 0.f));
-	anim.AddFrame(vec2(640.f, 320.f), vec2(960.f, 0.f));
-	anim.AddFrame(vec2(960.f, 320.f), vec2(1280.f, 0.f));
-	anim.AddFrame(vec2(1280.f, 320.f), vec2(1600.f, 0.f));
-	anim.AddFrame(vec2(1600.f, 320.f), vec2(1920.f, 0.f));
-	anim.AddFrame(vec2(1920.f, 320.f), vec2(2240.f, 0.f));
-	anim.AddFrame(vec2(2240.f, 320.f), vec2(2560.f, 0.f));
-
-	//Makes it repeat
-	anim.SetRepeating(true);
-	//Sets the time between frames
-	anim.SetSecPerFrame(0.1667f);
-
-	animController.AddAnimation(Animation());
-	//Sets active animation
-	animController.SetActiveAnim(1);
-
-	//gets first animation
-	auto& anim2 = animController.GetAnimation(1);
-	anim2.AddFrame(vec2(320.f, 320.f), vec2(0.f, 0.f));
-	anim2.AddFrame(vec2(640.f, 320.f), vec2(320.f, 0.f));
-	anim2.AddFrame(vec2(960.f, 320.f), vec2(640.f, 0.f));
-	anim2.AddFrame(vec2(1280.f, 320.f), vec2(960.f, 0.f));
-	anim2.AddFrame(vec2(1600.f, 320.f), vec2(1280.f, 0.f));
-	anim2.AddFrame(vec2(1920.f, 320.f), vec2(1600.f, 0.f));
-	anim2.AddFrame(vec2(2240.f, 320.f), vec2(1920.f, 0.f));
-	anim2.AddFrame(vec2(2560.f, 320.f), vec2(2240.f, 0.f));
-
-	//Makes it repeat
-	anim2.SetRepeating(true);
-	//Sets the time between frames
-	anim2.SetSecPerFrame(0.1667f);
-	animController.AddAnimation(Animation());
-	//Sets active animation
-	animController.SetActiveAnim(0);
-
-	//gets first animation
-	auto& anim3 = animController.GetAnimation(2);
-	anim3.AddFrame(vec2(0.f, 640.f), vec2(320.f, 320.f));
-	anim3.AddFrame(vec2(320.f, 640.f), vec2(640.f, 320.f));
-	anim3.AddFrame(vec2(640.f, 640.f), vec2(960.f, 320.f));
-	anim3.AddFrame(vec2(960.f, 640.f), vec2(1280.f, 320.f));
-	anim3.AddFrame(vec2(1280.f, 640.f), vec2(1600.f, 320.f));
-	anim3.AddFrame(vec2(1600.f, 640.f), vec2(1920.f, 320.f));
-	anim3.AddFrame(vec2(1920.f, 640.f), vec2(2240.f, 320.f));
-	anim3.AddFrame(vec2(2240.f, 640.f), vec2(2560.f, 320.f));
-	anim3.AddFrame(vec2(2560.f, 640.f), vec2(2880.f, 320.f));
-	anim3.AddFrame(vec2(2880.f, 640.f), vec2(3200.f, 320.f));
-	anim3.AddFrame(vec2(3200.f, 640.f), vec2(3520.f, 320.f));
-	anim3.AddFrame(vec2(3520.f, 640.f), vec2(3840.f, 320.f));
-	anim3.AddFrame(vec2(3840.f, 640.f), vec2(4160.f, 320.f));
-	anim3.AddFrame(vec2(4160.f, 640.f), vec2(4480.f, 320.f));
-	//Makes it repeat
-	anim3.SetRepeating(false);
-	//Sets the time between frames
-	anim3.SetSecPerFrame(0.1f);
-
-
-
-	ECS::GetComponent<Sprite>(entity).LoadSprite(Block, 16, 16, true, &animController);
-	ECS::GetComponent<Transform>(entity).SetPosition(vec3(83.f, -340.f, 10.f));
-	//collision settings
-	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-	auto& tempTrans = ECS::GetComponent<Transform>(entity);
-	b2Body* tempBody;
-	b2BodyDef tempDef;
-	tempDef.type = b2_dynamicBody;
-	tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
-	tempBody = m_physicsWorld->CreateBody(&tempDef);
-	tempBody->SetEntityNumber(entity);
-	tempBody->SetEntityType(5);
-	tempBody->SetFixedRotation(true);
-	tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
-		vec2(0.f, 0.f),
-		true);
-	//sets up the identifier
-	unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit() | EntityIdentifier::AnimationBit();
-	ECS::SetUpIdentifier(entity, bitHolder, "block enemy 3");
-	}
+	
 	{
 	auto entity = ECS::CreateEntity();
 	//add components
@@ -2973,9 +2873,9 @@ void Stage7::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 		ECS::AttachComponent<LevelGoal>(entity);
 		//sets up components
-		std::string fileName = "box.png";
+		std::string fileName = "Door.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 16, 32);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(144.f, -482.f, -10.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(144.f, -482.f, 10.f));
 		//collision settings
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);

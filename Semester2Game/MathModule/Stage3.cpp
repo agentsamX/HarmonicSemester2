@@ -2205,7 +2205,7 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 		ECS::AttachComponent<LevelGoal>(entity);
 		//sets up components
-		std::string fileName = "box.png";
+		std::string fileName = "Door.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 16, 32);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-127.f, -466.f, 10.f));
 		//collision settings
