@@ -46,8 +46,8 @@ void MenuScene::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<Sprite>(entity);
 		std::string fileName = "gaiatitle.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 300, 150);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 51.f, 0.f));
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 280, 200);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 34.f, 0.f));
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Title Placeholder");
 	}
@@ -128,6 +128,8 @@ void MenuScene::MouseClick(SDL_MouseButtonEvent evnt)
 	}*/
 	if (evnt.x > 568 && evnt.x < 967 && evnt.y>465 && evnt.y < 583)
 	{
+		std::string click = "PlayClicked.png";
+		ECS::GetComponent<Sprite>(3).LoadSprite(click,100,30);
 		ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).SetContactingGoal(true);
 	}
 	else if (evnt.x > 568 && evnt.x < 967 && evnt.y>629 && evnt.y < 746)

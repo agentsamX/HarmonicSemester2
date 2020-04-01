@@ -1680,16 +1680,16 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		anim3.SetSecPerFrame(0.1667f);
 		animController2.AddAnimation(Animation());
 		auto& anim4 = animController2.GetAnimation(1);
-		anim4.AddFrame(vec2(0.f, 160.f), vec2(160.f, 10.f));
-		anim4.AddFrame(vec2(160.f, 160.f), vec2(320.f, 10.f));
-		anim4.AddFrame(vec2(320.f, 160.f), vec2(480.f, 10.f));
-		anim4.AddFrame(vec2(480.f, 160.f), vec2(640.f, 10.f));
-		anim4.AddFrame(vec2(640.f, 160.f), vec2(800.f, 10.f));
-		anim4.AddFrame(vec2(800.f, 160.f), vec2(960.f, 10.f));
+		anim4.AddFrame(vec2(0.f, 160.f), vec2(150.f, 10.f));
+		anim4.AddFrame(vec2(160.f, 160.f), vec2(310.f, 10.f));
+		anim4.AddFrame(vec2(320.f, 160.f), vec2(470.f, 10.f));
+		anim4.AddFrame(vec2(480.f, 160.f), vec2(630.f, 10.f));
+		anim4.AddFrame(vec2(640.f, 160.f), vec2(790.f, 10.f));
+		anim4.AddFrame(vec2(800.f, 160.f), vec2(950.f, 10.f));
 		//Makes it repeat
 		anim4.SetRepeating(false);
 		//Sets the time between frames
-		anim4.SetSecPerFrame(0.1667f);
+		anim4.SetSecPerFrame(0.07f);
 
 
 		ECS::GetComponent<Sprite>(entity2).LoadSprite(targ, 16, 16, true, &animController2);
@@ -1842,16 +1842,16 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		anim3.SetSecPerFrame(0.1667f);
 		animController2.AddAnimation(Animation());
 		auto& anim4 = animController2.GetAnimation(1);
-		anim4.AddFrame(vec2(0.f, 160.f), vec2(160.f, 10.f));
-		anim4.AddFrame(vec2(160.f, 160.f), vec2(320.f, 10.f));
-		anim4.AddFrame(vec2(320.f, 160.f), vec2(480.f, 10.f));
-		anim4.AddFrame(vec2(480.f, 160.f), vec2(640.f, 10.f));
-		anim4.AddFrame(vec2(640.f, 160.f), vec2(800.f, 10.f));
-		anim4.AddFrame(vec2(800.f, 160.f), vec2(960.f, 10.f));
+		anim4.AddFrame(vec2(0.f, 160.f), vec2(150.f, 10.f));
+		anim4.AddFrame(vec2(160.f, 160.f), vec2(310.f, 10.f));
+		anim4.AddFrame(vec2(320.f, 160.f), vec2(470.f, 10.f));
+		anim4.AddFrame(vec2(480.f, 160.f), vec2(630.f, 10.f));
+		anim4.AddFrame(vec2(640.f, 160.f), vec2(790.f, 10.f));
+		anim4.AddFrame(vec2(800.f, 160.f), vec2(950.f, 10.f));
 		//Makes it repeat
 		anim4.SetRepeating(false);
 		//Sets the time between frames
-		anim4.SetSecPerFrame(0.1667f);
+		anim4.SetSecPerFrame(0.07f);
 
 
 		ECS::GetComponent<Sprite>(entity2).LoadSprite(targ, 16, 16, true, &animController2);
@@ -1997,23 +1997,23 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		animController2.AddAnimation(Animation());
 		animController2.SetActiveAnim(0);
 		auto& anim3 = animController2.GetAnimation(0);
-		anim3.AddFrame(vec2(0.f, 160.f), vec2(150.f, 10.f));
+		anim3.AddFrame(vec2(150.f, 160.f), vec2(0.f, 10.f));
 		//Makes it repeat
 		anim3.SetRepeating(false);
 		//Sets the time between frames
 		anim3.SetSecPerFrame(0.1667f);
 		animController2.AddAnimation(Animation());
 		auto& anim4 = animController2.GetAnimation(1);
-		anim4.AddFrame(vec2(0.f, 160.f), vec2(160.f, 10.f));
-		anim4.AddFrame(vec2(160.f, 160.f), vec2(320.f, 10.f));
-		anim4.AddFrame(vec2(320.f, 160.f), vec2(480.f, 10.f));
-		anim4.AddFrame(vec2(480.f, 160.f), vec2(640.f, 10.f));
-		anim4.AddFrame(vec2(640.f, 160.f), vec2(800.f, 10.f));
-		anim4.AddFrame(vec2(800.f, 160.f), vec2(960.f, 10.f));
+		anim4.AddFrame(vec2(150.f, 160.f), vec2(0.f, 10.f));
+		anim4.AddFrame(vec2(310.f, 160.f), vec2(160.f, 10.f));
+		anim4.AddFrame(vec2(470.f, 160.f), vec2(320.f, 10.f));
+		anim4.AddFrame(vec2(630.f, 160.f), vec2(480.f, 10.f));
+		anim4.AddFrame(vec2(790.f, 160.f), vec2(640.f, 10.f));
+		anim4.AddFrame(vec2(950.f, 160.f), vec2(800.f, 10.f));
 		//Makes it repeat
 		anim4.SetRepeating(false);
 		//Sets the time between frames
-		anim4.SetSecPerFrame(0.1667f);
+		anim4.SetSecPerFrame(0.07f);
 
 
 		ECS::GetComponent<Sprite>(entity2).LoadSprite(targ, 16, 16, true, &animController2);
@@ -2165,16 +2165,16 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		anim3.SetSecPerFrame(0.1667f);
 		animController2.AddAnimation(Animation());
 		auto& anim4 = animController2.GetAnimation(1);
-		anim4.AddFrame(vec2(0.f, 160.f), vec2(160.f, 10.f));
-		anim4.AddFrame(vec2(160.f, 160.f), vec2(320.f, 10.f));
-		anim4.AddFrame(vec2(320.f, 160.f), vec2(480.f, 10.f));
-		anim4.AddFrame(vec2(480.f, 160.f), vec2(640.f, 10.f));
-		anim4.AddFrame(vec2(640.f, 160.f), vec2(800.f, 10.f));
-		anim4.AddFrame(vec2(800.f, 160.f), vec2(960.f, 10.f));
+		anim4.AddFrame(vec2(0.f, 160.f), vec2(150.f, 10.f));
+		anim4.AddFrame(vec2(160.f, 160.f), vec2(310.f, 10.f));
+		anim4.AddFrame(vec2(320.f, 160.f), vec2(470.f, 10.f));
+		anim4.AddFrame(vec2(480.f, 160.f), vec2(630.f, 10.f));
+		anim4.AddFrame(vec2(640.f, 160.f), vec2(790.f, 10.f));
+		anim4.AddFrame(vec2(800.f, 160.f), vec2(950.f, 10.f));
 		//Makes it repeat
 		anim4.SetRepeating(false);
 		//Sets the time between frames
-		anim4.SetSecPerFrame(0.1667f);
+		anim4.SetSecPerFrame(0.07f);
 
 
 		ECS::GetComponent<Sprite>(entity2).LoadSprite(targ, 16, 16, true, &animController2);
@@ -2205,7 +2205,7 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 		ECS::AttachComponent<LevelGoal>(entity);
 		//sets up components
-		std::string fileName = "box.png";
+		std::string fileName = "door.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 16, 32);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-127.f, -466.f, 10.f));
 		//collision settings
