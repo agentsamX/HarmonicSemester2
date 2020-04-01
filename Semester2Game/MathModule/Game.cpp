@@ -329,7 +329,7 @@ void Game::KeyboardUp()
 	{
 		if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGoalContact())
 		{
-			printf("advanced scene");
+			//printf("advanced scene");
 			Game::AdvanceScene();
 		}
 	}
@@ -340,7 +340,7 @@ void Game::MouseMotion(SDL_MouseMotionEvent evnt)
 	m_activeScene->MouseMotion(evnt);
 	if (ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGoalContact())
 	{
-		printf("advanced scene");
+		//printf("advanced scene");
 		Game::AdvanceScene();
 	}
 	if (m_guiActive)
@@ -364,15 +364,15 @@ void Game::MouseClick(SDL_MouseButtonEvent evnt)
 
 	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
-		printf("Left mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
+		//printf("Left mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
 	}
 	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT))
 	{
-		printf("Right mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
+		//printf("Right mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
 	}
 	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_MIDDLE))
 	{
-		printf("Middle mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
+		//printf("Middle mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
 	}
 	if (m_guiActive)
 	{
@@ -389,7 +389,7 @@ void Game::MouseClick(SDL_MouseButtonEvent evnt)
 void Game::MouseWheel(SDL_MouseWheelEvent evnt)
 {
 	m_activeScene->MouseWheel(evnt);
-	printf("mouse scroll %f\n", float(evnt.y));
+	//printf("mouse scroll %f\n", float(evnt.y));
 	if (m_guiActive)
 	{
 		ImGui::GetIO().MouseWheel = float(evnt.y);

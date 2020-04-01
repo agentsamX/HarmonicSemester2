@@ -45,9 +45,9 @@ void EndScene::InitScene(float windowWidth, float windowHeight)
 		auto entity = ECS::CreateEntity();
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<Sprite>(entity);
-		std::string fileName = "box.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 300, 50);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 65.7f, 0.f));
+		std::string fileName = "UntilTheNextAdventure.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 300, 100);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0, 0.f));
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Title Placeholder");
 	}
