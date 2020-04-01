@@ -118,7 +118,7 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 
 		animController.SetActiveAnim(2);
 		ECS::GetComponent<Sprite>(entity).LoadSprite(Arm, 16, 16, true, &animController);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, -447.7f, 6.f)); 
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, -447.7f, 11.f)); 
 		ECS::GetComponent<Transform>(entity).SetRotationAngleZ(PI / 2);
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() |EntityIdentifier::AnimationBit();
@@ -2317,7 +2317,7 @@ void Stage3::InitScene(float windowWidth, float windowHeight)
 		//sets up components
 		std::string fileName = "door.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 16, 32);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-127.f, -466.f, 10.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-127.f, -466.f, 9.f));
 		//collision settings
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
