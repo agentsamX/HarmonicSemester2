@@ -2083,7 +2083,7 @@ void Stage6::InitScene(float windowWidth, float windowHeight)
 		//sets up components
 		std::string fileName = "spike.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 66, 16);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-58.2f, -315.0f, -10.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-58.2f, -314.3f, -10.f));
 		//collision settings
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
