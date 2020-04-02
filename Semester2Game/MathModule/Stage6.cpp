@@ -1044,7 +1044,7 @@ void Stage6::InitScene(float windowWidth, float windowHeight)
 		//sets up components
 		std::string fileName = "floor.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 16, 16);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(95.4f, -106.f, -10.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(96.4f, -106.f, -10.f));
 		//collision settings
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -2083,7 +2083,7 @@ void Stage6::InitScene(float windowWidth, float windowHeight)
 		//sets up components
 		std::string fileName = "spike.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 66, 16);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-58.2f, -314.3f, -10.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-58.2f, -314.f, -10.f));
 		//collision settings
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -2444,7 +2444,7 @@ void Stage6::InitScene(float windowWidth, float windowHeight)
 
 
 		ECS::GetComponent<Sprite>(entity2).LoadSprite(targ, 16, 16, true, &animController2);
-		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(91.7f, -121.6f, 8.f));
+		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(92.3f, -121.6f, 8.f));
 		ECS::GetComponent<Target>(entity2).SetGateNum(entity);
 		auto& tempTrans2 = ECS::GetComponent<Transform>(entity2);
 		auto& tempSpr2 = ECS::GetComponent<Sprite>(entity2);
@@ -2606,7 +2606,7 @@ void Stage6::InitScene(float windowWidth, float windowHeight)
 
 
 		ECS::GetComponent<Sprite>(entity2).LoadSprite(targ, 16, 16, true, &animController2);
-		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(-148.f, -75.5f, 8.f));
+		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(-145.f, -75.5f, 8.f));
 		ECS::GetComponent<Target>(entity2).SetGateNum(entity);
 		auto& tempTrans2 = ECS::GetComponent<Transform>(entity2);
 		auto& tempSpr2 = ECS::GetComponent<Sprite>(entity2);
@@ -2712,7 +2712,7 @@ void Stage6::InitScene(float windowWidth, float windowHeight)
 
 
 		ECS::GetComponent<Sprite>(entity).LoadSprite(Door, 16, 48, true, &animController);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(96.1f, -218.2f, 8.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(95.1f, -218.2f, 8.f));
 		auto& tempTrans = ECS::GetComponent<Transform>(entity);
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -2767,7 +2767,7 @@ void Stage6::InitScene(float windowWidth, float windowHeight)
 
 
 		ECS::GetComponent<Sprite>(entity2).LoadSprite(targ, 16, 16, true, &animController2);
-		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(84.f, -203.3f, 8.f));
+		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(81.f, -203.3f, 8.f));
 		ECS::GetComponent<Target>(entity2).SetGateNum(entity);
 		auto& tempTrans2 = ECS::GetComponent<Transform>(entity2);
 		auto& tempSpr2 = ECS::GetComponent<Sprite>(entity2);
@@ -2928,7 +2928,7 @@ void Stage6::InitScene(float windowWidth, float windowHeight)
 
 
 	ECS::GetComponent<Sprite>(entity2).LoadSprite(targ, 16, 16, true, &animController2);
-	ECS::GetComponent<Transform>(entity2).SetPosition(vec3(-52.f, -473.f, 8.f));
+	ECS::GetComponent<Transform>(entity2).SetPosition(vec3(-50.f, -473.f, 8.f));
 	ECS::GetComponent<Target>(entity2).SetGateNum(entity);
 	auto& tempTrans2 = ECS::GetComponent<Transform>(entity2);
 	auto& tempSpr2 = ECS::GetComponent<Sprite>(entity2);
