@@ -1426,34 +1426,7 @@ void Stage7::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "non stick wall");
 	}
-	{
-		auto entity = ECS::CreateEntity();
-		//add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		//sets up components
-		std::string fileName = "floor.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 16, 16);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(64.9f, -282.1f, -10.f));
-		//collision settings
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-		auto& tempTrans = ECS::GetComponent<Transform>(entity);
-		b2Body* tempBody;
-		b2BodyDef tempDef;
-		tempDef.type = b2_staticBody;
-		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
-		tempBody = m_physicsWorld->CreateBody(&tempDef);
-		tempBody->SetEntityNumber(entity);
-		tempBody->SetEntityType(0);
-		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
-			vec2(0.f, 0.f),
-			true);
-		//sets up the identifier
-		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "non stick wall");
-	}
+	
 	{
 		auto entity = ECS::CreateEntity();
 		//add components
@@ -1993,6 +1966,7 @@ void Stage7::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Spikes");
 	}
+	
 	{
 		auto entity = ECS::CreateEntity();
 		//add components
@@ -2000,9 +1974,9 @@ void Stage7::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<PhysicsBody>(entity);
 		//sets up components
-		std::string fileName = "spike.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 16, 16);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(48.5f, -284.f, -10.f));
+		std::string fileName = "floor.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 33, 16);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(40.f, -281.7f, -10.f));
 		//collision settings
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -2013,14 +1987,15 @@ void Stage7::InitScene(float windowWidth, float windowHeight)
 		tempDef.position.Set(float32(tempTrans.GetPositionX()), float32(tempTrans.GetPositionY()));
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 		tempBody->SetEntityNumber(entity);
-		tempBody->SetEntityType(6);
+		tempBody->SetEntityType(0);
 		tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
 			true);
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "Spikes");
+		ECS::SetUpIdentifier(entity, bitHolder, "floor");
 	}
+
 	{
 		auto entity = ECS::CreateEntity();
 		//add components
@@ -2029,8 +2004,8 @@ void Stage7::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 		//sets up components
 		std::string fileName = "spike.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 16, 16);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(80.1f, -284.f, -10.f));
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 31, 16);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(72.3f, -283.6f, -10.f));
 		//collision settings
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
