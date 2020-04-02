@@ -2459,6 +2459,7 @@ void Stage6::InitScene(float windowWidth, float windowHeight)
 		tempPhsBody2 = PhysicsBody(tempBody2, float(tempSpr2.GetWidth()), float(tempSpr2.GetHeight()),
 			vec2(4.f, 0.f),
 			false);
+		ECS::GetComponent<PhysicsBody>(entity2).GetBody()->GetFixtureList()->SetSensor(true);
 		//sets up the identifier
 		unsigned int bitHolder2 = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 		ECS::SetUpIdentifier(entity2, bitHolder2, "Target");
@@ -2621,6 +2622,7 @@ void Stage6::InitScene(float windowWidth, float windowHeight)
 		tempPhsBody2 = PhysicsBody(tempBody2, float(tempSpr2.GetWidth()), float(tempSpr2.GetHeight()),
 			vec2(4.f, 0.f),
 			false);
+		ECS::GetComponent<PhysicsBody>(entity2).GetBody()->GetFixtureList()->SetSensor(true);
 		//sets up the identifier
 		unsigned int bitHolder2 = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 		ECS::SetUpIdentifier(entity2, bitHolder2, "Target");
@@ -2782,6 +2784,7 @@ void Stage6::InitScene(float windowWidth, float windowHeight)
 		tempPhsBody2 = PhysicsBody(tempBody2, float(tempSpr2.GetWidth()), float(tempSpr2.GetHeight()),
 			vec2(4.f, 0.f),
 			false);
+		ECS::GetComponent<PhysicsBody>(entity2).GetBody()->GetFixtureList()->SetSensor(true);
 		//sets up the identifier
 		unsigned int bitHolder2 = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 		ECS::SetUpIdentifier(entity2, bitHolder2, "Target");
@@ -2943,6 +2946,7 @@ void Stage6::InitScene(float windowWidth, float windowHeight)
 	tempPhsBody2 = PhysicsBody(tempBody2, float(tempSpr2.GetWidth()), float(tempSpr2.GetHeight()),
 		vec2(4.f, 0.f),
 		false);
+	ECS::GetComponent<PhysicsBody>(entity2).GetBody()->GetFixtureList()->SetSensor(true);
 	//sets up the identifier
 	unsigned int bitHolder2 = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 	ECS::SetUpIdentifier(entity2, bitHolder2, "Target");
