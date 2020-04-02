@@ -309,6 +309,10 @@ void Game::KeyboardUp()
 			Game::AdvanceScene();
 		}
 	}
+	if (m_curScene == 6 && ECS::GetComponent<Player>(EntityIdentifier::MainPlayer()).GetGoalContact())
+	{
+		Game::AdvanceScene();
+	}
 }
 
 void Game::MouseMotion(SDL_MouseMotionEvent evnt)
